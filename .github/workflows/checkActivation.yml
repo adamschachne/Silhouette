@@ -1,0 +1,12 @@
+name: Check activation
+on:
+  workflow_dispatch: {}
+jobs:
+  activation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Unity - Activate
+        uses: game-ci/unity-activate@v1.3
+        with:
+          unityVersion: 2020.3.26f1
+          
