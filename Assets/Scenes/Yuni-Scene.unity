@@ -324,7 +324,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6087316}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b10b019847cd482285ce9e21b704dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
@@ -697,7 +697,7 @@ MonoBehaviour:
     m_NormalColor: {r: 0.8962264, g: 0.7789694, b: 0.5030705, a: 1}
     m_HighlightedColor: {r: 1, g: 0.9425556, b: 0.8066038, a: 1}
     m_PressedColor: {r: 0.7830189, g: 0.71653616, b: 0.5503293, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.8980393, g: 0.7803922, b: 0.5019608, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1540,7 +1540,7 @@ MonoBehaviour:
     m_NormalColor: {r: 0.8962264, g: 0.7789694, b: 0.5030705, a: 1}
     m_HighlightedColor: {r: 1, g: 0.9425556, b: 0.8066038, a: 1}
     m_PressedColor: {r: 0.7830189, g: 0.71653616, b: 0.5503293, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.8980393, g: 0.7803922, b: 0.5019608, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1716,7 +1716,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 377527999}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b10b019847cd482285ce9e21b704dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
@@ -1970,7 +1970,7 @@ MonoBehaviour:
     m_NormalColor: {r: 0.8962264, g: 0.7789694, b: 0.5030705, a: 1}
     m_HighlightedColor: {r: 1, g: 0.9425556, b: 0.8066038, a: 1}
     m_PressedColor: {r: 0.7830189, g: 0.71653616, b: 0.5503293, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.8980393, g: 0.7803922, b: 0.5019608, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3049,7 +3049,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 743985888}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b10b019847cd482285ce9e21b704dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
@@ -4659,7 +4659,7 @@ MonoBehaviour:
     m_NormalColor: {r: 0.8962264, g: 0.7789694, b: 0.5030705, a: 1}
     m_HighlightedColor: {r: 1, g: 0.9425556, b: 0.8066038, a: 1}
     m_PressedColor: {r: 0.7830189, g: 0.71653616, b: 0.5503293, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.8980393, g: 0.7803922, b: 0.5019608, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -4982,7 +4982,7 @@ MonoBehaviour:
     m_NormalColor: {r: 0.8962264, g: 0.7789694, b: 0.5030705, a: 1}
     m_HighlightedColor: {r: 1, g: 0.9425556, b: 0.8066038, a: 1}
     m_PressedColor: {r: 0.7830189, g: 0.71653616, b: 0.5503293, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.8980393, g: 0.7803922, b: 0.5019608, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -5869,7 +5869,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1602134812}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b10b019847cd482285ce9e21b704dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
@@ -6253,7 +6253,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1736748467}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b10b019847cd482285ce9e21b704dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
@@ -8007,7 +8007,7 @@ MonoBehaviour:
     m_NormalColor: {r: 0.8962264, g: 0.7789694, b: 0.5030705, a: 1}
     m_HighlightedColor: {r: 1, g: 0.9425556, b: 0.8066038, a: 1}
     m_PressedColor: {r: 0.7830189, g: 0.71653616, b: 0.5503293, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.8980393, g: 0.7803922, b: 0.5019608, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
