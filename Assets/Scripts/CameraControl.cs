@@ -7,6 +7,7 @@ public class CameraControl : MonoBehaviour
 {
     // The main board that the camera rotates around
     public GameObject board;
+    public GameObject gameManager;
     private const float ROTATE_SPEED = 100.0f;
     private const float MAX_RAYCAST_DIST = 1000f;
     private const string BOX_TAG = "Box";
@@ -18,12 +19,14 @@ public class CameraControl : MonoBehaviour
         {
             box.GetComponent<Outline>().enabled = false;
         }
+        gameManager.GetComponent<PlayerMovement>().selectedBox = null;
     }
     private void SelectBox(GameObject box)
     {
         DeselectAllBoxes();
         Outline outline = box.GetComponent<Outline>();
         outline.enabled = true;
+        gameManager.GetComponent<PlayerMovement>().selectedBox = box;
     }
 
     // Start is called before the first frame update
@@ -49,8 +52,9 @@ public class CameraControl : MonoBehaviour
         }
 
 
-        // Pressing mouse 1
-        if (Input.GetMouseButtonDown(0))
+        // Pressing mouse 1 AND not pressing the buttons
+        if (Input.GetMouseButtonDown(0) && UnityEngine.EventSystems.EventSystem.current != null &&
+            !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit[] hits;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

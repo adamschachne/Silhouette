@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class GridTiles : MonoBehaviour
 {
-    private Grid grid;
+    public int floorRows;
+    public int floorCols;
 
     private void Awake()
     {
-        grid = this.GetComponent<Grid>();
+        //grid = this.GetComponent<Grid>();
     }
 
     // Start is called before the first frame update
