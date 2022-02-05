@@ -26,7 +26,7 @@ public class CameraControl : MonoBehaviour
         DeselectAllBoxes();
         Outline outline = box.GetComponent<Outline>();
         outline.enabled = true;
-        gameManager.GetComponent<PlayerMovement>().selectedBox = box;
+        gameManager.GetComponent<PlayerMovement>().selectedBox = box.transform.parent.gameObject;
     }
 
     // Start is called before the first frame update
