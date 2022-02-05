@@ -90,6 +90,9 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
 
+        // the final position should be exactly targetPos at the end of the animation
+        selectedBox.transform.position = targetPos;
+
         isMoving = false;
     }
 
