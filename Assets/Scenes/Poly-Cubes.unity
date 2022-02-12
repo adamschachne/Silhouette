@@ -1739,7 +1739,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496881162}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: 0.7071068, w: 0}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: 0, y: 25, z: 50}
   m_LocalScale: {x: 10, y: 1, z: 5}
   m_Children: []
@@ -1759,6 +1759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 1, y: 1, z: 0}
+  otherWallScale: {x: 0, y: 1, z: 1}
 --- !u!64 &496881165
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4095,6 +4096,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 0, y: 1, z: 1}
+  otherWallScale: {x: 0, y: 0, z: 0}
 --- !u!64 &1128318816
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8178,6 +8180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 1, y: 1, z: 0}
+  otherWallScale: {x: 0, y: 0, z: 0}
 --- !u!64 &2058305402
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8896,6 +8899,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 0, y: 1, z: 1}
+  otherWallScale: {x: 1, y: 1, z: 0}
 --- !u!64 &2116306849
 MeshCollider:
   m_ObjectHideFlags: 0
