@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Analytics;
 
 public class CubeScript : MonoBehaviour
 {
@@ -32,6 +34,8 @@ public class SolutionManager : MonoBehaviour
 
     // the target solution
     private int targetSolution = 0;
+
+    protected float Timer = 0f;
 
     public void CubeTriggerEnter(bool isSolutionCube, CubeScript cube)
     {
@@ -80,6 +84,8 @@ public class SolutionManager : MonoBehaviour
     {
         if (targetSolution == solutionDict.Keys.Count && nonSolutionDict.Keys.Count == 0)
         {
+            SceneManager
+                .LoadScene("VictoryScene");
             Debug.Log("You Win!");
         }
     }
@@ -87,6 +93,14 @@ public class SolutionManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        PlayerData.NumberOfSeconds = 0;
+        PlayerData.LevelsStarted.Add(1);
+        PlayerData.CurrentLevel = Constants.LevelMap[SceneManager.GetActiveScene().name];
+
+        Debug.Log("The current level: " + PlayerData.CurrentLevel);
+
+        Analytics.CustomEvent("Level Reached", new Dictionary<string, object> { { "level started", PlayerData.CurrentLevel } });
+        
         foreach (GameObject wallSolution in wallSolutions)
         {
             for (int i = 0; i < wallSolution.transform.childCount; ++i)
@@ -111,6 +125,11 @@ public class SolutionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Timer += Time.deltaTime;
+        if(Timer > 1)
+        {
+            Timer = 0f;
+            PlayerData.NumberOfSeconds += 1;
+        }
     }
 }

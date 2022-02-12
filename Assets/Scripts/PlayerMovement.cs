@@ -70,7 +70,6 @@ public class PlayerMovement : MonoBehaviour
 
     private bool CanMove(Vector3Int dir)
     {
-
         return true;
     }
 
