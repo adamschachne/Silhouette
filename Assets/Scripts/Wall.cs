@@ -41,6 +41,12 @@ public class Wall : MonoBehaviour
             shadow.transform.position = new Vector3(wallPosition.x - (1 - wallScale.x) * OFFSET, 0, wallPosition.z - (1 - wallScale.z) * OFFSET);
 
             clone.tag = UNTAGGED_TAG;
+            
+            // remove the Box tag from these cubes to prevent selecting the shadow
+            for (int j = 0; j < clone.transform.childCount; ++j) {
+                clone.transform.GetChild(j).transform.tag = UNTAGGED_TAG;
+            }
+
             clones[i] = clone;
          
             // Set the transform and box rotation on the wall
