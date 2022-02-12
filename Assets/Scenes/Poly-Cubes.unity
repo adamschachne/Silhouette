@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4369538, g: 0.48462677, b: 0.5648854, a: 1}
+  m_IndirectSpecularColor: {r: 0.43695447, g: 0.48462796, b: 0.5648872, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1389,7 +1389,7 @@ MeshRenderer:
   m_GameObject: {fileID: 344211081}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -1759,7 +1759,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 1, y: 1, z: 0}
-  otherWallScale: {x: 0, y: 1, z: 1}
 --- !u!64 &496881165
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2699,7 +2698,7 @@ MeshRenderer:
   m_GameObject: {fileID: 738902062}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -3491,7 +3490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 0.9339623, g: 0.4822236, b: 0.057271298, a: 1}
-  outlineWidth: 6
+  outlineWidth: 4
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -4096,7 +4095,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 0, y: 1, z: 1}
-  otherWallScale: {x: 0, y: 0, z: 0}
 --- !u!64 &1128318816
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7227,7 +7225,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1711545557}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -7670,7 +7668,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1905438194}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -8180,7 +8178,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 1, y: 1, z: 0}
-  otherWallScale: {x: 0, y: 0, z: 0}
 --- !u!64 &2058305402
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8899,7 +8896,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 0, y: 1, z: 1}
-  otherWallScale: {x: 1, y: 1, z: 0}
 --- !u!64 &2116306849
 MeshCollider:
   m_ObjectHideFlags: 0
