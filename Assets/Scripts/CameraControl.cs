@@ -11,7 +11,7 @@ public class CameraControl : MonoBehaviour
     private const float ROTATE_SPEED = 100.0f;
     private const float MAX_RAYCAST_DIST = 1000f;
     private const string BOX_TAG = "Box";
-
+    private Vector3 previousPosition;
     private void DeselectAllBoxes()
     {
         GameObject[] boxes = GameObject.FindGameObjectsWithTag(BOX_TAG);
@@ -58,7 +58,6 @@ public class CameraControl : MonoBehaviour
         {
             RaycastHit[] hits;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
             hits = Physics.RaycastAll(ray, MAX_RAYCAST_DIST).Where(hit => hit.transform.gameObject.CompareTag(BOX_TAG)).ToArray();
             if (hits.Length > 0) // Hit a "Box" -> Select it
             {
@@ -69,6 +68,20 @@ public class CameraControl : MonoBehaviour
             {
                 DeselectAllBoxes();
             }
+            return;
         }
+        // if (Input.GetMouseButton(0)) {
+
+
+        //     this.transform.RotateAround(board.transform.position, Vector3.up, ROTATE_SPEED * Time.deltaTime);  
+
+        //     Vector3 pos     = Camera.main.ScreenToViewportPoint (Input.mousePosition - previousPosition);
+ 
+        // }
+
+
+
     }
+
+
 }
