@@ -8,6 +8,7 @@ public class Wall : MonoBehaviour
     private GameObject[] polys;
     private GameObject[] clones;
     private const string POLY_TAG = "Poly";
+    private const string UNTAGGED_TAG = "Untagged";
     public Vector3 wallScale;
     public Vector3 otherWallScale;
     private float OFFSET = 0.001f;
@@ -47,6 +48,7 @@ public class Wall : MonoBehaviour
             // Make a clone of the box
             GameObject poly = polys[i];
             GameObject clone = Instantiate(poly);
+            clone.tag = UNTAGGED_TAG;
             clones[i] = clone;
             Vector3 scale = poly.transform.localScale;
          
