@@ -7,6 +7,7 @@ TagManager:
   - Box
   - SolutionCube
   - UI
+  - Poly
   layers:
   - Default
   - TransparentFX

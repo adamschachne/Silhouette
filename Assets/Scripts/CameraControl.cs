@@ -11,22 +11,23 @@ public class CameraControl : MonoBehaviour
     private const float ROTATE_SPEED = 100.0f;
     private const float MAX_RAYCAST_DIST = 1000f;
     private const string BOX_TAG = "Box";
+    private const string POLY_TAG = "Poly";
 
-    private void DeselectAllBoxes()
+    private void DeselectAllPolys()
     {
-        GameObject[] boxes = GameObject.FindGameObjectsWithTag(BOX_TAG);
-        foreach (GameObject box in boxes)
+        GameObject[] polys = GameObject.FindGameObjectsWithTag(POLY_TAG);
+        foreach (GameObject poly in polys)
         {
-            box.GetComponent<Outline>().enabled = false;
+            poly.GetComponent<Outline>().enabled = false;
         }
-        gameManager.GetComponent<PlayerMovement>().selectedBox = null;
+        gameManager.GetComponent<PlayerMovement>().selectedPoly = null;
     }
-    private void SelectBox(GameObject box)
+    private void SelectPoly(GameObject poly)
     {
-        DeselectAllBoxes();
-        Outline outline = box.GetComponent<Outline>();
+        DeselectAllPolys();
+        Outline outline = poly.GetComponent<Outline>();
         outline.enabled = true;
-        gameManager.GetComponent<PlayerMovement>().selectedBox = box.transform.parent.gameObject;
+        gameManager.GetComponent<PlayerMovement>().selectedPoly = poly;
     }
 
     // Start is called before the first frame update
@@ -63,11 +64,11 @@ public class CameraControl : MonoBehaviour
             if (hits.Length > 0) // Hit a "Box" -> Select it
             {
                 System.Array.Sort(hits, (hit1, hit2) => hit1.distance < hit2.distance ? -1 : 1);
-                SelectBox(hits[0].transform.gameObject);
+                SelectPoly(hits[0].transform.parent.gameObject);
             }
             else // Clicked on nothing -> Deselect selected box
             {
-                DeselectAllBoxes();
+                DeselectAllPolys();
             }
         }
     }
