@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Yuni-Scene.unity
     guid: f583e513e59f34dcd8e9fc25f622c0ae
+  - enabled: 1
+    path: Assets/Scenes/Poly-Cubes.unity
+    guid: ea18dd897b8ce402686918a4a946e203
   - enabled: 1
     path: Assets/Scenes/VictoryScene.unity
     guid: 4f2fc9137fb701f40922edb4ab0b214e

@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public GameObject selectedBox = null;
+    public GameObject selectedPoly = null;
     public Tilemap tileMap = null;
     public const float timeToMove = 0.2f;
     public const int gridSize = 10;
@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void MoveBoxUp() //positive x
     {
-        if (!isMoving && selectedBox != null && CanMove(up))
+        if (!isMoving && selectedPoly != null && CanMove(up))
         {
             StartCoroutine(MoveBox(up));
         }
@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void MoveBoxDown() //negative x
     {
-        if (!isMoving && selectedBox != null && CanMove(down))
+        if (!isMoving && selectedPoly != null && CanMove(down))
         {
             StartCoroutine(MoveBox(down));
         }
@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void MoveBoxLeft() //positive z
     {
-        if (!isMoving && selectedBox != null && CanMove(left))
+        if (!isMoving && selectedPoly != null && CanMove(left))
         {
             StartCoroutine(MoveBox(left));
         }
@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void MoveBoxRight() //negative z
     {
-        if (!isMoving && selectedBox != null && CanMove(right))
+        if (!isMoving && selectedPoly != null && CanMove(right))
         {
             StartCoroutine(MoveBox(right));
         }
@@ -79,18 +79,18 @@ public class PlayerMovement : MonoBehaviour
 
         float elapsedTime = 0;
 
-        oldPos = selectedBox.transform.position;
+        oldPos = selectedPoly.transform.position;
         targetPos = oldPos + dir * gridSize;
 
         while (elapsedTime < timeToMove)
         {
-            selectedBox.transform.position = Vector3.Lerp(oldPos, targetPos, (elapsedTime / timeToMove));
+            selectedPoly.transform.position = Vector3.Lerp(oldPos, targetPos, (elapsedTime / timeToMove));
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         // the final position should be exactly targetPos at the end of the animation
-        selectedBox.transform.position = targetPos;
+        selectedPoly.transform.position = targetPos;
 
         isMoving = false;
     }
@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
     /******* Rotate *******/
     public void ClockwiseRotate()
     {
-        if(!isRotating && selectedBox != null && CanRotate())
+        if(!isRotating && selectedPoly != null && CanRotate())
         {
             StartCoroutine(RotateBox(90 * Vector3.up));
         }
@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void CounterClockwiseRotate()
     {
-        if (!isRotating && selectedBox != null && CanRotate())
+        if (!isRotating && selectedPoly != null && CanRotate())
         {
             StartCoroutine(RotateBox(-90 * Vector3.up));
         }
@@ -123,15 +123,15 @@ public class PlayerMovement : MonoBehaviour
 
         float elapsedTime = 0;
 
-        Quaternion startRotation = selectedBox.transform.rotation;
-        Quaternion targetRotation = selectedBox.transform.rotation * Quaternion.Euler(dir);
+        Quaternion startRotation = selectedPoly.transform.rotation;
+        Quaternion targetRotation = selectedPoly.transform.rotation * Quaternion.Euler(dir);
         while (elapsedTime < timeToMove)
         {
-            selectedBox.transform.rotation = Quaternion.Slerp(startRotation, targetRotation, elapsedTime / timeToMove);
+            selectedPoly.transform.rotation = Quaternion.Slerp(startRotation, targetRotation, elapsedTime / timeToMove);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        selectedBox.transform.rotation = targetRotation;
+        selectedPoly.transform.rotation = targetRotation;
 
         isRotating = false;
     }

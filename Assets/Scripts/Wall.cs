@@ -5,44 +5,52 @@ using System.Linq;
 
 public class Wall : MonoBehaviour
 {
-    private GameObject[] boxes;
+    private GameObject[] polys;
     private GameObject[] clones;
-    private const string BOX_TAG = "Box";
+    private const string POLY_TAG = "Poly";
+    private const string UNTAGGED_TAG = "Untagged";
     public Vector3 wallScale;
-    private float OFFSET = 0.001f;
+    private const float OFFSET = 0.001f;
 
     // given a clone and box, modify the clone's transform so that it forms a shadow on this wall
-    private void SetCloneShadowOnWall(GameObject clone, GameObject box)
+    private void SetCloneShadowOnWall(GameObject clone, GameObject poly)
     {
-        //Vector3 wallUp = this.transform.up;
         Vector3 wallPosition = this.transform.position;
-
-        Vector3 boxPosition = box.transform.position;
-        float x = (boxPosition.x * wallScale.x) + wallPosition.x - Mathf.Sign(wallPosition.x) * OFFSET;
-        float z = (boxPosition.z * wallScale.z) + wallPosition.z - Mathf.Sign(wallPosition.z) * OFFSET;
+        Vector3 polyPosition = poly.transform.position;
+        float x = (polyPosition.x * wallScale.x) + wallPosition.x;
+        float z = (polyPosition.z * wallScale.z) + wallPosition.z;
         clone.transform.position = new Vector3(x, clone.transform.position.y, z);
-        clone.transform.GetChild(0).transform.rotation = box.transform.GetChild(0).transform.rotation;
+        clone.transform.rotation = poly.transform.rotation;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         Vector3 wallPosition = this.transform.position;
-        boxes = GameObject.FindGameObjectsWithTag(BOX_TAG).Select(box => box.transform.parent.gameObject).ToArray();
-        clones = new GameObject[boxes.Length];
-        for (int i = 0; i < boxes.Length; ++i)
+        polys = GameObject.FindGameObjectsWithTag(POLY_TAG);
+        clones = new GameObject[polys.Length];
+        for (int i = 0; i < polys.Length; ++i)
         {
             // Make a clone of the box
-            GameObject box = boxes[i];
-            GameObject clone = Instantiate(box);
+            GameObject poly = polys[i];
+            GameObject clone = Instantiate(poly);
+            GameObject shadow = new GameObject();
+            shadow.name = $"{poly.name} shadow on {this.name}";
+            clone.transform.SetParent(shadow.transform);
+            shadow.transform.localScale = wallScale;
+            shadow.transform.position = new Vector3(wallPosition.x - (1 - wallScale.x) * OFFSET, 0, wallPosition.z - (1 - wallScale.z) * OFFSET);
+
+            clone.tag = UNTAGGED_TAG;
+            
+            // remove the Box tag from these cubes to prevent selecting the shadow
+            for (int j = 0; j < clone.transform.childCount; ++j) {
+                clone.transform.GetChild(j).transform.tag = UNTAGGED_TAG;
+            }
+
             clones[i] = clone;
-            Vector3 scale = box.transform.localScale;
-
-            // "flatten" the clone on the wall
-            clone.transform.localScale = new Vector3(scale.x * wallScale.x, scale.y * wallScale.y, scale.z * wallScale.z);
-
+         
             // Set the transform and box rotation on the wall
-            SetCloneShadowOnWall(clone, box);
+            SetCloneShadowOnWall(clone, poly);
         }
     }
 
@@ -50,11 +58,11 @@ public class Wall : MonoBehaviour
     void Update()
     {
         // the shadow clones will follow their original boxes
-        for (int i = 0; i < boxes.Length; ++i)
+        for (int i = 0; i < polys.Length; ++i)
         {
-            GameObject box = boxes[i];
+            GameObject poly = polys[i];
             GameObject clone = clones[i];
-            SetCloneShadowOnWall(clone, box);
+            SetCloneShadowOnWall(clone, poly);
         }
     }
 }
