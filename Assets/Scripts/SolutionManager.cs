@@ -99,7 +99,7 @@ public class SolutionManager : MonoBehaviour
 
         Debug.Log("The current level: " + PlayerData.CurrentLevel);
 
-        Analytics.CustomEvent("Level Reached", new Dictionary<string, object> { { "level started", PlayerData.CurrentLevel } });
+        AnalyticsSender.SendLevelReachedEvent(PlayerData.CurrentLevel);
         
         foreach (GameObject wallSolution in wallSolutions)
         {

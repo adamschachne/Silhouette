@@ -6,6 +6,7 @@ public static class Constants
 {
     public static Dictionary<string, int> LevelMap { get; set; } = new Dictionary<string, int>
     {
-        {"Poly-Cubes", 1 }
+        {"Yuni-Scene", 1 },
+        {"Poly-Cubes", 2 }
     };
 }
