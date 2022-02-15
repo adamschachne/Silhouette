@@ -11,10 +11,7 @@ public class VictorySceneManager : MonoBehaviour
     void Start()
     {
         VictoryText.text += PlayerData.NumberOfSeconds;
-        AnalyticsSender.CustomEvent("Time Taken For Level", new Dictionary<string, object> {
-            {"Level Number",  PlayerData.CurrentLevel },
-            {"Time Taken", PlayerData.NumberOfSeconds }
-        });
+        AnalyticsSender.SendLevelFinishedEvent(PlayerData.CurrentLevel, PlayerData.NumberOfSeconds);
     }
 
     // Update is called once per frame
