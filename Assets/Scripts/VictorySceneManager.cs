@@ -11,7 +11,7 @@ public class VictorySceneManager : MonoBehaviour
     void Start()
     {
         VictoryText.text += PlayerData.NumberOfSeconds;
-        Analytics.CustomEvent("Time Taken For Level", new Dictionary<string, object> {
+        AnalyticsSender.CustomEvent("Time Taken For Level", new Dictionary<string, object> {
             {"Level Number",  PlayerData.CurrentLevel },
             {"Time Taken", PlayerData.NumberOfSeconds }
         });
