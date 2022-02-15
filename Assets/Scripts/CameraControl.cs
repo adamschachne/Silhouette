@@ -9,10 +9,14 @@ public class CameraControl : MonoBehaviour
     public GameObject board;
     public GameObject gameManager;
     private const float ROTATE_SPEED = 100.0f;
+
+     private const float ROTATE_SPEED_DRAG = 500.0f;
     private const float MAX_RAYCAST_DIST = 1000f;
     private const string BOX_TAG = "Box";
     private const string POLY_TAG = "Poly";
-
+    public float angleMax = 43.0f;
+     
+     private Vector3 initialVector = Vector3.forward;
     private void DeselectAllPolys()
     {
         GameObject[] polys = GameObject.FindGameObjectsWithTag(POLY_TAG);
@@ -33,25 +37,57 @@ public class CameraControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+         if(board.transform != null)
+         {
+             initialVector = transform.position - board.transform.position;
+             initialVector.y = 0;
+         }        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        float rotateDegrees = 0f;
+        bool keyPressed = false;
         // Pressing A or LeftArrow -> Rotate the camera left
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            this.transform.RotateAround(board.transform.position, Vector3.up, ROTATE_SPEED * Time.deltaTime);
+            rotateDegrees += ROTATE_SPEED * Time.deltaTime;
+            keyPressed = true;
+
+ 
         }
 
         // Pressing D or RightArrow -> Rotate the camera right
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            this.transform.RotateAround(board.transform.position, -Vector3.up, ROTATE_SPEED * Time.deltaTime);
+            rotateDegrees -= ROTATE_SPEED * Time.deltaTime;
+            keyPressed = true;
         }
 
+       //]Left click and drag to rotate the camera 
+        else if (Input.GetMouseButton(0) && UnityEngine.EventSystems.EventSystem.current != null &&
+            !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()) {
+
+            rotateDegrees = ROTATE_SPEED_DRAG  * Time.deltaTime * Input.GetAxis("Mouse X");
+            keyPressed = true;
+
+        }
+
+        // Rotate the camera if key is pressed or long press and drag left click
+        if(keyPressed) {
+            //this.transform.RotateAround(board.transform.position, -Vector3.up, ROTATE_SPEED * Time.deltaTime);
+            if(board.transform != null) {
+
+                Vector3 currentVector = transform.position- board.transform.position;
+                currentVector.y = 0;
+                float angleBetween = Vector3.Angle(initialVector, currentVector) * (Vector3.Cross(initialVector, currentVector).y > 0 ? 1 : -1);            
+                float newAngle = Mathf.Clamp(angleBetween + rotateDegrees, -angleMax, angleMax);
+                rotateDegrees = newAngle - angleBetween;
+            
+                this.transform.RotateAround(board.transform.position, Vector3.up, rotateDegrees);
+            }
+        }
 
         // Pressing mouse 1 AND not pressing the buttons
         if (Input.GetMouseButtonDown(0) && UnityEngine.EventSystems.EventSystem.current != null &&
@@ -71,16 +107,6 @@ public class CameraControl : MonoBehaviour
             }
             return;
         }
-        // if (Input.GetMouseButton(0)) {
-
-
-        //     this.transform.RotateAround(board.transform.position, Vector3.up, ROTATE_SPEED * Time.deltaTime);  
-
-        //     Vector3 pos     = Camera.main.ScreenToViewportPoint (Input.mousePosition - previousPosition);
- 
-        // }
-
-
 
     }
 
