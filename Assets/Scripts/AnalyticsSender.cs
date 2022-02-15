@@ -5,8 +5,8 @@ using UnityEngine.Analytics;
 
 public class AnalyticsSender 
 {
-    private static readonly string LEVEL_RECAHED = "Level Reached";
-    private static readonly string LEVEL_STARTED = "level started";
+    private static readonly string LEVEL_REACHED = "Level Reached";
+    private static readonly string LEVEL_STARTED = "Level Started";
     private static readonly string TIME_TAKEN_FOR_LEVEL = "Time Taken For Level";
     private static readonly string LEVEL_NUMBER = "Level Number";
     private static readonly string TIME_TAKEN = "Time Taken";
@@ -17,7 +17,8 @@ public class AnalyticsSender
         if(!Debug.isDebugBuild)
         {
             Analytics.CustomEvent(customEventName, eventData);   
-        } else
+        } 
+        else
         {
             string keyValues = "";
             foreach (string k in eventData.Keys)
@@ -33,7 +34,7 @@ public class AnalyticsSender
 
     public static void SendLevelReachedEvent(int levelNumber)
     {
-        AnalyticsSender.CustomEvent(LEVEL_RECAHED, new Dictionary<string, object> { { LEVEL_STARTED, levelNumber } });
+        AnalyticsSender.CustomEvent(LEVEL_REACHED, new Dictionary<string, object> { { LEVEL_STARTED, levelNumber } });
     }
 
     public static void SendLevelFinishedEvent(int levelNumber, int numberOfSeconds) {
