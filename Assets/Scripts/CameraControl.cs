@@ -10,7 +10,7 @@ public class CameraControl : MonoBehaviour
     public GameObject gameManager;
     private const float ROTATE_SPEED = 100.0f;
 
-     private const float ROTATE_SPEED_DRAG = 500.0f;
+     private const float ROTATE_SPEED_DRAG = 200.0f;
     private const float MAX_RAYCAST_DIST = 1000f;
     private const string BOX_TAG = "Box";
     private const string POLY_TAG = "Poly";
