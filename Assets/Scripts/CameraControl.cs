@@ -8,6 +8,7 @@ public class CameraControl : MonoBehaviour
     // The main board that the camera rotates around
     public GameObject board;
     public GameObject gameManager;
+    public GameObject arrowKeys;
     private const float ROTATE_SPEED = 100.0f;
     private const float MAX_RAYCAST_DIST = 1000f;
     private const string BOX_TAG = "Box";
@@ -44,12 +45,15 @@ public class CameraControl : MonoBehaviour
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             this.transform.RotateAround(board.transform.position, Vector3.up, ROTATE_SPEED * Time.deltaTime);
+            arrowKeys.transform.RotateAround(arrowKeys.transform.position, Vector3.forward, ROTATE_SPEED * Time.deltaTime);
         }
 
         // Pressing D or RightArrow -> Rotate the camera right
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             this.transform.RotateAround(board.transform.position, -Vector3.up, ROTATE_SPEED * Time.deltaTime);
+            arrowKeys.transform.RotateAround(arrowKeys.transform.position, -Vector3.forward, ROTATE_SPEED * Time.deltaTime);
+
         }
 
 
