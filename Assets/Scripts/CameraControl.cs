@@ -8,6 +8,7 @@ public class CameraControl : MonoBehaviour
     // The main board that the camera rotates around
     public GameObject board;
     public GameObject gameManager;
+    public GameObject arrowKeys;
     private const float ROTATE_SPEED = 100.0f;
 
      private const float ROTATE_SPEED_DRAG = 200.0f;
@@ -52,15 +53,21 @@ public class CameraControl : MonoBehaviour
         // Pressing A or LeftArrow -> Rotate the camera left
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
+<<<<<<< HEAD
             rotateDegrees += ROTATE_SPEED * Time.deltaTime;
             keyPressed = true;
 
  
+=======
+            this.transform.RotateAround(board.transform.position, Vector3.up, ROTATE_SPEED * Time.deltaTime);
+            arrowKeys.transform.RotateAround(arrowKeys.transform.position, Vector3.forward, ROTATE_SPEED * Time.deltaTime);
+>>>>>>> upstream/main
         }
 
         // Pressing D or RightArrow -> Rotate the camera right
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
+<<<<<<< HEAD
             rotateDegrees -= ROTATE_SPEED * Time.deltaTime;
             keyPressed = true;
         }
@@ -71,6 +78,10 @@ public class CameraControl : MonoBehaviour
 
             rotateDegrees = ROTATE_SPEED_DRAG  * Time.deltaTime * Input.GetAxis("Mouse X");
             keyPressed = true;
+=======
+            this.transform.RotateAround(board.transform.position, -Vector3.up, ROTATE_SPEED * Time.deltaTime);
+            arrowKeys.transform.RotateAround(arrowKeys.transform.position, -Vector3.forward, ROTATE_SPEED * Time.deltaTime);
+>>>>>>> upstream/main
 
         }
 

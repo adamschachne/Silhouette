@@ -4,37 +4,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Analytics;
 
-public class CubeScript : MonoBehaviour
-{
-    public SolutionManager manager;
-    public static readonly string SOLUTION_CUBE_TAG = "SolutionCube";
-    private bool isSolutionCube = false;
-
-    private void Start()
-    {
-        isSolutionCube = this.gameObject.CompareTag(SOLUTION_CUBE_TAG) == true;
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        manager.CubeTriggerEnter(isSolutionCube, this);
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        manager.CubeTriggerExit(isSolutionCube, this);
-    }
-}
-
 public class SolutionManager : MonoBehaviour
 {
     public GameObject[] wallSolutions;
     private Dictionary<CubeScript, int> solutionDict = new Dictionary<CubeScript, int>();
     private Dictionary<CubeScript, int> nonSolutionDict = new Dictionary<CubeScript, int>();
 
+    private LevelManager levelManager;
+
     // the target solution
     private int targetSolution = 0;
-
+    private bool foundSolution;
     protected float Timer = 0f;
 
     public void CubeTriggerEnter(bool isSolutionCube, CubeScript cube)
@@ -82,20 +62,21 @@ public class SolutionManager : MonoBehaviour
 
     private void CheckSolution()
     {
-        if (targetSolution == solutionDict.Keys.Count && nonSolutionDict.Keys.Count == 0)
+        if (foundSolution == false && targetSolution == solutionDict.Keys.Count && nonSolutionDict.Keys.Count == 0)
         {
-            SceneManager
-                .LoadScene("VictoryScene");
             Debug.Log("You Win!");
+            foundSolution = true;
+            levelManager.LoadVictoryScene();
         }
     }
 
-    // Start is called before the first frame update
     void Awake()
     {
+        foundSolution = false;
+        levelManager = GameObject.Find("GameManager").GetComponent<LevelManager>();
+
         PlayerData.NumberOfSeconds = 0;
-        PlayerData.LevelsStarted.Add(1);
-        PlayerData.CurrentLevel = Constants.LevelMap[SceneManager.GetActiveScene().name];
+        PlayerData.LevelsStarted.Add(PlayerData.CurrentLevel);
 
         Debug.Log("The current level: " + PlayerData.CurrentLevel);
 
@@ -115,8 +96,11 @@ public class SolutionManager : MonoBehaviour
                 {
                     // DEBUG
                     cube.GetComponent<MeshRenderer>().enabled = true;
-
                     targetSolution++;
+                }
+                else
+                {
+                    cube.GetComponent<MeshRenderer>().enabled = false;
                 }
             }
         }
