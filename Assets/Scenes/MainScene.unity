@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 3af367508c7fcfa4494a231c6c995327, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 289906ea5a296fb4eac51fc2207338a2, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 41712dc36ff211e41b671f38d50bb021, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -3722,7 +3722,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
+  - Level 1
   - Poly-Cubes
+  mainCamera: {fileID: 1380903758}
 --- !u!1 &2058305399
 GameObject:
   m_ObjectHideFlags: 0

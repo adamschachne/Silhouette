@@ -10,9 +10,11 @@ public class SolutionManager : MonoBehaviour
     private Dictionary<CubeScript, int> solutionDict = new Dictionary<CubeScript, int>();
     private Dictionary<CubeScript, int> nonSolutionDict = new Dictionary<CubeScript, int>();
 
+    private LevelManager levelManager;
+
     // the target solution
     private int targetSolution = 0;
-
+    private bool foundSolution;
     protected float Timer = 0f;
 
     public void CubeTriggerEnter(bool isSolutionCube, CubeScript cube)
@@ -60,20 +62,21 @@ public class SolutionManager : MonoBehaviour
 
     private void CheckSolution()
     {
-        if (targetSolution == solutionDict.Keys.Count && nonSolutionDict.Keys.Count == 0)
+        if (foundSolution == false && targetSolution == solutionDict.Keys.Count && nonSolutionDict.Keys.Count == 0)
         {
-            SceneManager
-                .LoadScene("VictoryScene");
             Debug.Log("You Win!");
+            foundSolution = true;
+            levelManager.LoadVictoryScene();
         }
     }
 
-    // Start is called before the first frame update
     void Awake()
     {
+        foundSolution = false;
+        levelManager = GameObject.Find("GameManager").GetComponent<LevelManager>();
+
         PlayerData.NumberOfSeconds = 0;
-        PlayerData.LevelsStarted.Add(1);
-        //PlayerData.CurrentLevel = Constants.LevelMap[SceneManager.GetActiveScene().name];
+        PlayerData.LevelsStarted.Add(PlayerData.CurrentLevel);
 
         Debug.Log("The current level: " + PlayerData.CurrentLevel);
 
