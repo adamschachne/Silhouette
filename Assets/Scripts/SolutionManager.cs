@@ -4,28 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Analytics;
 
-public class CubeScript : MonoBehaviour
-{
-    public SolutionManager manager;
-    public static readonly string SOLUTION_CUBE_TAG = "SolutionCube";
-    private bool isSolutionCube = false;
-
-    private void Start()
-    {
-        isSolutionCube = this.gameObject.CompareTag(SOLUTION_CUBE_TAG) == true;
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        manager.CubeTriggerEnter(isSolutionCube, this);
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        manager.CubeTriggerExit(isSolutionCube, this);
-    }
-}
-
 public class SolutionManager : MonoBehaviour
 {
     public GameObject[] wallSolutions;
@@ -95,7 +73,7 @@ public class SolutionManager : MonoBehaviour
     {
         PlayerData.NumberOfSeconds = 0;
         PlayerData.LevelsStarted.Add(1);
-        PlayerData.CurrentLevel = Constants.LevelMap[SceneManager.GetActiveScene().name];
+        //PlayerData.CurrentLevel = Constants.LevelMap[SceneManager.GetActiveScene().name];
 
         Debug.Log("The current level: " + PlayerData.CurrentLevel);
 
@@ -115,8 +93,11 @@ public class SolutionManager : MonoBehaviour
                 {
                     // DEBUG
                     cube.GetComponent<MeshRenderer>().enabled = true;
-
                     targetSolution++;
+                }
+                else
+                {
+                    cube.GetComponent<MeshRenderer>().enabled = false;
                 }
             }
         }
