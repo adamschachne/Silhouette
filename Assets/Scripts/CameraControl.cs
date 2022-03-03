@@ -11,12 +11,13 @@ public class CameraControl : MonoBehaviour
     public GameObject arrowKeys;
     private const float ROTATE_SPEED = 100.0f;
 
-     private const float ROTATE_SPEED_DRAG = 200.0f;
+     private const float ROTATE_SPEED_DRAG = 50.0f;
     private const float MAX_RAYCAST_DIST = 1000f;
     private const string BOX_TAG = "Box";
     private const string POLY_TAG = "Poly";
     public float angleMax = 43.0f;
-     
+
+    private float sensitivity = 0.5f; 
      private Vector3 initialVector = Vector3.forward;
     private void DeselectAllPolys()
     {
@@ -53,35 +54,48 @@ public class CameraControl : MonoBehaviour
         // Pressing A or LeftArrow -> Rotate the camera left
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-<<<<<<< HEAD
             rotateDegrees += ROTATE_SPEED * Time.deltaTime;
             keyPressed = true;
 
  
-=======
-            this.transform.RotateAround(board.transform.position, Vector3.up, ROTATE_SPEED * Time.deltaTime);
-            arrowKeys.transform.RotateAround(arrowKeys.transform.position, Vector3.forward, ROTATE_SPEED * Time.deltaTime);
->>>>>>> upstream/main
+            // this.transform.RotateAround(board.transform.position, Vector3.up, ROTATE_SPEED * Time.deltaTime);
+            // arrowKeys.transform.RotateAround(arrowKeys.transform.position, Vector3.forward, ROTATE_SPEED * Time.deltaTime);
         }
 
         // Pressing D or RightArrow -> Rotate the camera right
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-<<<<<<< HEAD
             rotateDegrees -= ROTATE_SPEED * Time.deltaTime;
             keyPressed = true;
         }
 
-       //]Left click and drag to rotate the camera 
-        else if (Input.GetMouseButton(0) && UnityEngine.EventSystems.EventSystem.current != null &&
-            !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()) {
-
-            rotateDegrees = ROTATE_SPEED_DRAG  * Time.deltaTime * Input.GetAxis("Mouse X");
+       // Left click and drag to rotate the camera 
+       // && UnityEngine.EventSystems.EventSystem.current != null && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()
+        else if (Input.GetMouseButton(0) ) {
+        var rotateIn = 0.0f;
+       if (Application.platform == RuntimePlatform.WebGLPlayer) {
+            
+            Debug.Log("Inside WEBGL");    
+            sensitivity = 1.0f / 75;
+        }
+            
+        else {
+            
+            sensitivity = 0.5f;
+            Debug.Log("Inside NON WEBGL");
+        }
+            // var x = Input.GetAxis("Mouse X");
+            // var y = Input.GetAxis("Mouse Y");
+            // if (Application.platform == RuntimePlatform.WebGLPlayer) {
+            //     x = DampenedMovement(x);
+            //     y = DampenedMovement(y);
+            // }
+            // x *= SENSITIVITY; // custom sensitivity value...
+            // y *= SENSITIVITY; 
+            rotateDegrees = ROTATE_SPEED_DRAG * Input.GetAxis("Mouse X") * sensitivity;
             keyPressed = true;
-=======
-            this.transform.RotateAround(board.transform.position, -Vector3.up, ROTATE_SPEED * Time.deltaTime);
-            arrowKeys.transform.RotateAround(arrowKeys.transform.position, -Vector3.forward, ROTATE_SPEED * Time.deltaTime);
->>>>>>> upstream/main
+            // this.transform.RotateAround(board.transform.position, -Vector3.up, ROTATE_SPEED * Time.deltaTime);
+
 
         }
 
@@ -97,6 +111,7 @@ public class CameraControl : MonoBehaviour
                 rotateDegrees = newAngle - angleBetween;
             
                 this.transform.RotateAround(board.transform.position, Vector3.up, rotateDegrees);
+                arrowKeys.transform.RotateAround(arrowKeys.transform.position, Vector3.forward, rotateDegrees);
             }
         }
 
@@ -120,6 +135,18 @@ public class CameraControl : MonoBehaviour
         }
 
     }
+
+
+ 
+    // define this function:
+    // public static float DampenedMovement (float value) {
+    
+    // if (Mathf.Abs (value) > 1f) {
+    //     // best value for dampenMouse is 0.5 but better make it user-adjustable
+    //     return Mathf.Lerp (value, Mathf.Sign (value), 0.5f);
+    // }
+    // return value;
+    // }
 
 
 }
