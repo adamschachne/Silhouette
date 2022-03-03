@@ -11,6 +11,7 @@ public class VictorySceneManager : MonoBehaviour
     public Button nextLevelButton;
     private LevelManager levelManager;
     public TextMeshProUGUI PlayerStatText;
+    public GameObject canvas;
 
     void Start()
     {
@@ -18,6 +19,9 @@ public class VictorySceneManager : MonoBehaviour
         PlayerStatText.text += PlayerData.NumberOfSeconds;
         AnalyticsSender.SendLevelFinishedEvent(PlayerData.CurrentLevel, PlayerData.NumberOfSeconds);
         levelManager = GameObject.Find("GameManager").GetComponent<LevelManager>();
+
+        canvas = GameObject.FindGameObjectWithTag("MovementControls");
+        canvas.SetActive(false);
 
         if (PlayerData.CurrentLevel == levelManager.levels.Length - 1)
         {
