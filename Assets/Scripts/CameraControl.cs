@@ -17,7 +17,7 @@ public class CameraControl : MonoBehaviour
     private const string POLY_TAG = "Poly";
     public float angleMax = 43.0f;
 
-    private float sensitivity = 0.5f; 
+    // private float sensitivity = 0.5f; 
 
     private Vector3 dragOrigin;
      private Vector3 initialVector = Vector3.forward;
@@ -93,8 +93,8 @@ public class CameraControl : MonoBehaviour
         }
 
        // Left click and drag to rotate the camera 
-       // && UnityEngine.EventSystems.EventSystem.current != null && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()
-        else if (Input.GetMouseButton(0) ) {
+        else if (Input.GetMouseButton(0) && UnityEngine.EventSystems.EventSystem.current != null &&
+            !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() ) {
 
             // if (Application.platform == RuntimePlatform.WebGLPlayer) {
                     
@@ -108,15 +108,6 @@ public class CameraControl : MonoBehaviour
             // rotateDegrees = ROTATE_SPEED_DRAG * Input.GetAxis("Mouse X") * sensitivity;
             // keyPressed = true;
             //------------------------------------------------------------------------------
-            // var x = Input.GetAxis("Mouse X");
-            // var y = Input.GetAxis("Mouse Y");
-            // if (Application.platform == RuntimePlatform.WebGLPlayer) {
-            //     x = DampenedMovement(x);
-            //     y = DampenedMovement(y);
-            // }
-            // x *= SENSITIVITY; // custom sensitivity value...
-            // y *= SENSITIVITY; 
-            // this.transform.RotateAround(board.transform.position, -Vector3.up, ROTATE_SPEED * Time.deltaTime);
             Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
             rotateDegrees = ROTATE_SPEED_DRAG * pos.x *0.1f;
             Debug.Log(rotateDegrees); 
@@ -139,18 +130,5 @@ public class CameraControl : MonoBehaviour
         }
 
     }
-
-
- 
-    // define this function:
-    // public static float DampenedMovement (float value) {
-    
-    // if (Mathf.Abs (value) > 1f) {
-    //     // best value for dampenMouse is 0.5 but better make it user-adjustable
-    //     return Mathf.Lerp (value, Mathf.Sign (value), 0.5f);
-    // }
-    // return value;
-    // }
-
 
 }
