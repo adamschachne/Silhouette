@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -17,15 +18,25 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isRotating = false;
 
-    private Vector3Int up = new Vector3Int(1, 0, 0);
-    private Vector3Int down = new Vector3Int(-1, 0, 0);
-    private Vector3Int left = new Vector3Int(0, 0, 1);
-    private Vector3Int right = new Vector3Int(0, 0, -1);
+    private Vector3Int UP = new Vector3Int(1, 0, 0);
+    private Vector3Int DOWN = new Vector3Int(-1, 0, 0);
+    private Vector3Int LEFT = new Vector3Int(0, 0, 1);
+    private Vector3Int RIGHT = new Vector3Int(0, 0, -1);
+
+    private Vector3 CLOCKWISE = 90 * Vector3.up;
+    private Vector3 COUNTERCLOCKWISE = -90 * Vector3.up;
+
+    public Button moveUpButton;
+    public Button moveDownButton;
+    public Button moveLeftButton;
+    public Button moveRightButton;
+    public Button rotateClockwiseButton;
+    public Button rotateCounterclockwiseButton;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        CheckPossibleMoves();
     }
 
     // Update is called once per frame
@@ -36,35 +47,47 @@ public class PlayerMovement : MonoBehaviour
 
     /******* Move *******/
 
+    // Computed once after a move or rotate
+    // "Tests" which moves are possible and sets the interactive attribute on each respective button
+    private void CheckPossibleMoves()
+    {
+        moveUpButton.interactable = CanMove(UP);
+        moveDownButton.interactable = CanMove(DOWN);
+        moveLeftButton.interactable = CanMove(UP);
+        moveRightButton.interactable = CanMove(UP);
+        rotateClockwiseButton.interactable = CanRotate(CLOCKWISE);
+        rotateCounterclockwiseButton.interactable = CanRotate(COUNTERCLOCKWISE);
+    }
+
     public void MoveBoxUp() //positive x
     {
-        if (!isMoving && selectedPoly != null && CanMove(up))
+        if (!isMoving && selectedPoly != null)
         {
-            StartCoroutine(MoveBox(up));
+            StartCoroutine(MoveBox(UP));
         }
     }
 
     public void MoveBoxDown() //negative x
     {
-        if (!isMoving && selectedPoly != null && CanMove(down))
+        if (!isMoving && selectedPoly != null)
         {
-            StartCoroutine(MoveBox(down));
+            StartCoroutine(MoveBox(DOWN));
         }
     }
 
     public void MoveBoxLeft() //positive z
     {
-        if (!isMoving && selectedPoly != null && CanMove(left))
+        if (!isMoving && selectedPoly != null)
         {
-            StartCoroutine(MoveBox(left));
+            StartCoroutine(MoveBox(LEFT));
         }
     }
 
     public void MoveBoxRight() //negative z
     {
-        if (!isMoving && selectedPoly != null && CanMove(right))
+        if (!isMoving && selectedPoly != null)
         {
-            StartCoroutine(MoveBox(right));
+            StartCoroutine(MoveBox(RIGHT));
         }
     }
 
@@ -98,21 +121,21 @@ public class PlayerMovement : MonoBehaviour
     /******* Rotate *******/
     public void ClockwiseRotate()
     {
-        if(!isRotating && selectedPoly != null && CanRotate())
+        if (!isRotating && selectedPoly != null)
         {
-            StartCoroutine(RotateBox(90 * Vector3.up));
+            StartCoroutine(RotateBox(CLOCKWISE));
         }
     }
 
     public void CounterClockwiseRotate()
     {
-        if (!isRotating && selectedPoly != null && CanRotate())
+        if (!isRotating && selectedPoly != null)
         {
-            StartCoroutine(RotateBox(-90 * Vector3.up));
+            StartCoroutine(RotateBox(COUNTERCLOCKWISE));
         }
     }
 
-    private bool CanRotate()
+    private bool CanRotate(Vector3 dir)
     {
         return true;
     }
