@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static readonly string POLY_TAG = "Poly";
+    public static readonly string GHOST_POLY_TAG = "GhostPoly";
+    public static readonly string GHOST_BOX_TAG = "GhostBox";
+
     private GameObject selectedPoly = null;
     public Tilemap tileMap = null;
     public const float timeToMove = 0.2f;
@@ -33,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
     public Button rotateClockwiseButton;
     public Button rotateCounterclockwiseButton;
 
+    private Dictionary<int, GameObject> polyToGhostMap;
+
     public GameObject SelectedPoly
     {
         get
@@ -50,13 +56,31 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        polyToGhostMap = new Dictionary<int, GameObject>();
+        var polys = GameObject.FindGameObjectsWithTag(POLY_TAG);
+        foreach (var poly in polys)
+        {
+            var ghostPoly = Instantiate(poly);
+            ghostPoly.tag = GHOST_POLY_TAG;
+            ghostPoly.name = $"Ghost {poly.name}";
+
+            for (int i = 0; i < ghostPoly.transform.childCount; ++i)
+            {
+                GameObject child = ghostPoly.transform.GetChild(i).gameObject;
+                child.tag = GHOST_BOX_TAG;
+                child.transform.localScale = child.transform.localScale * 0.5f; // halve the cube's scale to avoid edge collisions
+                Renderer r = child.GetComponent<Renderer>();
+                r.enabled = false;
+            }
+
+            foreach (Renderer r in ghostPoly.GetComponentsInChildren(typeof(Renderer)))
+            {
+                r.enabled = false;
+            }
+
+            polyToGhostMap.Add(poly.GetInstanceID(), ghostPoly);
+        }
         CheckPossibleMoves();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     /******* Move *******/
@@ -67,8 +91,8 @@ public class PlayerMovement : MonoBehaviour
     {
         moveUpButton.interactable = CanMove(UP);
         moveDownButton.interactable = CanMove(DOWN);
-        moveLeftButton.interactable = CanMove(UP);
-        moveRightButton.interactable = CanMove(UP);
+        moveLeftButton.interactable = CanMove(LEFT);
+        moveRightButton.interactable = CanMove(RIGHT);
         rotateClockwiseButton.interactable = CanRotate(CLOCKWISE);
         rotateCounterclockwiseButton.interactable = CanRotate(COUNTERCLOCKWISE);
     }
@@ -105,11 +129,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private bool CanMove(Vector3Int dir)
-    {
-        return true;
-    }
-
     private IEnumerator MoveBox(Vector3Int dir)
     {
         isMoving = true;
@@ -128,31 +147,11 @@ public class PlayerMovement : MonoBehaviour
 
         // the final position should be exactly targetPos at the end of the animation
         selectedPoly.transform.position = targetPos;
-
         isMoving = false;
+        CheckPossibleMoves();
     }
 
     /******* Rotate *******/
-    public void ClockwiseRotate()
-    {
-        if (!isRotating && selectedPoly != null)
-        {
-            StartCoroutine(RotateBox(CLOCKWISE));
-        }
-    }
-
-    public void CounterClockwiseRotate()
-    {
-        if (!isRotating && selectedPoly != null)
-        {
-            StartCoroutine(RotateBox(COUNTERCLOCKWISE));
-        }
-    }
-
-    private bool CanRotate(Vector3 dir)
-    {
-        return true;
-    }
 
     private IEnumerator RotateBox(Vector3 dir)
     {
@@ -169,7 +168,91 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         selectedPoly.transform.rotation = targetRotation;
-
         isRotating = false;
+        CheckPossibleMoves();
+    }
+
+
+    public void ClockwiseRotate()
+    {
+        if (!isRotating && selectedPoly != null)
+        {
+            StartCoroutine(RotateBox(CLOCKWISE));
+        }
+    }
+
+    public void CounterClockwiseRotate()
+    {
+        if (!isRotating && selectedPoly != null)
+        {
+            StartCoroutine(RotateBox(COUNTERCLOCKWISE));
+        }
+    }
+
+    /******* Collision *******/
+
+    // tests if the given Box transform is colliding with something
+    // true if colliding with a wall or another box
+    private bool IsCubeColliding(Transform ghostTransform)
+    {
+        GameObject ghostPoly = ghostTransform.gameObject;
+
+        for (int i = 0; i < ghostTransform.childCount; ++i)
+        {
+            GameObject ghostBox = ghostTransform.GetChild(i).gameObject;
+            var hits = Physics.BoxCastAll(ghostBox.transform.position, Vector3.one, ghostBox.transform.forward, ghostBox.transform.rotation, 0);
+            foreach (var hit in hits)
+            {
+                GameObject hitParent = hit.transform?.parent?.gameObject ?? null;
+
+                // ignore colliding with itself
+                if (hitParent == selectedPoly || hitParent == ghostPoly)
+                {
+                    continue;
+                }
+
+                Debug.Log(hit.transform.name);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool CanMove(Vector3Int dir)
+    {
+        if (selectedPoly == null)
+        {
+            return false;
+        }
+
+        int instanceID = selectedPoly.GetInstanceID();
+        var ghostPoly = polyToGhostMap[instanceID];
+        ghostPoly.transform.position = selectedPoly.transform.position;
+        ghostPoly.transform.rotation = selectedPoly.transform.rotation;
+
+        // apply the target position to the poly and test for collisions
+        var targetPos = selectedPoly.transform.position + dir * gridSize;
+        ghostPoly.transform.position = targetPos;
+
+        return !IsCubeColliding(ghostPoly.transform);
+    }
+
+    private bool CanRotate(Vector3 dir)
+    {
+        if (selectedPoly == null)
+        {
+            return false;
+        }
+
+        int instanceID = selectedPoly.GetInstanceID();
+        var ghostPoly = polyToGhostMap[instanceID];
+        ghostPoly.transform.position = selectedPoly.transform.position;
+        ghostPoly.transform.rotation = selectedPoly.transform.rotation;
+
+        // apply the target rotation to the poly and test for collisions
+        Quaternion targetRotation = selectedPoly.transform.rotation * Quaternion.Euler(dir);
+        ghostPoly.transform.rotation = targetRotation;
+
+        return !IsCubeColliding(ghostPoly.transform);
     }
 }

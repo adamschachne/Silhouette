@@ -7,7 +7,6 @@ public class Wall : MonoBehaviour
 {
     private GameObject[] polys;
     private GameObject[] clones;
-    private const string POLY_TAG = "Poly";
     private const string UNTAGGED_TAG = "Untagged";
     public Vector3 wallScale;
     private const float OFFSET = 0.001f;
@@ -27,7 +26,7 @@ public class Wall : MonoBehaviour
     void Start()
     {
         Vector3 wallPosition = this.transform.position;
-        polys = GameObject.FindGameObjectsWithTag(POLY_TAG);
+        polys = GameObject.FindGameObjectsWithTag(PlayerMovement.POLY_TAG);
         clones = new GameObject[polys.Length];
         for (int i = 0; i < polys.Length; ++i)
         {
@@ -44,7 +43,9 @@ public class Wall : MonoBehaviour
             
             // remove the Box tag from these cubes to prevent selecting the shadow
             for (int j = 0; j < clone.transform.childCount; ++j) {
-                clone.transform.GetChild(j).transform.tag = UNTAGGED_TAG;
+                var cloneCube = clone.transform.GetChild(j);
+                cloneCube.transform.tag = UNTAGGED_TAG;
+                cloneCube.GetComponent<BoxCollider>().enabled = false;
             }
 
             clones[i] = clone;
