@@ -206,7 +206,7 @@ public class PlayerMovement : MonoBehaviour
                 GameObject hitParent = hit.transform?.parent?.gameObject ?? null;
 
                 // ignore colliding with itself
-                if (hitParent == selectedPoly || hitParent == ghostPoly)
+                if (hit.transform.gameObject.CompareTag(Wall.SHADOW_TAG) || hitParent == selectedPoly || hitParent == ghostPoly)
                 {
                     continue;
                 }

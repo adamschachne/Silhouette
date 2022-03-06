@@ -5,10 +5,12 @@ using System.Linq;
 
 public class Wall : MonoBehaviour
 {
+    public static readonly string SHADOW_TAG = "Shadow";
+    public Vector3 wallScale;
+
     private GameObject[] polys;
     private GameObject[] clones;
     private const string UNTAGGED_TAG = "Untagged";
-    public Vector3 wallScale;
     private const float OFFSET = 0.001f;
 
     // given a clone and box, modify the clone's transform so that it forms a shadow on this wall
@@ -43,9 +45,7 @@ public class Wall : MonoBehaviour
             
             // remove the Box tag from these cubes to prevent selecting the shadow
             for (int j = 0; j < clone.transform.childCount; ++j) {
-                var cloneCube = clone.transform.GetChild(j);
-                cloneCube.transform.tag = UNTAGGED_TAG;
-                cloneCube.GetComponent<BoxCollider>().enabled = false;
+                clone.transform.GetChild(j).transform.tag = SHADOW_TAG;
             }
 
             clones[i] = clone;
