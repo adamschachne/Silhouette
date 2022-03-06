@@ -34,27 +34,31 @@ public class CameraControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        float degrees = ROTATE_SPEED * Time.deltaTime;
         // Pressing A or LeftArrow -> Rotate the camera left
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            this.transform.RotateAround(board.transform.position, Vector3.up, ROTATE_SPEED * Time.deltaTime);
-            arrowKeys.transform.RotateAround(arrowKeys.transform.position, Vector3.forward, ROTATE_SPEED * Time.deltaTime);
+
+            this.transform.RotateAround(board.transform.position, Vector3.up, degrees);
+            arrowKeys.transform.RotateAround(arrowKeys.transform.position, Vector3.forward, degrees);
+
         }
 
         // Pressing D or RightArrow -> Rotate the camera right
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            this.transform.RotateAround(board.transform.position, -Vector3.up, ROTATE_SPEED * Time.deltaTime);
-            arrowKeys.transform.RotateAround(arrowKeys.transform.position, -Vector3.forward, ROTATE_SPEED * Time.deltaTime);
+            this.transform.RotateAround(board.transform.position, -Vector3.up, degrees);
+            arrowKeys.transform.RotateAround(arrowKeys.transform.position, -Vector3.forward, degrees);
 
         }
+
+        PlayerData.DegreesCameraRoated += Mathf.Abs(degrees);
 
 
         // Pressing mouse 1 AND not pressing the buttons

@@ -22,16 +22,18 @@ public class PlayerMovement : MonoBehaviour
     private Vector3Int left = new Vector3Int(0, 0, 1);
     private Vector3Int right = new Vector3Int(0, 0, -1);
 
+    private float timeBetweenMoves = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        timeBetweenMoves += Time.deltaTime;
     }
 
     /******* Move *******/
@@ -40,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null && CanMove(up))
         {
+            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
+            timeBetweenMoves = 0;
             StartCoroutine(MoveBox(up));
         }
     }
@@ -48,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null && CanMove(down))
         {
+            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
+            timeBetweenMoves = 0;
             StartCoroutine(MoveBox(down));
         }
     }
@@ -56,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null && CanMove(left))
         {
+            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
+            timeBetweenMoves = 0;
             StartCoroutine(MoveBox(left));
         }
     }
@@ -64,6 +72,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null && CanMove(right))
         {
+            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
+            timeBetweenMoves = 0;
             StartCoroutine(MoveBox(right));
         }
     }
@@ -75,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator MoveBox(Vector3Int dir)
     {
+        PlayerData.NumberOfMoves += 1;
         isMoving = true;
 
         float elapsedTime = 0;
@@ -98,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
     /******* Rotate *******/
     public void ClockwiseRotate()
     {
-        if(!isRotating && selectedPoly != null && CanRotate())
+        if (!isRotating && selectedPoly != null && CanRotate())
         {
             StartCoroutine(RotateBox(90 * Vector3.up));
         }
@@ -119,6 +130,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator RotateBox(Vector3 dir)
     {
+        PlayerData.NumberOfRotations += 1;
         isRotating = true;
 
         float elapsedTime = 0;
