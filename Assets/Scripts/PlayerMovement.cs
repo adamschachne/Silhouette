@@ -111,6 +111,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isRotating && selectedPoly != null && CanRotate())
         {
+            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
+            timeBetweenMoves = 0;
             StartCoroutine(RotateBox(90 * Vector3.up));
         }
     }
@@ -119,6 +121,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isRotating && selectedPoly != null && CanRotate())
         {
+            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
+            timeBetweenMoves = 0;
             StartCoroutine(RotateBox(-90 * Vector3.up));
         }
     }
