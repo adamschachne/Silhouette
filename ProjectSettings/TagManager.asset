@@ -11,6 +11,7 @@ TagManager:
   - MovementControls
   - GhostBox
   - GhostPoly
+  - Shadow
   layers:
   - Default
   - TransparentFX
