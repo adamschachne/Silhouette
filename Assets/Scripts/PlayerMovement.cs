@@ -53,18 +53,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private float timeBetweenMoves = 0;
-
     // Start is called before the first frame update
     void Start()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        timeBetweenMoves += Time.deltaTime;
         polyToGhostMap = new Dictionary<int, GameObject>();
         var polys = GameObject.FindGameObjectsWithTag(POLY_TAG);
         foreach (var poly in polys)
@@ -110,8 +101,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null)
         {
-            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
-            timeBetweenMoves = 0;
             StartCoroutine(MoveBox(UP));
         }
     }
@@ -120,8 +109,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null)
         {
-            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
-            timeBetweenMoves = 0;
             StartCoroutine(MoveBox(DOWN));
         }
     }
@@ -130,8 +117,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null)
         {
-            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
-            timeBetweenMoves = 0;
             StartCoroutine(MoveBox(LEFT));
         }
     }
@@ -140,15 +125,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null)
         {
-            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
-            timeBetweenMoves = 0;
             StartCoroutine(MoveBox(RIGHT));
         }
     }
 
     private IEnumerator MoveBox(Vector3Int dir)
     {
-        PlayerData.NumberOfMoves += 1;
         isMoving = true;
 
         float elapsedTime = 0;
@@ -173,7 +155,6 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator RotateBox(Vector3 dir)
     {
-        PlayerData.NumberOfRotations += 1;
         isRotating = true;
 
         float elapsedTime = 0;
@@ -196,8 +177,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isRotating && selectedPoly != null)
         {
-            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
-            timeBetweenMoves = 0;
             StartCoroutine(RotateBox(CLOCKWISE));
         }
     }
@@ -206,8 +185,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isRotating && selectedPoly != null)
         {
-            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
-            timeBetweenMoves = 0;
             StartCoroutine(RotateBox(COUNTERCLOCKWISE));
         }
     }
