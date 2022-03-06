@@ -27,7 +27,31 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        polyToGhostMap = new Dictionary<int, GameObject>();
+        var polys = GameObject.FindGameObjectsWithTag(POLY_TAG);
+        foreach (var poly in polys)
+        {
+            var ghostPoly = Instantiate(poly);
+            ghostPoly.tag = GHOST_POLY_TAG;
+            ghostPoly.name = $"Ghost {poly.name}";
 
+            for (int i = 0; i < ghostPoly.transform.childCount; ++i)
+            {
+                GameObject child = ghostPoly.transform.GetChild(i).gameObject;
+                child.tag = GHOST_BOX_TAG;
+                child.transform.localScale = child.transform.localScale * 0.5f; // halve the cube's scale to avoid edge collisions
+                Renderer r = child.GetComponent<Renderer>();
+                r.enabled = false;
+            }
+
+            foreach (Renderer r in ghostPoly.GetComponentsInChildren(typeof(Renderer)))
+            {
+                r.enabled = false;
+            }
+
+            polyToGhostMap.Add(poly.GetInstanceID(), ghostPoly);
+        }
+        CheckPossibleMoves();
     }
 
     // Update is called once per frame
