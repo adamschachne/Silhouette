@@ -9,6 +9,9 @@ TagManager:
   - UI
   - Poly
   - MovementControls
+  - GhostBox
+  - GhostPoly
+  - Shadow
   layers:
   - Default
   - TransparentFX
