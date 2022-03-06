@@ -7,13 +7,13 @@ using UnityEngine.Analytics;
 public class SolutionManager : MonoBehaviour
 {
     public GameObject[] wallSolutions;
-    private static Dictionary<CubeScript, int> solutionDict = new Dictionary<CubeScript, int>();
-    private static Dictionary<CubeScript, int> nonSolutionDict = new Dictionary<CubeScript, int>();
+    private Dictionary<CubeScript, int> solutionDict = new Dictionary<CubeScript, int>();
+    private Dictionary<CubeScript, int> nonSolutionDict = new Dictionary<CubeScript, int>();
 
     private LevelManager levelManager;
 
     // the target solution
-    private static int targetSolution = 0;
+    private int targetSolution = 0;
     private bool foundSolution;
     protected float Timer = 0f;
 
@@ -70,16 +70,6 @@ public class SolutionManager : MonoBehaviour
         }
     }
 
-    public static int GetCurrentNumberOfBoxes()
-    {
-        return solutionDict.Keys.Count;
-    }
-
-    public static int GetTargetSoultion()
-    {
-        return targetSolution;
-    }
-
     void Awake()
     {
         foundSolution = false;
@@ -87,14 +77,11 @@ public class SolutionManager : MonoBehaviour
 
         PlayerData.NumberOfSeconds = 0;
         PlayerData.LevelsStarted.Add(PlayerData.CurrentLevel);
-        PlayerData.DegreesCameraRotated = 0f;
-        PlayerData.NumberOfMoves = 0;
-        PlayerData.NumberOfRotations = 0;
 
         Debug.Log("The current level: " + PlayerData.CurrentLevel);
 
         AnalyticsSender.SendLevelReachedEvent(PlayerData.CurrentLevel);
-
+        
         foreach (GameObject wallSolution in wallSolutions)
         {
             for (int i = 0; i < wallSolution.transform.childCount; ++i)
@@ -123,7 +110,7 @@ public class SolutionManager : MonoBehaviour
     void Update()
     {
         Timer += Time.deltaTime;
-        if (Timer > 1)
+        if(Timer > 1)
         {
             Timer = 0f;
             PlayerData.NumberOfSeconds += 1;
