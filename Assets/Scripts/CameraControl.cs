@@ -40,11 +40,12 @@ public class CameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float degrees = ROTATE_SPEED * Time.deltaTime;
+        
         // Pressing A or LeftArrow -> Rotate the camera left
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-
+            float degrees = ROTATE_SPEED * Time.deltaTime;
+            PlayerData.DegreesCameraRoated += Mathf.Abs(degrees);
             this.transform.RotateAround(board.transform.position, Vector3.up, degrees);
             arrowKeys.transform.RotateAround(arrowKeys.transform.position, Vector3.forward, degrees);
 
@@ -53,12 +54,14 @@ public class CameraControl : MonoBehaviour
         // Pressing D or RightArrow -> Rotate the camera right
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
+            float degrees = ROTATE_SPEED * Time.deltaTime;
+            PlayerData.DegreesCameraRoated += Mathf.Abs(degrees);
             this.transform.RotateAround(board.transform.position, -Vector3.up, degrees);
             arrowKeys.transform.RotateAround(arrowKeys.transform.position, -Vector3.forward, degrees);
 
         }
 
-        PlayerData.DegreesCameraRoated += Mathf.Abs(degrees);
+        
 
 
         // Pressing mouse 1 AND not pressing the buttons
