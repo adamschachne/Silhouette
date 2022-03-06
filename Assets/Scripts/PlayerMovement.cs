@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public GameObject selectedPoly = null;
+    private GameObject selectedPoly = null;
     public Tilemap tileMap = null;
     public const float timeToMove = 0.2f;
     public const int gridSize = 10;
@@ -32,6 +32,20 @@ public class PlayerMovement : MonoBehaviour
     public Button moveRightButton;
     public Button rotateClockwiseButton;
     public Button rotateCounterclockwiseButton;
+
+    public GameObject SelectedPoly
+    {
+        get
+        {
+            return selectedPoly;
+        }
+
+        set
+        {
+            selectedPoly = value;
+            CheckPossibleMoves();
+        }
+    }
 
     // Start is called before the first frame update
     void Start()

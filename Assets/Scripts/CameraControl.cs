@@ -28,14 +28,14 @@ public class CameraControl : MonoBehaviour
         {
             poly.GetComponent<Outline>().enabled = false;
         }
-        gameManager.GetComponent<PlayerMovement>().selectedPoly = null;
+        gameManager.GetComponent<PlayerMovement>().SelectedPoly = null;
     }
     private void SelectPoly(GameObject poly)
     {
         DeselectAllPolys();
         Outline outline = poly.GetComponent<Outline>();
         outline.enabled = true;
-        gameManager.GetComponent<PlayerMovement>().selectedPoly = poly;
+        gameManager.GetComponent<PlayerMovement>().SelectedPoly = poly;
     }
 
     // Start is called before the first frame update
