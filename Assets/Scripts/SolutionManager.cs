@@ -87,7 +87,7 @@ public class SolutionManager : MonoBehaviour
 
         PlayerData.NumberOfSeconds = 0;
         PlayerData.LevelsStarted.Add(PlayerData.CurrentLevel);
-        PlayerData.DegreesCameraRoated = 0f;
+        PlayerData.DegreesCameraRotated = 0f;
         PlayerData.NumberOfMoves = 0;
         PlayerData.NumberOfRotations = 0;
 
