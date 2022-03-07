@@ -8,6 +8,7 @@ public class Wall : MonoBehaviour
     public static readonly string SHADOW_TAG = "Shadow";
     public Vector3 wallScale;
     public Vector3 thickness;
+    public GameObject flashlight;
 
     private GameObject[] polys;
     private GameObject[] clones;
@@ -53,6 +54,8 @@ public class Wall : MonoBehaviour
          
             // Set the transform and box rotation on the wall
             SetCloneShadowOnWall(clone, poly);
+
+            flashlight.SetActive(true);
         }
     }
 
