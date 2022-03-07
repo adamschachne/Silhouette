@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null)
         {
-            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
+            AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(MoveBox(UP));
         }
@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null)
         {
-            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
+            AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(MoveBox(DOWN));
         }
@@ -127,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null)
         {
-            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
+            AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(MoveBox(LEFT));
         }
@@ -137,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null)
         {
-            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
+            AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(MoveBox(RIGHT));
         }
@@ -193,7 +193,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isRotating && selectedPoly != null)
         {
-            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
+            AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(RotateBox(CLOCKWISE));
         }
@@ -203,7 +203,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isRotating && selectedPoly != null)
         {
-            AnalyticsSender.SendTimeBetweenMovesEvent(PlayerData.CurrentLevel, Mathf.RoundToInt(timeBetweenMoves));
+            AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(RotateBox(COUNTERCLOCKWISE));
         }

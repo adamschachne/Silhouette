@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
 
-public class AnalyticsSender 
+public class AnalyticsSender
 {
     private static readonly string LEVEL_REACHED = "Level Reached";
     private static readonly string LEVEL_STARTED = "Level Started";
@@ -24,10 +24,10 @@ public class AnalyticsSender
     private static void CustomEvent(string customEventName, IDictionary<string, object> eventData)
     {
         // Only send the data if it is not a Debug build
-        if(!Debug.isDebugBuild)
+        if (!Debug.isDebugBuild)
         {
-            Analytics.CustomEvent(customEventName, eventData);   
-        } 
+            Analytics.CustomEvent(customEventName, eventData);
+        }
         else
         {
             string keyValues = "";
@@ -40,50 +40,56 @@ public class AnalyticsSender
         }
     }
 
-
-
-    public static void SendLevelReachedEvent(int levelNumber)
+    private static int getCurrentLevel()
     {
-        AnalyticsSender.CustomEvent(LEVEL_REACHED, new Dictionary<string, object> { { LEVEL_STARTED, levelNumber } });
+        return PlayerData.CurrentLevel + 1;
     }
 
-    public static void SendLevelFinishedEvent(int levelNumber, int numberOfSeconds) {
+
+
+    public static void SendLevelReachedEvent()
+    {
+        AnalyticsSender.CustomEvent(LEVEL_REACHED, new Dictionary<string, object> { { LEVEL_STARTED, getCurrentLevel() } });
+    }
+
+    public static void SendLevelFinishedEvent(int numberOfSeconds)
+    {
         AnalyticsSender.CustomEvent(TIME_TAKEN_FOR_LEVEL, new Dictionary<string, object> {
-            {LEVEL_NUMBER,  levelNumber },
+            {LEVEL_NUMBER,  getCurrentLevel() },
             {TIME_TAKEN, numberOfSeconds }
         });
     }
 
-    public static void SendResetEvent(int levelNumber, int numberOfBoxes, int totalSolutionCount)
+    public static void SendResetEvent(int numberOfBoxes, int totalSolutionCount)
     {
         AnalyticsSender.CustomEvent(RESET, new Dictionary<string, object> {
-            {LEVEL_NUMBER,  levelNumber },
+            {LEVEL_NUMBER,  getCurrentLevel() },
             {NUMBER_OF_BOXES, numberOfBoxes},
             {TOTAL_SOLUTION_COUNT, totalSolutionCount }
         });
     }
 
-    public static void SendDegreesUsedInLevelEvent(int levelNumber, float degrees)
+    public static void SendDegreesUsedInLevelEvent(float degrees)
     {
         AnalyticsSender.CustomEvent(DEGREES_FOR_LEVEL, new Dictionary<string, object> {
-            {LEVEL_NUMBER,  levelNumber },
+            {LEVEL_NUMBER,  getCurrentLevel() },
             {DEGREES, degrees}
         });
     }
 
-    public static void SendMovesPerLevelEvent(int levelNumber, int moves, int rotations)
+    public static void SendMovesPerLevelEvent(int moves, int rotations)
     {
         AnalyticsSender.CustomEvent(NUMBER_OF_MOVES_PER_LEVEL, new Dictionary<string, object> {
-            {LEVEL_NUMBER,  levelNumber },
+            {LEVEL_NUMBER,  getCurrentLevel() },
             {NUMBER_OF_MOVES, moves},
             {NUMBER_OF_ROTATIONS, rotations }
         });
     }
 
-    public static void SendTimeBetweenMovesEvent(int levelNumber, int timeBetweenMoves)
+    public static void SendTimeBetweenMovesEvent(int timeBetweenMoves)
     {
         AnalyticsSender.CustomEvent(TIME_BETWEEN_MOVES, new Dictionary<string, object> {
-            {LEVEL_NUMBER,  levelNumber },
+            {LEVEL_NUMBER, getCurrentLevel()  },
             {TIME, timeBetweenMoves}
         });
     }

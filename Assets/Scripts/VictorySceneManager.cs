@@ -37,8 +37,8 @@ public class VictorySceneManager : MonoBehaviour
 
     private static void SendAnalytics()
     {
-        AnalyticsSender.SendLevelFinishedEvent(PlayerData.CurrentLevel, PlayerData.NumberOfSeconds);
-        AnalyticsSender.SendDegreesUsedInLevelEvent(PlayerData.CurrentLevel, PlayerData.DegreesCameraRotated);
-        AnalyticsSender.SendMovesPerLevelEvent(PlayerData.CurrentLevel, PlayerData.NumberOfMoves, PlayerData.NumberOfRotations);
+        AnalyticsSender.SendLevelFinishedEvent(PlayerData.NumberOfSeconds);
+        AnalyticsSender.SendDegreesUsedInLevelEvent(PlayerData.DegreesCameraRotated);
+        AnalyticsSender.SendMovesPerLevelEvent(PlayerData.NumberOfMoves, PlayerData.NumberOfRotations);
     }
 }

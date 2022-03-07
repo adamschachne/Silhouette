@@ -93,8 +93,8 @@ public class SolutionManager : MonoBehaviour
 
         Debug.Log("The current level: " + PlayerData.CurrentLevel);
 
-        AnalyticsSender.SendLevelReachedEvent(PlayerData.CurrentLevel);
-        
+        AnalyticsSender.SendLevelReachedEvent();
+
         foreach (GameObject wallSolution in wallSolutions)
         {
             for (int i = 0; i < wallSolution.transform.childCount; ++i)
@@ -123,7 +123,7 @@ public class SolutionManager : MonoBehaviour
     void Update()
     {
         Timer += Time.deltaTime;
-        if(Timer > 1)
+        if (Timer > 1)
         {
             Timer = 0f;
             PlayerData.NumberOfSeconds += 1;
