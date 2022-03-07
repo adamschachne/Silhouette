@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     public Button rotateCounterclockwiseButton;
 
     private Dictionary<int, GameObject> polyToGhostMap;
+    private float timeBetweenMoves = 0;
 
     public GameObject SelectedPoly
     {
@@ -83,6 +84,11 @@ public class PlayerMovement : MonoBehaviour
         CheckPossibleMoves();
     }
 
+    private void Update()
+    {
+        timeBetweenMoves += Time.deltaTime;
+    }
+
     /******* Move *******/
 
     // Computed once after a move or rotate
@@ -101,6 +107,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null)
         {
+            AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
+            timeBetweenMoves = 0;
             StartCoroutine(MoveBox(UP));
         }
     }
@@ -109,6 +117,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null)
         {
+            AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
+            timeBetweenMoves = 0;
             StartCoroutine(MoveBox(DOWN));
         }
     }
@@ -117,6 +127,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null)
         {
+            AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
+            timeBetweenMoves = 0;
             StartCoroutine(MoveBox(LEFT));
         }
     }
@@ -125,6 +137,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null)
         {
+            AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
+            timeBetweenMoves = 0;
             StartCoroutine(MoveBox(RIGHT));
         }
     }
@@ -132,6 +146,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator MoveBox(Vector3Int dir)
     {
         isMoving = true;
+        PlayerData.NumberOfMoves += 1;
 
         float elapsedTime = 0;
 
@@ -156,6 +171,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator RotateBox(Vector3 dir)
     {
         isRotating = true;
+        PlayerData.NumberOfRotations += 1;
 
         float elapsedTime = 0;
 
@@ -177,6 +193,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isRotating && selectedPoly != null)
         {
+            AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
+            timeBetweenMoves = 0;
             StartCoroutine(RotateBox(CLOCKWISE));
         }
     }
@@ -185,6 +203,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isRotating && selectedPoly != null)
         {
+            AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
+            timeBetweenMoves = 0;
             StartCoroutine(RotateBox(COUNTERCLOCKWISE));
         }
     }
