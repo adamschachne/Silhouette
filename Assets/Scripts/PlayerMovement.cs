@@ -231,7 +231,6 @@ public class PlayerMovement : MonoBehaviour
                     continue;
                 }
 
-                Debug.Log(hit.transform.name);
                 return true;
             }
         }
