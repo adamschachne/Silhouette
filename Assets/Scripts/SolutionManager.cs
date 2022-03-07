@@ -62,7 +62,6 @@ public class SolutionManager : MonoBehaviour
 
     private void CheckSolution()
     {
-        Debug.Log(solutionDict.Keys.Count + " " +  nonSolutionDict.Keys.Count);
         if (foundSolution == false && targetSolution == solutionDict.Keys.Count && nonSolutionDict.Keys.Count == 0)
         {
             Debug.Log("You Win!");
