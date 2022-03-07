@@ -7,13 +7,13 @@ using UnityEngine.Analytics;
 public class SolutionManager : MonoBehaviour
 {
     public GameObject[] wallSolutions;
-    private Dictionary<CubeScript, int> solutionDict = new Dictionary<CubeScript, int>();
-    private Dictionary<CubeScript, int> nonSolutionDict = new Dictionary<CubeScript, int>();
+    private static Dictionary<CubeScript, int> solutionDict;
+    private static Dictionary<CubeScript, int> nonSolutionDict;
 
     private LevelManager levelManager;
 
     // the target solution
-    private int targetSolution = 0;
+    private static int targetSolution;
     private bool foundSolution;
     protected float Timer = 0f;
 
@@ -62,6 +62,7 @@ public class SolutionManager : MonoBehaviour
 
     private void CheckSolution()
     {
+        Debug.Log(solutionDict.Keys.Count + " " +  nonSolutionDict.Keys.Count);
         if (foundSolution == false && targetSolution == solutionDict.Keys.Count && nonSolutionDict.Keys.Count == 0)
         {
             Debug.Log("You Win!");
@@ -70,18 +71,36 @@ public class SolutionManager : MonoBehaviour
         }
     }
 
+    public static int GetCurrentNumberOfBoxes()
+    {
+        return solutionDict.Keys.Count;
+    }
+
+    public static int GetTargetSoultion()
+    {
+        return targetSolution;
+    }
+
     void Awake()
     {
+        solutionDict = new Dictionary<CubeScript, int>();
+        nonSolutionDict = new Dictionary<CubeScript, int>();
+
         foundSolution = false;
         levelManager = GameObject.Find("GameManager").GetComponent<LevelManager>();
 
+        targetSolution = 0;
+
         PlayerData.NumberOfSeconds = 0;
         PlayerData.LevelsStarted.Add(PlayerData.CurrentLevel);
+        PlayerData.DegreesCameraRotated = 0f;
+        PlayerData.NumberOfMoves = 0;
+        PlayerData.NumberOfRotations = 0;
 
         Debug.Log("The current level: " + PlayerData.CurrentLevel);
 
-        AnalyticsSender.SendLevelReachedEvent(PlayerData.CurrentLevel);
-        
+        AnalyticsSender.SendLevelReachedEvent();
+
         foreach (GameObject wallSolution in wallSolutions)
         {
             for (int i = 0; i < wallSolution.transform.childCount; ++i)
@@ -110,7 +129,7 @@ public class SolutionManager : MonoBehaviour
     void Update()
     {
         Timer += Time.deltaTime;
-        if(Timer > 1)
+        if (Timer > 1)
         {
             Timer = 0f;
             PlayerData.NumberOfSeconds += 1;

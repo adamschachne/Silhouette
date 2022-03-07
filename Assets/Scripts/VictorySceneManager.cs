@@ -10,14 +10,13 @@ public class VictorySceneManager : MonoBehaviour
     // Start is called before the first frame update
     public Button nextLevelButton;
     private LevelManager levelManager;
-    public TextMeshProUGUI PlayerStatText;
-    public GameObject canvas;
+    public TextMeshProUGUI playerStatText;
+    private GameObject canvas;
 
     void Start()
     {
-        PlayerStatText = FindObjectOfType<TextMeshProUGUI>();
-        PlayerStatText.text += PlayerData.NumberOfSeconds;
-        AnalyticsSender.SendLevelFinishedEvent(PlayerData.CurrentLevel, PlayerData.NumberOfSeconds);
+        playerStatText.text += $"{PlayerData.NumberOfSeconds} seconds";
+        SendAnalytics();
         levelManager = GameObject.Find("GameManager").GetComponent<LevelManager>();
 
         canvas = GameObject.FindGameObjectWithTag("MovementControls");
@@ -33,5 +32,12 @@ public class VictorySceneManager : MonoBehaviour
     {
         PlayerData.CurrentLevel += 1;
         levelManager.LoadLevel();
+    }
+
+    private static void SendAnalytics()
+    {
+        AnalyticsSender.SendLevelFinishedEvent(PlayerData.NumberOfSeconds);
+        AnalyticsSender.SendDegreesUsedInLevelEvent(PlayerData.DegreesCameraRotated);
+        AnalyticsSender.SendMovesPerLevelEvent(PlayerData.NumberOfMoves, PlayerData.NumberOfRotations);
     }
 }
