@@ -15,8 +15,17 @@ public class LevelManager : MonoBehaviour
 
     void Awake()
     {
-        // Load the first level when the Main Scene starts
-        SceneManager.LoadSceneAsync(CurrentLevelName, LoadSceneMode.Additive);
+        // Load the current level when the Main Scene starts
+        var loadLevel = SceneManager.LoadSceneAsync(CurrentLevelName, LoadSceneMode.Additive);
+        loadLevel.completed += (result) =>
+        {
+            SolutionManager solutionManager = GameObject.Find("SolutionManager").GetComponent<SolutionManager>();
+            foreach (GameObject wallSolution in solutionManager.wallSolutions)
+            {
+                string wallName = wallSolution.name.Substring(0, wallSolution.name.IndexOf(" Solution"));
+                GameObject.Find(wallName).GetComponent<Wall>().enabled = true;
+            }
+        };
     }
 
     public void LoadVictoryScene()
