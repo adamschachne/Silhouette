@@ -10,13 +10,12 @@ public class VictorySceneManager : MonoBehaviour
     // Start is called before the first frame update
     public Button nextLevelButton;
     private LevelManager levelManager;
-    public TextMeshProUGUI PlayerStatText;
-    public GameObject canvas;
+    public TextMeshProUGUI playerStatText;
+    private GameObject canvas;
 
     void Start()
     {
-        PlayerStatText = FindObjectOfType<TextMeshProUGUI>();
-        PlayerStatText.text += PlayerData.NumberOfSeconds;
+        playerStatText.text += $"{PlayerData.NumberOfSeconds} seconds";
         SendAnalytics();
         levelManager = GameObject.Find("GameManager").GetComponent<LevelManager>();
 

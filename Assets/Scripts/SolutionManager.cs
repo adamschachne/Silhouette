@@ -7,13 +7,13 @@ using UnityEngine.Analytics;
 public class SolutionManager : MonoBehaviour
 {
     public GameObject[] wallSolutions;
-    private static Dictionary<CubeScript, int> solutionDict = new Dictionary<CubeScript, int>();
-    private static Dictionary<CubeScript, int> nonSolutionDict = new Dictionary<CubeScript, int>();
+    private static Dictionary<CubeScript, int> solutionDict;
+    private static Dictionary<CubeScript, int> nonSolutionDict;
 
     private LevelManager levelManager;
 
     // the target solution
-    private static int targetSolution = 0;
+    private static int targetSolution;
     private bool foundSolution;
     protected float Timer = 0f;
 
@@ -62,6 +62,7 @@ public class SolutionManager : MonoBehaviour
 
     private void CheckSolution()
     {
+        Debug.Log(solutionDict.Keys.Count + " " +  nonSolutionDict.Keys.Count);
         if (foundSolution == false && targetSolution == solutionDict.Keys.Count && nonSolutionDict.Keys.Count == 0)
         {
             Debug.Log("You Win!");
@@ -82,8 +83,13 @@ public class SolutionManager : MonoBehaviour
 
     void Awake()
     {
+        solutionDict = new Dictionary<CubeScript, int>();
+        nonSolutionDict = new Dictionary<CubeScript, int>();
+
         foundSolution = false;
         levelManager = GameObject.Find("GameManager").GetComponent<LevelManager>();
+
+        targetSolution = 0;
 
         PlayerData.NumberOfSeconds = 0;
         PlayerData.LevelsStarted.Add(PlayerData.CurrentLevel);

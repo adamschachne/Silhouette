@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311915, g: 0.3807396, b: 0.35872662, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -159,7 +159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 309, y: 117}
+  m_AnchoredPosition: {x: 307.3, y: -203.9}
   m_SizeDelta: {x: 105.95, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &54608514
@@ -290,8 +290,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -400, y: -127}
-  m_SizeDelta: {x: -1620, y: 50}
+  m_AnchoredPosition: {x: -372.34973, y: -234.5}
+  m_SizeDelta: {x: -1675.2994, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &485208329
 MonoBehaviour:
@@ -347,7 +347,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 35
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -505,8 +505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevelButton: {fileID: 54608514}
-  PlayerStatText: {fileID: 485208329}
-  canvas: {fileID: 574858236}
+  playerStatText: {fileID: 485208329}
 --- !u!1 &1853645271
 GameObject:
   m_ObjectHideFlags: 0
