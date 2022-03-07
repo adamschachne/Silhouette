@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Analytics;
 
 public class SolutionManager : MonoBehaviour
 {
@@ -35,9 +33,8 @@ public class SolutionManager : MonoBehaviour
             }
             nonSolutionDict[cube]++;
         }
-
-        CheckSolution();
     }
+
     public void CubeTriggerExit(bool isSolutionCube, CubeScript cube)
     {
         if (isSolutionCube)
@@ -56,12 +53,11 @@ public class SolutionManager : MonoBehaviour
                 nonSolutionDict.Remove(cube);
             }
         }
-
-        CheckSolution();
     }
 
-    private void CheckSolution()
+    public IEnumerator CheckSolution()
     {
+        yield return new WaitForFixedUpdate();
         if (foundSolution == false && targetSolution == solutionDict.Keys.Count && nonSolutionDict.Keys.Count == 0)
         {
             Debug.Log("You Win!");
@@ -105,7 +101,6 @@ public class SolutionManager : MonoBehaviour
             for (int i = 0; i < wallSolution.transform.childCount; ++i)
             {
                 GameObject cube = wallSolution.transform.GetChild(i).gameObject;
-                BoxCollider collider = cube.GetComponent<BoxCollider>();
 
                 cube.AddComponent<CubeScript>();
                 cube.GetComponent<CubeScript>().manager = this;
@@ -122,6 +117,15 @@ public class SolutionManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void Start()
+    {
+        PlayerMovement playerMovement = GameObject.Find("GameManager").GetComponent<PlayerMovement>();
+        playerMovement.checkForSolution = () =>
+        {
+            StartCoroutine(CheckSolution());
+        };
     }
 
     // Update is called once per frame

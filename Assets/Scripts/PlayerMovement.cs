@@ -40,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
     private Dictionary<int, GameObject> polyToGhostMap;
     private float timeBetweenMoves = 0;
 
+    public System.Action checkForSolution;
+
     public GameObject SelectedPoly
     {
         get
@@ -164,6 +166,7 @@ public class PlayerMovement : MonoBehaviour
         selectedPoly.transform.position = targetPos;
         isMoving = false;
         CheckPossibleMoves();
+        checkForSolution?.Invoke();
     }
 
     /******* Rotate *******/
@@ -186,6 +189,7 @@ public class PlayerMovement : MonoBehaviour
         selectedPoly.transform.rotation = targetRotation;
         isRotating = false;
         CheckPossibleMoves();
+        checkForSolution?.Invoke();
     }
 
 
