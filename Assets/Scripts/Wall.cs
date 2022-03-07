@@ -7,6 +7,7 @@ public class Wall : MonoBehaviour
 {
     public static readonly string SHADOW_TAG = "Shadow";
     public Vector3 wallScale;
+    public Vector3 thickness;
 
     private GameObject[] polys;
     private GameObject[] clones;

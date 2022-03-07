@@ -585,6 +585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 1, y: 1, z: 0}
+  thickness: {x: 1, y: 1, z: 0.05}
 --- !u!64 &496881165
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1403,6 +1404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 0, y: 1, z: 1}
+  thickness: {x: 0.05, y: 1, z: 1}
 --- !u!64 &1128318816
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4016,6 +4018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
+  - Tutorial
   - Level 1
   - Level 2
   - Level 3
@@ -4067,6 +4070,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 1, y: 1, z: 0}
+  thickness: {x: 1, y: 1, z: 0.05}
 --- !u!64 &2058305402
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4273,6 +4277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 0, y: 1, z: 1}
+  thickness: {x: 0.05, y: 1, z: 1}
 --- !u!64 &2116306849
 MeshCollider:
   m_ObjectHideFlags: 0
