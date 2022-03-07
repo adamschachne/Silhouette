@@ -17,6 +17,7 @@ public class Reset : MonoBehaviour
 
     public void ResetScene()
     {
+        AnalyticsSender.SendResetEvent(PlayerData.CurrentLevel, SolutionManager.GetCurrentNumberOfBoxes(), SolutionManager.GetTargetSoultion());
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -17,7 +17,7 @@ public class VictorySceneManager : MonoBehaviour
     {
         PlayerStatText = FindObjectOfType<TextMeshProUGUI>();
         PlayerStatText.text += PlayerData.NumberOfSeconds;
-        AnalyticsSender.SendLevelFinishedEvent(PlayerData.CurrentLevel, PlayerData.NumberOfSeconds);
+        SendAnalytics();
         levelManager = GameObject.Find("GameManager").GetComponent<LevelManager>();
 
         canvas = GameObject.FindGameObjectWithTag("MovementControls");
@@ -33,5 +33,12 @@ public class VictorySceneManager : MonoBehaviour
     {
         PlayerData.CurrentLevel += 1;
         levelManager.LoadLevel();
+    }
+
+    private static void SendAnalytics()
+    {
+        AnalyticsSender.SendLevelFinishedEvent(PlayerData.CurrentLevel, PlayerData.NumberOfSeconds);
+        AnalyticsSender.SendDegreesUsedInLevelEvent(PlayerData.CurrentLevel, PlayerData.DegreesCameraRotated);
+        AnalyticsSender.SendMovesPerLevelEvent(PlayerData.CurrentLevel, PlayerData.NumberOfMoves, PlayerData.NumberOfRotations);
     }
 }

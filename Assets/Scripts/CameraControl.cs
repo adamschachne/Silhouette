@@ -109,6 +109,7 @@ public class CameraControl : MonoBehaviour
             float angleBetween = Vector3.Angle(initialVector, currentVector) * (Vector3.Cross(initialVector, currentVector).y > 0 ? 1 : -1);            
             float newAngle = Mathf.Clamp(angleBetween + rotateDegrees, -angleMax, angleMax);
             rotateDegrees = newAngle - angleBetween;
+            PlayerData.DegreesCameraRotated += Mathf.Abs(rotateDegrees);
             this.transform.RotateAround(board.transform.position, Vector3.up, rotateDegrees);
             arrowKeys.transform.RotateAround(arrowKeys.transform.position, Vector3.forward, rotateDegrees);
         }

@@ -10,6 +10,16 @@ public class AnalyticsSender
     private static readonly string TIME_TAKEN_FOR_LEVEL = "Time Taken For Level";
     private static readonly string LEVEL_NUMBER = "Level Number";
     private static readonly string TIME_TAKEN = "Time Taken";
+    private static readonly string RESET = "Reset";
+    private static readonly string NUMBER_OF_BOXES = "Number Of Boxes";
+    private static readonly string TOTAL_SOLUTION_COUNT = "Total Solution Count";
+    private static readonly string DEGREES_FOR_LEVEL = "Degrees For Level";
+    private static readonly string DEGREES = "Degrees";
+    private static readonly string NUMBER_OF_MOVES = "Number Of Moves";
+    private static readonly string NUMBER_OF_ROTATIONS = "Number Of Rotations";
+    private static readonly string NUMBER_OF_MOVES_PER_LEVEL = "Number Of Moves Per Level";
+    private static readonly string TIME_BETWEEN_MOVES = "Time Between Moves";
+    private static readonly string TIME = "Time";
 
     private static void CustomEvent(string customEventName, IDictionary<string, object> eventData)
     {
@@ -25,8 +35,8 @@ public class AnalyticsSender
             {
                 keyValues += k + ": " + eventData[k] + "\n";
             }
-            Debug.Log("Recieved call to send data with event name: " + customEventName + "and with data: \n" + keyValues);
-            
+            Debug.LogFormat("Recieved call to send data with event name: {0}  and with data: \n {1}\n", customEventName, keyValues);
+
         }
     }
 
@@ -41,6 +51,40 @@ public class AnalyticsSender
         AnalyticsSender.CustomEvent(TIME_TAKEN_FOR_LEVEL, new Dictionary<string, object> {
             {LEVEL_NUMBER,  levelNumber },
             {TIME_TAKEN, numberOfSeconds }
+        });
+    }
+
+    public static void SendResetEvent(int levelNumber, int numberOfBoxes, int totalSolutionCount)
+    {
+        AnalyticsSender.CustomEvent(RESET, new Dictionary<string, object> {
+            {LEVEL_NUMBER,  levelNumber },
+            {NUMBER_OF_BOXES, numberOfBoxes},
+            {TOTAL_SOLUTION_COUNT, totalSolutionCount }
+        });
+    }
+
+    public static void SendDegreesUsedInLevelEvent(int levelNumber, float degrees)
+    {
+        AnalyticsSender.CustomEvent(DEGREES_FOR_LEVEL, new Dictionary<string, object> {
+            {LEVEL_NUMBER,  levelNumber },
+            {DEGREES, degrees}
+        });
+    }
+
+    public static void SendMovesPerLevelEvent(int levelNumber, int moves, int rotations)
+    {
+        AnalyticsSender.CustomEvent(NUMBER_OF_MOVES_PER_LEVEL, new Dictionary<string, object> {
+            {LEVEL_NUMBER,  levelNumber },
+            {NUMBER_OF_MOVES, moves},
+            {NUMBER_OF_ROTATIONS, rotations }
+        });
+    }
+
+    public static void SendTimeBetweenMovesEvent(int levelNumber, int timeBetweenMoves)
+    {
+        AnalyticsSender.CustomEvent(TIME_BETWEEN_MOVES, new Dictionary<string, object> {
+            {LEVEL_NUMBER,  levelNumber },
+            {TIME, timeBetweenMoves}
         });
     }
 }
