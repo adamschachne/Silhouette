@@ -9,6 +9,8 @@ public class CameraControl : MonoBehaviour
     public GameObject board;
     public GameObject gameManager;
     public GameObject arrowKeys;
+    public Material SelectedBoxMat;
+    public Material BoxMat;
     private const float ROTATE_SPEED = 100.0f;
 
     public float ROTATE_SPEED_DRAG = 50.0f;
@@ -20,22 +22,30 @@ public class CameraControl : MonoBehaviour
     private bool mouseDragging = false;
 
     private Vector3 dragOrigin;
-     private Vector3 initialVector = Vector3.forward;
+    private Vector3 initialVector = Vector3.forward;
+
     private void DeselectAllPolys()
     {
-        GameObject[] polys = GameObject.FindGameObjectsWithTag(POLY_TAG);
-        foreach (GameObject poly in polys)
+        if(gameManager.GetComponent<PlayerMovement>().SelectedPoly != null)
         {
-            poly.GetComponent<Outline>().enabled = false;
+            foreach (Transform child in gameManager.GetComponent<PlayerMovement>().SelectedPoly.transform)
+            {
+                child.gameObject.GetComponent<Renderer>().material = BoxMat;
+            }
         }
+        
         gameManager.GetComponent<PlayerMovement>().SelectedPoly = null;
     }
+
     private void SelectPoly(GameObject poly)
     {
         DeselectAllPolys();
-        Outline outline = poly.GetComponent<Outline>();
-        outline.enabled = true;
         gameManager.GetComponent<PlayerMovement>().SelectedPoly = poly;
+
+        foreach (Transform child in poly.transform)
+        {
+            child.gameObject.GetComponent<Renderer>().material = SelectedBoxMat;
+        }
     }
 
     // Start is called before the first frame update
