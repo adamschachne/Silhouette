@@ -2531,7 +2531,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 805760132}
-  - component: {fileID: 805760133}
   m_Layer: 0
   m_Name: Box2
   m_TagString: Poly
@@ -2556,24 +2555,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &805760133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 805760131}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b10b019847cd482285ce9e21b704dcc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 1
-  outlineColor: {r: 0.9339623, g: 0.4822236, b: 0.057271298, a: 1}
-  outlineWidth: 7
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1 &825639587
 GameObject:
   m_ObjectHideFlags: 0
@@ -3058,7 +3039,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 951718084}
-  - component: {fileID: 951718085}
   m_Layer: 0
   m_Name: Box1
   m_TagString: Poly
@@ -3085,24 +3065,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &951718085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 951718083}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b10b019847cd482285ce9e21b704dcc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 1
-  outlineColor: {r: 0.9339623, g: 0.4822236, b: 0.057271298, a: 1}
-  outlineWidth: 7
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1 &951760545
 GameObject:
   m_ObjectHideFlags: 0
@@ -6495,7 +6457,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1827400806}
-  - component: {fileID: 1827400805}
   m_Layer: 0
   m_Name: Box3
   m_TagString: Poly
@@ -6503,24 +6464,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1827400805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1827400804}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b10b019847cd482285ce9e21b704dcc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 1
-  outlineColor: {r: 0.9339623, g: 0.4822236, b: 0.057271298, a: 1}
-  outlineWidth: 7
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!4 &1827400806
 Transform:
   m_ObjectHideFlags: 0
