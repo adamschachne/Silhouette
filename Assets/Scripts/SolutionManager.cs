@@ -7,6 +7,8 @@ public class SolutionManager : MonoBehaviour
     public GameObject[] wallSolutions;
     private static Dictionary<CubeScript, int> solutionDict;
     private static Dictionary<CubeScript, int> nonSolutionDict;
+    public Material solutionCubeMaterial;
+    public Material solutionCubeActiveMaterial;
 
     private LevelManager levelManager;
 
@@ -22,6 +24,7 @@ public class SolutionManager : MonoBehaviour
             if (solutionDict.ContainsKey(cube) == false)
             {
                 solutionDict.Add(cube, 0);
+                cube.SetMaterial(solutionCubeActiveMaterial);
             }
             solutionDict[cube]++;
         }
@@ -43,6 +46,7 @@ public class SolutionManager : MonoBehaviour
             if (solutionDict[cube] == 0)
             {
                 solutionDict.Remove(cube);
+                cube.SetMaterial(solutionCubeMaterial);
             }
         }
         else

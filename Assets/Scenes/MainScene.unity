@@ -733,7 +733,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 1, y: 1, z: 0}
-  thickness: {x: 1, y: 1, z: 0.05}
   flashlight: {fileID: 1023965031}
   shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
 --- !u!64 &496881165
@@ -1673,7 +1672,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 0, y: 1, z: 1}
-  thickness: {x: 0.05, y: 1, z: 1}
   flashlight: {fileID: 0}
   shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
 --- !u!64 &1128318816
@@ -3788,7 +3786,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e413ebf855bf78c45b56f8cd788f0dfb, type: 2}
+  - {fileID: 2100000, guid: 930adfdfdd9fafd469ffb427a452359d, type: 2}
   - {fileID: 2100000, guid: 140db2315bb006848a12d719229080a3, type: 2}
   - {fileID: 2100000, guid: 0eb0f996ba805c34c9e5dc4df46deb6b, type: 2}
   - {fileID: 2100000, guid: bb59d9535c521eb48994e16487f7b2b9, type: 2}
@@ -4002,7 +4000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
-  - Tutorial
+  - Level 4
   - Level 1
   - Level 2
   - Level 3
@@ -4054,7 +4052,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 1, y: 1, z: 0}
-  thickness: {x: 1, y: 1, z: 0.05}
   flashlight: {fileID: 0}
   shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
 --- !u!64 &2058305402
@@ -4187,6 +4184,10 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 41.6
       objectReference: {fileID: 0}
+    - target: {fileID: 20187476647482494, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 20505286486765476, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: m_HDR
       value: 0
@@ -4226,6 +4227,10 @@ PrefabInstance:
     - target: {fileID: 20960583905349482, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: orthographic size
       value: 41.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 20960583905349482, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 114117033023592744, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: outlineColor.b
@@ -4385,7 +4390,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 0, y: 1, z: 1}
-  thickness: {x: 0.05, y: 1, z: 1}
   flashlight: {fileID: 1748058461}
   shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
 --- !u!64 &2116306849
