@@ -7,8 +7,8 @@ public class Wall : MonoBehaviour
 {
     public static readonly string SHADOW_TAG = "Shadow";
     public Vector3 wallScale;
-    public Vector3 thickness;
     public GameObject flashlight;
+    public Material shadowMaterial;
 
     private GameObject[] polys;
     private GameObject[] clones;
@@ -54,8 +54,11 @@ public class Wall : MonoBehaviour
             clone.tag = UNTAGGED_TAG;
             
             // remove the Box tag from these cubes to prevent selecting the shadow
+            // also change regular mat out for shadow one
             for (int j = 0; j < clone.transform.childCount; ++j) {
-                clone.transform.GetChild(j).transform.tag = SHADOW_TAG;
+                var cube = clone.transform.GetChild(j);
+                cube.tag = SHADOW_TAG;
+                cube.gameObject.GetComponent<MeshRenderer>().material = shadowMaterial;                
             }
 
             clones[i] = clone;

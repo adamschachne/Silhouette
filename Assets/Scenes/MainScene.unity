@@ -735,6 +735,7 @@ MonoBehaviour:
   wallScale: {x: 1, y: 1, z: 0}
   thickness: {x: 1, y: 1, z: 0.05}
   flashlight: {fileID: 1023965031}
+  shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
 --- !u!64 &496881165
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1674,6 +1675,7 @@ MonoBehaviour:
   wallScale: {x: 0, y: 1, z: 1}
   thickness: {x: 0.05, y: 1, z: 1}
   flashlight: {fileID: 0}
+  shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
 --- !u!64 &1128318816
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4054,6 +4056,7 @@ MonoBehaviour:
   wallScale: {x: 1, y: 1, z: 0}
   thickness: {x: 1, y: 1, z: 0.05}
   flashlight: {fileID: 0}
+  shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
 --- !u!64 &2058305402
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4384,6 +4387,7 @@ MonoBehaviour:
   wallScale: {x: 0, y: 1, z: 1}
   thickness: {x: 0.05, y: 1, z: 1}
   flashlight: {fileID: 1748058461}
+  shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
 --- !u!64 &2116306849
 MeshCollider:
   m_ObjectHideFlags: 0
