@@ -9,15 +9,15 @@ public class CameraControl : MonoBehaviour
     public GameObject board;
     public GameObject gameManager;
     public GameObject arrowKeys;
-    public Material SelectedBoxMat;
-    public Material BoxMat;
-    private const float ROTATE_SPEED = 100.0f;
-
     public float ROTATE_SPEED_DRAG = 50.0f;
+    public float angleMax = 43.0f;
+
+    private int ignoreEdgeLayer;
+    private int defaultLayer;
+    private const float ROTATE_SPEED = 100.0f;
     private const float MAX_RAYCAST_DIST = 1000f;
     private const string BOX_TAG = "Box";
     private const string POLY_TAG = "Poly";
-    public float angleMax = 43.0f;
     private bool keyPressed = false;
     private bool mouseDragging = false;
 
@@ -26,11 +26,11 @@ public class CameraControl : MonoBehaviour
 
     private void DeselectAllPolys()
     {
-        if(gameManager.GetComponent<PlayerMovement>().SelectedPoly != null)
+        if (gameManager.GetComponent<PlayerMovement>().SelectedPoly != null)
         {
             foreach (Transform child in gameManager.GetComponent<PlayerMovement>().SelectedPoly.transform)
             {
-                child.gameObject.GetComponent<Renderer>().material = BoxMat;
+                child.gameObject.layer = ignoreEdgeLayer;
             }
         }
         
@@ -44,8 +44,14 @@ public class CameraControl : MonoBehaviour
 
         foreach (Transform child in poly.transform)
         {
-            child.gameObject.GetComponent<Renderer>().material = SelectedBoxMat;
+            child.gameObject.layer = defaultLayer;
         }
+    }
+
+    void Awake()
+    {
+        ignoreEdgeLayer = LayerMask.NameToLayer("Ignore Edge Detection");
+        defaultLayer = LayerMask.NameToLayer("Default");
     }
 
     // Start is called before the first frame update
@@ -123,6 +129,5 @@ public class CameraControl : MonoBehaviour
             this.transform.RotateAround(board.transform.position, Vector3.up, rotateDegrees);
             arrowKeys.transform.RotateAround(arrowKeys.transform.position, Vector3.forward, rotateDegrees);
         }
-
     }
 }

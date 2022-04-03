@@ -1086,7 +1086,7 @@ GameObject:
   - component: {fileID: 344211086}
   - component: {fileID: 344211085}
   - component: {fileID: 344211083}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (2)
   m_TagString: Box
   m_Icon: {fileID: 0}
@@ -1293,7 +1293,7 @@ GameObject:
   - component: {fileID: 389470983}
   - component: {fileID: 389470982}
   - component: {fileID: 389470981}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Box
   m_Icon: {fileID: 0}
@@ -1880,7 +1880,7 @@ GameObject:
   - component: {fileID: 738902067}
   - component: {fileID: 738902066}
   - component: {fileID: 738902064}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Box
   m_Icon: {fileID: 0}
@@ -2083,8 +2083,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 805760132}
-  m_Layer: 0
-  m_Name: TestBox2
+  m_Layer: 3
+  m_Name: Box2
   m_TagString: Poly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2592,8 +2592,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 951718084}
-  m_Layer: 0
-  m_Name: TestBox
+  m_Layer: 3
+  m_Name: Box1
   m_TagString: Poly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4820,7 +4820,7 @@ GameObject:
   - component: {fileID: 1558902648}
   - component: {fileID: 1558902647}
   - component: {fileID: 1558902646}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (3)
   m_TagString: Box
   m_Icon: {fileID: 0}
@@ -5027,7 +5027,7 @@ GameObject:
   - component: {fileID: 1586607898}
   - component: {fileID: 1586607897}
   - component: {fileID: 1586607896}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (2)
   m_TagString: Box
   m_Icon: {fileID: 0}
@@ -5599,7 +5599,7 @@ GameObject:
   - component: {fileID: 1711545562}
   - component: {fileID: 1711545561}
   - component: {fileID: 1711545559}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (3)
   m_TagString: Box
   m_Icon: {fileID: 0}
@@ -5806,7 +5806,7 @@ GameObject:
   - component: {fileID: 1806360840}
   - component: {fileID: 1806360839}
   - component: {fileID: 1806360838}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Box
   m_Icon: {fileID: 0}
@@ -6156,7 +6156,7 @@ GameObject:
   - component: {fileID: 1905438199}
   - component: {fileID: 1905438198}
   - component: {fileID: 1905438196}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Box
   m_Icon: {fileID: 0}
