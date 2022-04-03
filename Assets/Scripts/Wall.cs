@@ -13,17 +13,23 @@ public class Wall : MonoBehaviour
     private GameObject[] polys;
     private GameObject[] clones;
     private const string UNTAGGED_TAG = "Untagged";
-    private const float OFFSET = 0.001f;
+    private const float OFFSET = 0.01f;
 
     // given a clone and box, modify the clone's transform so that it forms a shadow on this wall
     private void SetCloneShadowOnWall(GameObject clone, GameObject poly)
     {
         Vector3 wallPosition = this.transform.position;
-        Vector3 polyPosition = poly.transform.position;
-        float x = (polyPosition.x * wallScale.x) + wallPosition.x;
-        float z = (polyPosition.z * wallScale.z) + wallPosition.z;
-        clone.transform.position = new Vector3(x, clone.transform.position.y, z);
+        clone.transform.position = poly.transform.position;
         clone.transform.rotation = poly.transform.rotation;
+
+        for (int i = 0; i < poly.transform.childCount; ++i)
+        {
+            var polyCube = poly.transform.GetChild(i);
+            var cloneCube = clone.transform.GetChild(i);
+            float x = (polyCube.position.x * wallScale.x) + wallPosition.x;
+            float z = (polyCube.position.z * wallScale.z) + wallPosition.z;
+            cloneCube.transform.position = new Vector3(x, cloneCube.position.y, z);
+        }
     }
 
     // Start is called before the first frame update
@@ -40,8 +46,10 @@ public class Wall : MonoBehaviour
             GameObject shadow = new GameObject();
             shadow.name = $"{poly.name} shadow on {this.name}";
             clone.transform.SetParent(shadow.transform);
-            shadow.transform.localScale = wallScale;
-            shadow.transform.position = new Vector3(wallPosition.x - (1 - wallScale.x) * OFFSET, 0, wallPosition.z - (1 - wallScale.z) * OFFSET);
+
+            // give the shadow some thickness greater than 0 to avoid weird graphics bugs
+            shadow.transform.localScale = new Vector3(Mathf.Max(OFFSET, wallScale.x), Mathf.Max(OFFSET, wallScale.y), Mathf.Max(OFFSET, wallScale.z));
+            shadow.transform.position = new Vector3(wallPosition.x, 0, wallPosition.z);
 
             clone.tag = UNTAGGED_TAG;
             
