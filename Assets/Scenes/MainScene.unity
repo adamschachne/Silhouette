@@ -508,6 +508,7 @@ GameObject:
   m_Component:
   - component: {fileID: 321743171}
   - component: {fileID: 321743172}
+  - component: {fileID: 321743173}
   m_Layer: 0
   m_Name: YellowLight
   m_TagString: Untagged
@@ -522,13 +523,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 321743170}
-  m_LocalRotation: {x: -0.36182693, y: 0.60752046, z: 0.6075205, w: 0.36182734}
-  m_LocalPosition: {x: 0.0002823961, y: 0.0974808, z: 0.0026206449}
+  m_LocalRotation: {x: 0.14661354, y: 0.67420465, z: 0.71716315, w: -0.09813094}
+  m_LocalPosition: {x: -0.03321504, y: 0.098809645, z: -0.009268358}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1748058465}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -95.251, y: -121.56601, z: 321.51898}
 --- !u!108 &321743172
 Light:
   m_ObjectHideFlags: 0
@@ -541,10 +542,10 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 0.76551723, b: 0, a: 1}
-  m_Intensity: 1.9
-  m_Range: 10
-  m_SpotAngle: 71
-  m_InnerSpotAngle: 54.28656
+  m_Intensity: 55.51
+  m_Range: 174.2
+  m_SpotAngle: 28.1
+  m_InnerSpotAngle: 21.8
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -591,6 +592,32 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &321743173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321743170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 8
+  ScatteringCoef: 0.802
+  ExtinctionCoef: 0.0069
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.109
+  HeightFog: 0
+  HeightScale: 0.08
+  GroundLevel: 0
+  Noise: 1
+  NoiseScale: 0.88
+  NoiseIntensity: 3.12
+  NoiseIntensityOffset: 0.3
+  NoiseVelocity: {x: 3, y: 3}
+  MaxRayLength: 400.88
 --- !u!1 &442840066
 GameObject:
   m_ObjectHideFlags: 0
@@ -3597,6 +3624,20 @@ MonoBehaviour:
   BoxMat: {fileID: 2100000, guid: 7cc41d81af7622042bfbb101785f8f92, type: 2}
   ROTATE_SPEED_DRAG: 50
   angleMax: 43
+--- !u!114 &1688692681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688692678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eed1d9cbe64423499f1fefc0ce50417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Resolution: 1
+  DefaultSpotCookie: {fileID: 2800000, guid: 5157bf6d690b6df458f6c0ce0c06d329, type: 3}
 --- !u!1 &1740884607
 GameObject:
   m_ObjectHideFlags: 0
