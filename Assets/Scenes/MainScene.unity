@@ -735,6 +735,8 @@ MonoBehaviour:
   wallScale: {x: 1, y: 1, z: 0}
   flashlight: {fileID: 1023965031}
   shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
+  redBoxMaterial: {fileID: 2100000, guid: a0ae66c2e6619714b89655f18fb01cc5, type: 2}
+  blueBoxMaterial: {fileID: 2100000, guid: 22e4240411bb00447b679a545e0aac58, type: 2}
 --- !u!64 &496881165
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1674,6 +1676,8 @@ MonoBehaviour:
   wallScale: {x: 0, y: 1, z: 1}
   flashlight: {fileID: 0}
   shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
+  redBoxMaterial: {fileID: 2100000, guid: a0ae66c2e6619714b89655f18fb01cc5, type: 2}
+  blueBoxMaterial: {fileID: 2100000, guid: 22e4240411bb00447b679a545e0aac58, type: 2}
 --- !u!64 &1128318816
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3593,8 +3597,6 @@ MonoBehaviour:
   board: {fileID: 254793400}
   gameManager: {fileID: 1916594637}
   arrowKeys: {fileID: 515968573}
-  SelectedBoxMat: {fileID: 2100000, guid: 0a81d7f0b232b41c49d192308167bff7, type: 2}
-  BoxMat: {fileID: 2100000, guid: 7cc41d81af7622042bfbb101785f8f92, type: 2}
   ROTATE_SPEED_DRAG: 50
   angleMax: 43
 --- !u!1 &1740884607
@@ -4001,9 +4003,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - Level 4
-  - Level 1
   - Level 2
   - Level 3
+  - Level 4
 --- !u!1 &2058305399
 GameObject:
   m_ObjectHideFlags: 0
@@ -4054,6 +4056,8 @@ MonoBehaviour:
   wallScale: {x: 1, y: 1, z: 0}
   flashlight: {fileID: 0}
   shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
+  redBoxMaterial: {fileID: 2100000, guid: a0ae66c2e6619714b89655f18fb01cc5, type: 2}
+  blueBoxMaterial: {fileID: 2100000, guid: 22e4240411bb00447b679a545e0aac58, type: 2}
 --- !u!64 &2058305402
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4392,6 +4396,8 @@ MonoBehaviour:
   wallScale: {x: 0, y: 1, z: 1}
   flashlight: {fileID: 1748058461}
   shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
+  redBoxMaterial: {fileID: 2100000, guid: a0ae66c2e6619714b89655f18fb01cc5, type: 2}
+  blueBoxMaterial: {fileID: 2100000, guid: 22e4240411bb00447b679a545e0aac58, type: 2}
 --- !u!64 &2116306849
 MeshCollider:
   m_ObjectHideFlags: 0

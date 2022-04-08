@@ -5,11 +5,14 @@ using UnityEngine;
 public class SolutionManager : MonoBehaviour
 {
     public GameObject[] wallSolutions;
-    private static Dictionary<CubeScript, int> solutionDict;
-    private static Dictionary<CubeScript, int> nonSolutionDict;
     public Material solutionCubeMaterial;
     public Material solutionCubeActiveMaterial;
 
+    public static readonly string redWallTag = "RedWall";
+    public static readonly string blueWallTag = "BlueWall";
+
+    private static Dictionary<CubeScript, int> solutionDict;
+    private static Dictionary<CubeScript, int> nonSolutionDict;
     private LevelManager levelManager;
 
     // the target solution

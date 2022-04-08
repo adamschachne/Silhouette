@@ -9,6 +9,8 @@ public class Wall : MonoBehaviour
     public Vector3 wallScale;
     public GameObject flashlight;
     public Material shadowMaterial;
+    public Material redBoxMaterial;
+    public Material blueBoxMaterial;
 
     private GameObject[] polys;
     private GameObject[] clones;
@@ -35,6 +37,8 @@ public class Wall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        var solutionManager = GameObject.Find("SolutionManager").GetComponent<SolutionManager>();
+
         Vector3 wallPosition = this.transform.position;
         polys = GameObject.FindGameObjectsWithTag(PlayerMovement.POLY_TAG);
         clones = new GameObject[polys.Length];
@@ -57,6 +61,9 @@ public class Wall : MonoBehaviour
             // also change regular mat out for shadow one
             for (int j = 0; j < clone.transform.childCount; ++j) {
                 var cube = clone.transform.GetChild(j);
+                var cubeMat = cube.gameObject.GetComponent<MeshRenderer>().material;
+                if (cubeMat == redBoxMaterial) {
+                }
                 cube.tag = SHADOW_TAG;
                 cube.gameObject.GetComponent<MeshRenderer>().material = shadowMaterial;                
             }

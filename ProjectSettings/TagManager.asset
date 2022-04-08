@@ -12,6 +12,8 @@ TagManager:
   - GhostBox
   - GhostPoly
   - Shadow
+  - RedWall
+  - BlueWall
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - Ignore Edge Detection
   - Water
   - UI
-  - 
+  - Invisible
   - 
   - 
   - 
