@@ -7,6 +7,7 @@ public class SolutionManager : MonoBehaviour
     public GameObject[] wallSolutions;
     public Material solutionCubeMaterial;
     public Material solutionCubeActiveMaterial;
+    public Material invisibleBoxMat;
 
     public static readonly string redWallTag = "RedWall";
     public static readonly string blueWallTag = "BlueWall";

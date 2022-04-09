@@ -14,6 +14,9 @@ public class CameraControl : MonoBehaviour
 
     private int ignoreEdgeLayer;
     private int defaultLayer;
+    private int invisibleLayer;
+    private int invisibleSelectedLayer;
+
     private const float ROTATE_SPEED = 100.0f;
     private const float MAX_RAYCAST_DIST = 1000f;
     private const string BOX_TAG = "Box";
@@ -30,7 +33,7 @@ public class CameraControl : MonoBehaviour
         {
             foreach (Transform child in gameManager.GetComponent<PlayerMovement>().SelectedPoly.transform)
             {
-                child.gameObject.layer = ignoreEdgeLayer;
+                child.gameObject.layer = (child.gameObject.layer == invisibleSelectedLayer || child.gameObject.layer == invisibleLayer) ? invisibleLayer : ignoreEdgeLayer;
             }
         }
         
@@ -44,7 +47,7 @@ public class CameraControl : MonoBehaviour
 
         foreach (Transform child in poly.transform)
         {
-            child.gameObject.layer = defaultLayer;
+            child.gameObject.layer = (child.gameObject.layer == invisibleSelectedLayer || child.gameObject.layer == invisibleLayer) ? invisibleSelectedLayer : defaultLayer;
         }
     }
 
@@ -52,6 +55,8 @@ public class CameraControl : MonoBehaviour
     {
         ignoreEdgeLayer = LayerMask.NameToLayer("Ignore Edge Detection");
         defaultLayer = LayerMask.NameToLayer("Default");
+        invisibleLayer = LayerMask.NameToLayer("Invisible");
+        invisibleSelectedLayer = LayerMask.NameToLayer("InvisibleSelected");
     }
 
     // Start is called before the first frame update

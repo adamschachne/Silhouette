@@ -14,6 +14,8 @@ TagManager:
   - Shadow
   - RedWall
   - BlueWall
+  - BlueBox
+  - RedBox
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - Water
   - UI
   - Invisible
-  - 
+  - InvisibleSelected
   - 
   - 
   - 

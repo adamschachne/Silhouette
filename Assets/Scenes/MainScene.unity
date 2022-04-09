@@ -735,8 +735,6 @@ MonoBehaviour:
   wallScale: {x: 1, y: 1, z: 0}
   flashlight: {fileID: 1023965031}
   shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
-  redBoxMaterial: {fileID: 2100000, guid: a0ae66c2e6619714b89655f18fb01cc5, type: 2}
-  blueBoxMaterial: {fileID: 2100000, guid: 22e4240411bb00447b679a545e0aac58, type: 2}
 --- !u!64 &496881165
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1676,8 +1674,6 @@ MonoBehaviour:
   wallScale: {x: 0, y: 1, z: 1}
   flashlight: {fileID: 0}
   shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
-  redBoxMaterial: {fileID: 2100000, guid: a0ae66c2e6619714b89655f18fb01cc5, type: 2}
-  blueBoxMaterial: {fileID: 2100000, guid: 22e4240411bb00447b679a545e0aac58, type: 2}
 --- !u!64 &1128318816
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2308,7 +2304,7 @@ GameObject:
   - component: {fileID: 1571031934}
   - component: {fileID: 1571031936}
   - component: {fileID: 1571031935}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TileMapLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3456,7 +3452,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.625, y: 0.625, z: 0}
   m_MaxChunkCount: 16
@@ -4002,7 +3998,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
-  - Level 4
+  - Tutorial
+  - Level 1
   - Level 2
   - Level 3
   - Level 4
@@ -4056,8 +4053,6 @@ MonoBehaviour:
   wallScale: {x: 1, y: 1, z: 0}
   flashlight: {fileID: 0}
   shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
-  redBoxMaterial: {fileID: 2100000, guid: a0ae66c2e6619714b89655f18fb01cc5, type: 2}
-  blueBoxMaterial: {fileID: 2100000, guid: 22e4240411bb00447b679a545e0aac58, type: 2}
 --- !u!64 &2058305402
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4190,7 +4185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 20187476647482494, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 55
+      value: 183
       objectReference: {fileID: 0}
     - target: {fileID: 20505286486765476, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: m_HDR
@@ -4224,6 +4219,10 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 0.34117648
       objectReference: {fileID: 0}
+    - target: {fileID: 20505286486765476, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 63
+      objectReference: {fileID: 0}
     - target: {fileID: 20960583905349482, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: orthographic
       value: 1
@@ -4234,7 +4233,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 20960583905349482, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 55
+      value: 183
       objectReference: {fileID: 0}
     - target: {fileID: 114117033023592744, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: outlineColor.b
@@ -4396,8 +4395,6 @@ MonoBehaviour:
   wallScale: {x: 0, y: 1, z: 1}
   flashlight: {fileID: 1748058461}
   shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
-  redBoxMaterial: {fileID: 2100000, guid: a0ae66c2e6619714b89655f18fb01cc5, type: 2}
-  blueBoxMaterial: {fileID: 2100000, guid: 22e4240411bb00447b679a545e0aac58, type: 2}
 --- !u!64 &2116306849
 MeshCollider:
   m_ObjectHideFlags: 0
