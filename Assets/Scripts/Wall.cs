@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using VLB;
 
 public class Wall : MonoBehaviour
 {
@@ -42,6 +43,41 @@ public class Wall : MonoBehaviour
             float x = (polyCube.position.x * wallScale.x) + wallPosition.x;
             float z = (polyCube.position.z * wallScale.z) + wallPosition.z;
             cloneCube.transform.position = new Vector3(x, cloneCube.transform.position.y, z);
+        }
+    }
+
+    private void SetFlashlightColor(WallColor color)
+    {
+        flashlight.SetActive(true);
+
+        var lightBeam = flashlight.transform.Find("Volumetric Light Beam");
+        if (lightBeam == null)
+        {
+            Debug.LogError($"No Volumetric Light Beam found in ${this.name} flashlight");
+            return;
+        }
+
+        VolumetricLightBeam lightBeamScript = lightBeam.GetComponent<VolumetricLightBeam>();
+                
+        switch (color)
+        {
+            case WallColor.Blue:
+            {
+                lightBeamScript.color = new Color(0, 0, 1);
+                break;
+            }
+
+            case WallColor.Red:
+            {
+                lightBeamScript.color = new Color(1, 0, 0);
+                break;
+            }
+
+            default:
+            {
+                lightBeamScript.color = new Color(1, 1, 1);
+                break;
+            }
         }
     }
 
@@ -127,7 +163,7 @@ public class Wall : MonoBehaviour
             // Set the transform and box rotation on the wall
             SetCloneShadowOnWall(poly);
 
-            flashlight.SetActive(true);
+            SetFlashlightColor(wallColor);
         }
     }
 
