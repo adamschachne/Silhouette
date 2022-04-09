@@ -12,15 +12,19 @@ TagManager:
   - GhostBox
   - GhostPoly
   - Shadow
+  - RedWall
+  - BlueWall
+  - BlueBox
+  - RedBox
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ignore Edge Detection
   - Water
   - UI
-  - 
-  - 
+  - Invisible
+  - InvisibleSelected
   - 
   - 
   - 

@@ -760,8 +760,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 1, y: 1, z: 0}
-  thickness: {x: 1, y: 1, z: 0.05}
   flashlight: {fileID: 1023965031}
+  shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
 --- !u!64 &496881165
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1814,8 +1814,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 0, y: 1, z: 1}
-  thickness: {x: 0.05, y: 1, z: 1}
   flashlight: {fileID: 0}
+  shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
 --- !u!64 &1128318816
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3849,8 +3849,6 @@ MonoBehaviour:
   board: {fileID: 254793400}
   gameManager: {fileID: 1916594637}
   arrowKeys: {fileID: 515968573}
-  SelectedBoxMat: {fileID: 2100000, guid: 0a81d7f0b232b41c49d192308167bff7, type: 2}
-  BoxMat: {fileID: 2100000, guid: 7cc41d81af7622042bfbb101785f8f92, type: 2}
   ROTATE_SPEED_DRAG: 50
   angleMax: 43
 --- !u!114 &1688692681
@@ -4270,7 +4268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
-  - Tutorial
+  - Level 4
   - Level 1
   - Level 2
   - Level 3
@@ -4322,8 +4320,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 1, y: 1, z: 0}
-  thickness: {x: 1, y: 1, z: 0.05}
   flashlight: {fileID: 0}
+  shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
 --- !u!64 &2058305402
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4454,6 +4452,10 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 41.6
       objectReference: {fileID: 0}
+    - target: {fileID: 20187476647482494, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 183
+      objectReference: {fileID: 0}
     - target: {fileID: 20505286486765476, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: m_HDR
       value: 0
@@ -4463,6 +4465,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 20505286486765476, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 20505286486765476, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: orthographic
       value: 1
       objectReference: {fileID: 0}
@@ -4470,6 +4476,22 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 41.6
       objectReference: {fileID: 0}
+    - target: {fileID: 20505286486765476, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.43137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 20505286486765476, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.3764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 20505286486765476, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.34117648
+      objectReference: {fileID: 0}
+    - target: {fileID: 20505286486765476, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 63
+      objectReference: {fileID: 0}
     - target: {fileID: 20960583905349482, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: orthographic
       value: 1
@@ -4478,17 +4500,21 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 41.6
       objectReference: {fileID: 0}
+    - target: {fileID: 20960583905349482, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 183
+      objectReference: {fileID: 0}
     - target: {fileID: 114117033023592744, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: outlineColor.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114117033023592744, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: outlineColor.g
-      value: 0.5511704
+      value: 0.93206847
       objectReference: {fileID: 0}
     - target: {fileID: 114117033023592744, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: outlineColor.r
-      value: 0.9622642
+      value: 0.062745094
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
@@ -4636,8 +4662,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallScale: {x: 0, y: 1, z: 1}
-  thickness: {x: 0.05, y: 1, z: 1}
   flashlight: {fileID: 1748058461}
+  shadowMaterial: {fileID: 2100000, guid: bac3351ab4c838a4ba0702b6d486d42c, type: 2}
 --- !u!64 &2116306849
 MeshCollider:
   m_ObjectHideFlags: 0
