@@ -2,36 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeScript : MonoBehaviour
-{
-    public SolutionManager manager;
-    public static readonly string SOLUTION_CUBE_TAG = "SolutionCube";
-    private bool isSolutionCube = false;
-
-    private void Start()
-    {
-        isSolutionCube = this.gameObject.CompareTag(SOLUTION_CUBE_TAG) == true;
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        manager.CubeTriggerEnter(isSolutionCube, this);
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        manager.CubeTriggerExit(isSolutionCube, this);
-    }
-}
-
 public class SolutionManager : MonoBehaviour
 {
     public GameObject[] wallSolutions;
-    private Dictionary<CubeScript, int> solutionDict = new Dictionary<CubeScript, int>();
-    private Dictionary<CubeScript, int> nonSolutionDict = new Dictionary<CubeScript, int>();
+    private static Dictionary<CubeScript, int> solutionDict;
+    private static Dictionary<CubeScript, int> nonSolutionDict;
+
+    private LevelManager levelManager;
 
     // the target solution
-    private int targetSolution = 0;
+    private static int targetSolution;
+    private bool foundSolution;
+    protected float Timer = 0f;
 
     public void CubeTriggerEnter(bool isSolutionCube, CubeScript cube)
     {
@@ -51,9 +33,8 @@ public class SolutionManager : MonoBehaviour
             }
             nonSolutionDict[cube]++;
         }
-
-        CheckSolution();
     }
+
     public void CubeTriggerExit(bool isSolutionCube, CubeScript cube)
     {
         if (isSolutionCube)
@@ -72,27 +53,54 @@ public class SolutionManager : MonoBehaviour
                 nonSolutionDict.Remove(cube);
             }
         }
-
-        CheckSolution();
     }
 
-    private void CheckSolution()
+    public IEnumerator CheckSolution()
     {
-        if (targetSolution == solutionDict.Keys.Count && nonSolutionDict.Keys.Count == 0)
+        yield return new WaitForFixedUpdate();
+        if (foundSolution == false && targetSolution == solutionDict.Keys.Count && nonSolutionDict.Keys.Count == 0)
         {
             Debug.Log("You Win!");
+            foundSolution = true;
+            levelManager.LoadVictoryScene();
         }
     }
 
-    // Start is called before the first frame update
+    public static int GetCurrentNumberOfBoxes()
+    {
+        return solutionDict.Keys.Count;
+    }
+
+    public static int GetTargetSoultion()
+    {
+        return targetSolution;
+    }
+
     void Awake()
     {
+        solutionDict = new Dictionary<CubeScript, int>();
+        nonSolutionDict = new Dictionary<CubeScript, int>();
+
+        foundSolution = false;
+        levelManager = GameObject.Find("GameManager").GetComponent<LevelManager>();
+
+        targetSolution = 0;
+
+        PlayerData.NumberOfSeconds = 0;
+        PlayerData.LevelsStarted.Add(PlayerData.CurrentLevel);
+        PlayerData.DegreesCameraRotated = 0f;
+        PlayerData.NumberOfMoves = 0;
+        PlayerData.NumberOfRotations = 0;
+
+        Debug.Log("The current level: " + PlayerData.CurrentLevel);
+
+        AnalyticsSender.SendLevelReachedEvent();
+
         foreach (GameObject wallSolution in wallSolutions)
         {
             for (int i = 0; i < wallSolution.transform.childCount; ++i)
             {
                 GameObject cube = wallSolution.transform.GetChild(i).gameObject;
-                BoxCollider collider = cube.GetComponent<BoxCollider>();
 
                 cube.AddComponent<CubeScript>();
                 cube.GetComponent<CubeScript>().manager = this;
@@ -101,16 +109,33 @@ public class SolutionManager : MonoBehaviour
                 {
                     // DEBUG
                     cube.GetComponent<MeshRenderer>().enabled = true;
-
                     targetSolution++;
+                }
+                else
+                {
+                    cube.GetComponent<MeshRenderer>().enabled = false;
                 }
             }
         }
     }
 
+    private void Start()
+    {
+        PlayerMovement playerMovement = GameObject.Find("GameManager").GetComponent<PlayerMovement>();
+        playerMovement.checkForSolution = () =>
+        {
+            StartCoroutine(CheckSolution());
+        };
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+        Timer += Time.deltaTime;
+        if (Timer > 1)
+        {
+            Timer = 0f;
+            PlayerData.NumberOfSeconds += 1;
+        }
     }
 }
