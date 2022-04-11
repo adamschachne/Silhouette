@@ -5,9 +5,20 @@ using UnityEngine;
 public class SolutionManager : MonoBehaviour
 {
     public GameObject[] wallSolutions;
+<<<<<<< HEAD
     private static Dictionary<CubeScript, int> solutionDict;
     private static Dictionary<CubeScript, int> nonSolutionDict;
 
+=======
+    public Material solutionCubeMaterial;
+    public Material solutionCubeActiveMaterial;
+
+    public static readonly string redWallTag = "RedWall";
+    public static readonly string blueWallTag = "BlueWall";
+
+    private static Dictionary<CubeScript, int> solutionDict;
+    private static Dictionary<CubeScript, int> nonSolutionDict;
+>>>>>>> 078a20cdcba4605f899f9dbcd130145c97515df3
     private LevelManager levelManager;
 
     // the target solution
@@ -22,6 +33,7 @@ public class SolutionManager : MonoBehaviour
             if (solutionDict.ContainsKey(cube) == false)
             {
                 solutionDict.Add(cube, 0);
+                cube.SetMaterial(solutionCubeActiveMaterial);
             }
             solutionDict[cube]++;
         }
@@ -43,6 +55,7 @@ public class SolutionManager : MonoBehaviour
             if (solutionDict[cube] == 0)
             {
                 solutionDict.Remove(cube);
+                cube.SetMaterial(solutionCubeMaterial);
             }
         }
         else

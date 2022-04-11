@@ -32,4 +32,5 @@ public class SettingsMenu : MonoBehaviour
 
     public void LevelFour() {}
     public void LevelFive() {}
+    public void Back() {}
 }
