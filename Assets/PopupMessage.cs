@@ -7,8 +7,8 @@ using TMPro;
  public class PopupMessage : MonoBehaviour {
  
      public GameObject popUpBox;
-     public Animator animator;
-     public TMP_Text popUpText;
+    //  public Animator animator;
+    //  public TMP_Text popUpText;
  
      // Use this for initialization
      void Start () {
