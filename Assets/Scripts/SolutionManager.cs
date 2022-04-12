@@ -69,6 +69,7 @@ public class SolutionManager : MonoBehaviour
         {
             Debug.Log("You Win!");
             foundSolution = true;
+            GameObject.Find("GameManager").GetComponent<PlayerMovement>().IncHintsCount();
             levelManager.LoadVictoryScene();
         }
     }

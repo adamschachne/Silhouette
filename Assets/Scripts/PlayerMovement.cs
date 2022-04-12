@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -36,9 +37,13 @@ public class PlayerMovement : MonoBehaviour
     public Button moveRightButton;
     public Button rotateClockwiseButton;
     public Button rotateCounterclockwiseButton;
+    public TextMeshProUGUI hintsCountText;
 
     private Dictionary<int, GameObject> polyToGhostMap;
     private float timeBetweenMoves = 0;
+
+    public static int numHints = 3;
+    private GameObject solutionManager;
 
     public System.Action checkForSolution;
 
@@ -84,11 +89,15 @@ public class PlayerMovement : MonoBehaviour
             polyToGhostMap.Add(poly.GetInstanceID(), ghostPoly);
         }
         CheckPossibleMoves();
+
+        solutionManager = GameObject.Find("SolutionManager");
     }
 
     private void Update()
     {
         timeBetweenMoves += Time.deltaTime;
+
+        hintsCountText.text = "Hints Left: " + numHints;
     }
 
     /******* Move *******/
@@ -277,5 +286,21 @@ public class PlayerMovement : MonoBehaviour
         ghostPoly.transform.rotation = targetRotation;
 
         return !IsCubeColliding(ghostPoly.transform);
+    }
+
+
+    /******* Hints *******/
+    public void UseAHint()
+    {
+        if(numHints > 0 && solutionManager.GetComponent<Hints>().ShowAHint())
+        {
+            numHints -= 1;
+        }
+        
+    }
+
+    public void IncHintsCount()
+    {
+        numHints++;
     }
 }
