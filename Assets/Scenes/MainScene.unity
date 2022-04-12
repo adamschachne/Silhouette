@@ -2970,13 +2970,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Click on a box to select it, you can move the box around and rotate it\n\nUse
-    A, E, S, D or the on screen arrow keys  to move the selected box to the left,
-    forward, backward and right respectively. \n\nYou can also rotate the blocks
-    using E/R keys or the on screen keys to rotate in the clockwise or anti-clockwise
-    direction, respectively.\n\nRotate the camera around with drag and click or using
-    arrow keys!\n\nYou can reset the game to the initial configuration of the level
-    with the reset button.\n\nWith multiple walls, you would need to match the pattern
+  m_text: "Click on a box to select it, you can move the box around and rotate it\n\nUse 
+    W, A S, D or the on screen arrow keys  to move the selected box to the forward,
+    left, backward and right respectively. \n\nYou can also rotate the blocks using
+    E/R keys or the on screen keys to rotate in the clockwise or anti-clockwise direction,
+    respectively.\n\nRotate the camera around with drag and click or using arrow
+    keys!\n\nYou can reset the game to the initial configuration of the level with
+    the reset button.\n\nWith multiple walls, you would need to match the pattern
     on both walls to win the level.\n\nHope you enjoy the game."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
