@@ -7,6 +7,7 @@ using TMPro;
  public class PopupMessage : MonoBehaviour {
  
      public GameObject popUpBox;
+     public Timer timer;
     //  public Animator animator;
     //  public TMP_Text popUpText;
  
@@ -22,12 +23,14 @@ using TMPro;
      }
     
     public void popUp() {
+        timer.Pause();
         popUpBox.SetActive(true);
         // popUpText.text = text;
         // animator.setTrigger("pop");
     }
 
     public void closePopUp() {
+        timer.Play();
         popUpBox.SetActive(false);
     }
 //      public void Open(string message){
