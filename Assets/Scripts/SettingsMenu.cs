@@ -5,37 +5,39 @@ using UnityEngine.SceneManagement;
 
 public class SettingsMenu : MonoBehaviour
 {
-    public void PlayGame() {
-        // load current level
-        SceneManager.LoadScene(0);
-    }
+    private LevelManager levelManager;
 
-    public void QuitGame() {
-        Debug.Log("QUIT");
-        Application.Quit();
-    }
+    void Start() {
+        levelManager = GameObject.Find("GameManager").GetComponent<LevelManager>();
+    }    
 
     public void LevelOne() {
-        // Application.LoadLevel("Level 1");
-        SceneManager.LoadScene(3, LoadSceneMode.Additive);
+        // Debug.Log("What level is it " + PlayerData.CurrentLevel);
+
+        PlayerData.CurrentLevel = 0;
+        levelManager.LoadLevel();
     }
 
     public void LevelTwo() {
-        // Application.LoadLevel("Level 2");
-        SceneManager.LoadScene(4, LoadSceneMode.Additive);
+        PlayerData.CurrentLevel = 1;
+        levelManager.LoadLevel();
     }
 
     public void LevelThree() {
-        // Application.LoadLevel("Level 3");
-        SceneManager.LoadScene(5, LoadSceneMode.Additive);
+        PlayerData.CurrentLevel = 2;
+        levelManager.LoadLevel();
     }
 
     public void LevelFour() {
-        SceneManager.LoadScene(6, LoadSceneMode.Additive);
+        PlayerData.CurrentLevel = 3;
+        levelManager.LoadLevel();
+
+        // SceneManager.LoadScene(6, LoadSceneMode.Additive);
     }
-    // public void LevelFive() {}
 
     public void tutorial() {
-        SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        PlayerData.CurrentLevel = 1;
+        levelManager.LoadLevel();
+        // SceneManager.LoadScene(1, LoadSceneMode.Additive);
     }
 }
