@@ -49,10 +49,10 @@ public class Timer : MonoBehaviour
 
     public void resetTimer()
     {
-        Debug.Log("1234");
-        string username = timerText.GetComponent<TMP_Text>().text;
+        // Debug.Log("1234");
+        // string username = timerText.GetComponent<TMP_Text>().text;
         Debug.Log("start" + startTime);
-        Debug.Log("usr name" + username);
+        // Debug.Log("usr name" + username);
         startTime = Time.time;
         pausedTime = 0.0f;
         Debug.Log(" start after pause "+startTime);
