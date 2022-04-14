@@ -41,4 +41,14 @@ public class Timer : MonoBehaviour
     {
         timeToDisplay = 0.0f;
     }
+
+    public float getElapsedTime() {
+        return timeToDisplay;
+    }
+
+    public string getElapsedTimeToDisplay() {
+        float minutes = Mathf.FloorToInt(timeToDisplay / 60);  
+        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
 }

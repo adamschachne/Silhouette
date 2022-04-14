@@ -16,9 +16,9 @@ public class VictorySceneManager : MonoBehaviour
 
     void Start()
     {
-        playerStatText.text += $"{PlayerData.NumberOfSeconds} seconds";
-        SendAnalytics();
         timer = GameObject.Find("GameManager").GetComponent<Timer>();
+        playerStatText.text += timer.getElapsedTimeToDisplay() + " minutes";
+        SendAnalytics();
         levelManager = GameObject.Find("GameManager").GetComponent<LevelManager>();
 
         canvas = GameObject.FindGameObjectWithTag("MovementControls");
