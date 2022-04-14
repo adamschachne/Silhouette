@@ -15,6 +15,12 @@ public class Hints : MonoBehaviour
         for(int i = 0; i < hintBoxes.Length; i++)
         {
             used[i] = false;
+
+            MeshRenderer[] boxRenderers = hintBoxes[i].GetComponentsInChildren<MeshRenderer>();
+            foreach (MeshRenderer r in boxRenderers)
+            {
+                r.enabled = false;
+            }
         }
     }
 
