@@ -8,18 +8,18 @@ public class Timer : MonoBehaviour
 {
 
     public TextMeshProUGUI timerText;
-    private float startTime = Time.time;
+    private static float startTime = 0.0f;
     private bool pause = false;
     private float pauseTimeStart;
     private float pausedTime;
+    private static float t = 0.0f;
     // Start is called before the first frame update
     void Start()
     {
-        // string username = timerText.GetComponent<TMP_Text>().text;
-        // Debug.Log(startTime);
-        // Debug.Log(username);
-        // startTime = Time.time;
-        pausedTime = 0.0f;
+        // if(startTime < 0.001f) {
+        //     startTime = Time.time;
+        // }
+        // pausedTime = 0.0f;
     }
 
     // Update is called once per frame
@@ -28,7 +28,9 @@ public class Timer : MonoBehaviour
         if(pause) {
             return;
         }
-        float t = Time.time - startTime - pausedTime;
+        // float t = Time.deltaTime;
+        // float t = Time.time - startTime - pausedTime;
+        t += Time.deltaTime;
         string minutes = ((int) t / 60 ).ToString();
         string seconds = (t%60).ToString("f2");
 
@@ -38,23 +40,21 @@ public class Timer : MonoBehaviour
     public void Pause()
     {
         pause = true;
-        pauseTimeStart = Time.time;
+        // pauseTimeStart = Time.time;
     }
 
     public void Play()
     {
         pause = false;
-        pausedTime += Time.time - pauseTimeStart;
+        // pausedTime += Time.time - pauseTimeStart;
     }
 
     public void resetTimer()
     {
-        // Debug.Log("1234");
-        // string username = timerText.GetComponent<TMP_Text>().text;
-        Debug.Log("start" + startTime);
-        // Debug.Log("usr name" + username);
-        startTime = Time.time;
-        pausedTime = 0.0f;
-        Debug.Log(" start after pause "+startTime);
+        // Debug.Log("start" + startTime);
+        // startTime = 0.0f;
+        // pausedTime = 0.0f;
+        t = 0.0f;
+        // Debug.Log(" start after pause "+startTime);
     }
 }
