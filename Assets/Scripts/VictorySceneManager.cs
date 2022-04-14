@@ -20,6 +20,8 @@ public class VictorySceneManager : MonoBehaviour
         levelManager = GameObject.Find("GameManager").GetComponent<LevelManager>();
 
         canvas = GameObject.FindGameObjectWithTag("MovementControls");
+        AudioManager.instance.Play("clapping");
+        SoundManager.PlaySound();
         canvas.SetActive(false);
 
         if (PlayerData.CurrentLevel == levelManager.levels.Length - 1)
