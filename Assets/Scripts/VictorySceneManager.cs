@@ -17,7 +17,7 @@ public class VictorySceneManager : MonoBehaviour
     void Start()
     {
         timer = GameObject.Find("GameManager").GetComponent<Timer>();
-        playerStatText.text += timer.getElapsedTimeToDisplay() + " minutes";
+        playerStatText.text += timer.getElapsedTimeToDisplay();
         SendAnalytics();
         levelManager = GameObject.Find("GameManager").GetComponent<LevelManager>();
 
