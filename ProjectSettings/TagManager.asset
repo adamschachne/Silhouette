@@ -16,6 +16,7 @@ TagManager:
   - BlueWall
   - BlueBox
   - RedBox
+  - HintBox
   layers:
   - Default
   - TransparentFX
