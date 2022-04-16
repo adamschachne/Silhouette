@@ -6794,6 +6794,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - Tutorial
+  - Tutorial 2
+  - Tutorial 3
   - Level 1
   - Level 2
   - Level 3
@@ -7118,6 +7120,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 20187476647482494, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
+      propertyPath: m_Depth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20187476647482494, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: orthographic
       value: 1
       objectReference: {fileID: 0}
@@ -7166,6 +7172,10 @@ PrefabInstance:
       value: 63
       objectReference: {fileID: 0}
     - target: {fileID: 20960583905349482, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
+      propertyPath: m_Depth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20960583905349482, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: orthographic
       value: 1
       objectReference: {fileID: 0}
@@ -7195,11 +7205,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114117033023592744, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: depthSensitivity2
-      value: 0
+      value: 0.62
       objectReference: {fileID: 0}
     - target: {fileID: 114117033023592744, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
       propertyPath: normalsSensitivity
-      value: 0.5
+      value: 3.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}

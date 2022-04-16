@@ -68,7 +68,13 @@ public class CameraControl : MonoBehaviour
             initialVector.y = 0;
         }
 
-        GetComponent<EdgeDetect>().normalsSensitivity = 0.1f;
+        StartCoroutine(FixEdges());
+    }
+
+    IEnumerator FixEdges()
+    {
+        yield return new WaitForFixedUpdate();
+        GetComponent<EdgeDetect>().normalsSensitivity = 1f;
     }
 
     // Update is called once per frame
