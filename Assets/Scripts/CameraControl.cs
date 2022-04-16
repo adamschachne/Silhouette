@@ -62,11 +62,13 @@ public class CameraControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-         if(board.transform != null)
-         {
-             initialVector = transform.position - board.transform.position;
-             initialVector.y = 0;
-         }        
+        if (board.transform != null)
+        {
+            initialVector = transform.position - board.transform.position;
+            initialVector.y = 0;
+        }
+
+        GetComponent<EdgeDetect>().normalsSensitivity = 0.1f;
     }
 
     // Update is called once per frame
