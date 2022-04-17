@@ -12,10 +12,12 @@ public class VictorySceneManager : MonoBehaviour
     private LevelManager levelManager;
     public TextMeshProUGUI playerStatText;
     private GameObject canvas;
+    public Timer timer;
 
     void Start()
     {
-        playerStatText.text += $"{PlayerData.NumberOfSeconds} seconds";
+        timer = GameObject.Find("GameManager").GetComponent<Timer>();
+        playerStatText.text += timer.getElapsedTimeToDisplay();
         SendAnalytics();
         levelManager = GameObject.Find("GameManager").GetComponent<LevelManager>();
 
@@ -32,6 +34,7 @@ public class VictorySceneManager : MonoBehaviour
     {
         PlayerData.CurrentLevel += 1;
         levelManager.LoadLevel();
+        timer.resetTimer();
     }
 
     private static void SendAnalytics()
