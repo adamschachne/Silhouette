@@ -17,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     public const float timeToMove = 0.2f;
     public const int gridSize = 10;
     public const float spinSpeed = 20;
-    private Queue<string> moves = new Queue<string>();
     private bool isMoving = false;
     private Vector3 oldPos;
     private Vector3 targetPos;
