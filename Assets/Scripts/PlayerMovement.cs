@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
@@ -22,11 +23,11 @@ public class PlayerMovement : MonoBehaviour
     private const string DOWN_STRING = "Down";
     private const string COUNTER_CLOCKWISE_STRING = "CounterClockwise";
     private const string CLOCKWISE_STRING = "Clockwise";
+    private Queue<string> moves = new Queue<string>();
     private bool isMoving = false;
     private Vector3 oldPos;
     private Vector3 targetPos;
 
-    private bool isRotating = false;
 
     private Vector3Int UP = new Vector3Int(1, 0, 0);
     private Vector3Int DOWN = new Vector3Int(-1, 0, 0);
@@ -98,10 +99,11 @@ public class PlayerMovement : MonoBehaviour
         solutionManager = GameObject.Find("SolutionManager");
     }
 
+
     private void Update()
     {
         timeBetweenMoves += Time.deltaTime;
-        Queue<string> moves = new Queue<string>();
+
         if (Input.GetKey(KeyCode.W))
         {
             moves.Enqueue(UP_STRING);
@@ -134,52 +136,65 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+        //StartCoroutine(RunMoves());
+
+        string move;
         while (moves.Count > 0)
         {
-            switch (moves.Dequeue())
+            move = moves.Dequeue();
+            switch (move)
             {
                 case UP_STRING:
                     if (CanMove(UP))
                     {
                         MoveBoxUp();
+                        //yield return null;
                     }
                     break;
                 case LEFT_STRING:
                     if (CanMove(LEFT))
                     {
                         MoveBoxLeft();
+                        //yield return null;
                     }
                     break;
                 case RIGHT_STRING:
                     if (CanMove(RIGHT))
                     {
                         MoveBoxRight();
+                        //yield return null;
                     }
                     break;
                 case DOWN_STRING:
                     if (CanMove(DOWN))
                     {
                         MoveBoxDown();
+                        //yield return null;
                     }
                     break;
                 case COUNTER_CLOCKWISE_STRING:
                     if (CanRotate(COUNTERCLOCKWISE))
                     {
                         CounterClockwiseRotate();
+                        //yield return null;
                     }
                     break;
                 case CLOCKWISE_STRING:
                     if (CanRotate(CLOCKWISE))
                     {
                         ClockwiseRotate();
+                        //yield return null;
                     }
                     break;
             }
         }
 
+
+
         hintsCountText.text = "Hints Left: " + numHints;
     }
 
+    
     /******* Move *******/
 
     // Computed once after a move or rotate
@@ -262,7 +277,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator RotateBox(Vector3 dir)
     {
-        isRotating = true;
+        isMoving = true;
         PlayerData.NumberOfRotations += 1;
 
         float elapsedTime = 0;
@@ -276,7 +291,7 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         selectedPoly.transform.rotation = targetRotation;
-        isRotating = false;
+        isMoving = false;
         CheckPossibleMoves();
         checkForSolution?.Invoke();
     }
@@ -284,7 +299,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ClockwiseRotate()
     {
-        if (!isRotating && selectedPoly != null)
+        if (!isMoving && selectedPoly != null)
         {
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
@@ -294,7 +309,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void CounterClockwiseRotate()
     {
-        if (!isRotating && selectedPoly != null)
+        if (!isMoving && selectedPoly != null)
         {
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
