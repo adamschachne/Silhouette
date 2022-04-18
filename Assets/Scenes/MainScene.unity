@@ -8308,6 +8308,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1861647068}
+  
+  
   - component: {fileID: 1861647070}
   - component: {fileID: 1861647069}
   m_Layer: 5
@@ -8370,8 +8372,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Levels
-
-'
 --- !u!222 &1861647070
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8393,6 +8393,7 @@ GameObject:
   - component: {fileID: 1916594640}
   - component: {fileID: 1916594641}
   - component: {fileID: 1916594642}
+  - component: {fileID: 1916594643}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
