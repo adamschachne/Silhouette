@@ -125,12 +125,12 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.Q))
         {
             moves.Enqueue(COUNTER_CLOCKWISE_STRING);
 
         }
-        if (Input.GetKey(KeyCode.R))
+        if (Input.GetKey(KeyCode.E))
         {
             moves.Enqueue(CLOCKWISE_STRING);
 
