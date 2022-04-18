@@ -136,8 +136,6 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        //StartCoroutine(RunMoves());
-
         string move;
         while (moves.Count > 0)
         {
@@ -148,42 +146,36 @@ public class PlayerMovement : MonoBehaviour
                     if (CanMove(UP))
                     {
                         MoveBoxUp();
-                        //yield return null;
                     }
                     break;
                 case LEFT_STRING:
                     if (CanMove(LEFT))
                     {
                         MoveBoxLeft();
-                        //yield return null;
                     }
                     break;
                 case RIGHT_STRING:
                     if (CanMove(RIGHT))
                     {
                         MoveBoxRight();
-                        //yield return null;
                     }
                     break;
                 case DOWN_STRING:
                     if (CanMove(DOWN))
                     {
                         MoveBoxDown();
-                        //yield return null;
                     }
                     break;
                 case COUNTER_CLOCKWISE_STRING:
                     if (CanRotate(COUNTERCLOCKWISE))
                     {
                         CounterClockwiseRotate();
-                        //yield return null;
                     }
                     break;
                 case CLOCKWISE_STRING:
                     if (CanRotate(CLOCKWISE))
                     {
                         ClockwiseRotate();
-                        //yield return null;
                     }
                     break;
             }
