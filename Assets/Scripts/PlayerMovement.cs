@@ -17,12 +17,6 @@ public class PlayerMovement : MonoBehaviour
     public const float timeToMove = 0.2f;
     public const int gridSize = 10;
     public const float spinSpeed = 20;
-    private const string UP_STRING = "Up";
-    private const string LEFT_STRING = "Left";
-    private const string RIGHT_STRING = "Right";
-    private const string DOWN_STRING = "Down";
-    private const string COUNTER_CLOCKWISE_STRING = "CounterClockwise";
-    private const string CLOCKWISE_STRING = "Clockwise";
     private Queue<string> moves = new Queue<string>();
     private bool isMoving = false;
     private Vector3 oldPos;
@@ -104,81 +98,35 @@ public class PlayerMovement : MonoBehaviour
     {
         timeBetweenMoves += Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) && CanMove(UP))
         {
-            moves.Enqueue(UP_STRING);
+            MoveBoxUp();
 
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && CanMove(LEFT))
         {
-            moves.Enqueue(LEFT_STRING);
+            MoveBoxLeft();
 
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S) && CanMove(DOWN))
         {
-            moves.Enqueue(DOWN_STRING);
+            MoveBoxDown();
 
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) && CanMove(RIGHT))
         {
-            moves.Enqueue(RIGHT_STRING);
-
-        }
-
-        if (Input.GetKey(KeyCode.Q))
-        {
-            moves.Enqueue(COUNTER_CLOCKWISE_STRING);
-
-        }
-        if (Input.GetKey(KeyCode.E))
-        {
-            moves.Enqueue(CLOCKWISE_STRING);
+            MoveBoxRight();
 
         }
 
-        string move;
-        while (moves.Count > 0)
+        if (Input.GetKey(KeyCode.Q) && CanRotate(COUNTERCLOCKWISE))
         {
-            move = moves.Dequeue();
-            switch (move)
-            {
-                case UP_STRING:
-                    if (CanMove(UP))
-                    {
-                        MoveBoxUp();
-                    }
-                    break;
-                case LEFT_STRING:
-                    if (CanMove(LEFT))
-                    {
-                        MoveBoxLeft();
-                    }
-                    break;
-                case RIGHT_STRING:
-                    if (CanMove(RIGHT))
-                    {
-                        MoveBoxRight();
-                    }
-                    break;
-                case DOWN_STRING:
-                    if (CanMove(DOWN))
-                    {
-                        MoveBoxDown();
-                    }
-                    break;
-                case COUNTER_CLOCKWISE_STRING:
-                    if (CanRotate(COUNTERCLOCKWISE))
-                    {
-                        CounterClockwiseRotate();
-                    }
-                    break;
-                case CLOCKWISE_STRING:
-                    if (CanRotate(CLOCKWISE))
-                    {
-                        ClockwiseRotate();
-                    }
-                    break;
-            }
+            CounterClockwiseRotate();
+
+        }
+        if (Input.GetKey(KeyCode.E) && CanRotate(CLOCKWISE))
+        {
+            ClockwiseRotate();
         }
 
 
@@ -186,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
         hintsCountText.text = "Hints Left: " + numHints;
     }
 
-    
+
     /******* Move *******/
 
     // Computed once after a move or rotate
