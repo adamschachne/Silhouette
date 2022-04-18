@@ -22,9 +22,7 @@ using System.Collections;
              return;
          }
          timeToDisplay += Time.deltaTime;
-         float minutes = Mathf.FloorToInt(timeToDisplay / 60);  
-         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+         timerText.text = this.GetElapsedTimeToDisplay();
      }
 
      public void Pause()
@@ -35,22 +33,20 @@ using System.Collections;
 
      public void Play()
      {
-         float minutes = Mathf.FloorToInt(timeToDisplay / 60);  
-         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+         timerText.text = this.GetElapsedTimeToDisplay();
          pause = false;
      }
 
-     public void resetTimer()
+     public void ResetTimer()
      {
          timeToDisplay = 0.0f;
      }
 
-     public float getElapsedTime() {
+     public float GetElapsedTime() {
          return timeToDisplay;
      }
 
-     public string getElapsedTimeToDisplay() {
+     public string GetElapsedTimeToDisplay() {
          float minutes = Mathf.FloorToInt(timeToDisplay / 60);  
          float seconds = Mathf.FloorToInt(timeToDisplay % 60);
          return string.Format("{0:00}:{1:00}", minutes, seconds);
