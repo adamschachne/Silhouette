@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
@@ -16,12 +17,10 @@ public class PlayerMovement : MonoBehaviour
     public const float timeToMove = 0.2f;
     public const int gridSize = 10;
     public const float spinSpeed = 20;
-
     private bool isMoving = false;
     private Vector3 oldPos;
     private Vector3 targetPos;
 
-    private bool isRotating = false;
 
     private Vector3Int UP = new Vector3Int(1, 0, 0);
     private Vector3Int DOWN = new Vector3Int(-1, 0, 0);
@@ -93,12 +92,47 @@ public class PlayerMovement : MonoBehaviour
         solutionManager = GameObject.Find("SolutionManager");
     }
 
+
     private void Update()
     {
         timeBetweenMoves += Time.deltaTime;
 
+        if (Input.GetKey(KeyCode.W) && CanMove(UP))
+        {
+            MoveBoxUp();
+
+        }
+        if (Input.GetKey(KeyCode.A) && CanMove(LEFT))
+        {
+            MoveBoxLeft();
+
+        }
+        if (Input.GetKey(KeyCode.S) && CanMove(DOWN))
+        {
+            MoveBoxDown();
+
+        }
+        if (Input.GetKey(KeyCode.D) && CanMove(RIGHT))
+        {
+            MoveBoxRight();
+
+        }
+
+        if (Input.GetKey(KeyCode.Q) && CanRotate(COUNTERCLOCKWISE))
+        {
+            CounterClockwiseRotate();
+
+        }
+        if (Input.GetKey(KeyCode.E) && CanRotate(CLOCKWISE))
+        {
+            ClockwiseRotate();
+        }
+
+
+
         hintsCountText.text = "Hints Left: " + numHints;
     }
+
 
     /******* Move *******/
 
@@ -182,7 +216,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator RotateBox(Vector3 dir)
     {
-        isRotating = true;
+        isMoving = true;
         PlayerData.NumberOfRotations += 1;
 
         float elapsedTime = 0;
@@ -196,7 +230,7 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         selectedPoly.transform.rotation = targetRotation;
-        isRotating = false;
+        isMoving = false;
         CheckPossibleMoves();
         checkForSolution?.Invoke();
     }
@@ -204,7 +238,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ClockwiseRotate()
     {
-        if (!isRotating && selectedPoly != null)
+        if (!isMoving && selectedPoly != null)
         {
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
@@ -214,7 +248,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void CounterClockwiseRotate()
     {
-        if (!isRotating && selectedPoly != null)
+        if (!isMoving && selectedPoly != null)
         {
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
@@ -292,11 +326,11 @@ public class PlayerMovement : MonoBehaviour
     /******* Hints *******/
     public void UseAHint()
     {
-        if(numHints > 0 && solutionManager.GetComponent<Hints>().ShowAHint())
+        if (numHints > 0 && solutionManager.GetComponent<Hints>().ShowAHint())
         {
             numHints -= 1;
         }
-        
+
     }
 
     public void IncHintsCount()
