@@ -19,7 +19,7 @@ public class Tutorial : MonoBehaviour
     }
 
     private void Deselect() {
-
+        playerMovement.ResetMovementControl();
     }
 
     // Update is called once per frame

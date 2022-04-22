@@ -405,6 +405,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
  
+    public void ResetMovementControl() {
+        CancelInvoke();
+        btnColor.normalColor = normalClr;
+        moveUpButton.colors = btnColor;
+        moveDownButton.colors = btnColor;
+        moveLeftButton.colors = btnColor;
+        moveRightButton.colors = btnColor;
+        rotateClockwiseButton.colors = btnColor;
+        rotateCounterclockwiseButton.colors = btnColor;
+    }
+
     public void Blink() {
 
         if(btnColor.normalColor == normalClr) {
