@@ -26,6 +26,7 @@ public class CameraControl : MonoBehaviour
     private bool mouseDragging = false;
 
     public static event Action ClickEvent;
+    public static event Action DeselectEvent;
 
     private Vector3 dragOrigin;
     private Vector3 initialVector = Vector3.forward;
@@ -37,6 +38,7 @@ public class CameraControl : MonoBehaviour
             foreach (Transform child in gameManager.GetComponent<PlayerMovement>().SelectedPoly.transform)
             {
                 child.gameObject.layer = (child.gameObject.layer == invisibleSelectedLayer || child.gameObject.layer == invisibleLayer) ? invisibleLayer : ignoreEdgeLayer;
+                DeselectEvent?.Invoke();
             }
         }
 

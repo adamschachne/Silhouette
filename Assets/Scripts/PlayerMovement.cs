@@ -366,10 +366,17 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void BlinkBtn(string actBtn, string rstBtn) {
+
+        moveUpButton.interactable = false;
+        moveDownButton.interactable = false;
+        moveLeftButton.interactable = false;
+        moveRightButton.interactable = false;
+        rotateClockwiseButton.interactable = false;
+        rotateCounterclockwiseButton.interactable = false;
         activeBtn = actBtn;
         ResetBtnColors(rstBtn);
         CancelInvoke();
-        InvokeRepeating("Blink", 2.0f, 0.3f);
+        InvokeRepeating("Blink", 0.1f, 0.5f);
     }
 
     public void ResetBtnColors(string resetBtn) {
@@ -393,17 +400,12 @@ public class PlayerMovement : MonoBehaviour
             case "antiClockwise":
                 rotateCounterclockwiseButton.colors = resetBtnColor;
                 break;
+            default:
+                break;
         }
     }
  
     public void Blink() {
-
-        moveUpButton.interactable = false;
-        moveDownButton.interactable = false;
-        moveLeftButton.interactable = false;
-        moveRightButton.interactable = false;
-        rotateClockwiseButton.interactable = false;
-        rotateCounterclockwiseButton.interactable = false;
 
         if(btnColor.normalColor == normalClr) {
             btnColor.normalColor = highLightedClr;
