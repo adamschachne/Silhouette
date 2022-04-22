@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -328,6 +329,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (numHints > 0 && solutionManager.GetComponent<Hints>().ShowAHint())
         {
+            Debug.Log("here");
             numHints -= 1;
         }
 

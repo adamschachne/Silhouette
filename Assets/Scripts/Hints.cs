@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Hints : MonoBehaviour
 {
+    public bool isTutorial;
     public GameObject[] actualBoxes;
     public GameObject[] hintBoxes;
     private bool[] used;
@@ -19,7 +20,17 @@ public class Hints : MonoBehaviour
             MeshRenderer[] boxRenderers = hintBoxes[i].GetComponentsInChildren<MeshRenderer>();
             foreach (MeshRenderer r in boxRenderers)
             {
-                r.enabled = false;
+                if (!isTutorial)
+                {
+                    r.enabled = false;
+                }
+                else
+                {
+                    if (GameObject.FindGameObjectWithTag("HintUI")!=null)
+                    {
+                        GameObject.FindGameObjectWithTag("HintUI").SetActive(false);
+                    }
+                }
             }
         }
     }

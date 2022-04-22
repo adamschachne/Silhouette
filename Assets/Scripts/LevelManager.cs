@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
 
     [Scene]
     public string[] levels;
+    private const string TUTORIAL_COMPLETE_SCENE_NAME = "TutorialCompleteScene";
     private const string VICTORY_SCENE_NAME = "VictoryScene";
     private const string MAIN_SCENE_NAME = "MainScene";
 
@@ -31,6 +32,11 @@ public class LevelManager : MonoBehaviour
     public void LoadVictoryScene()
     {
         SceneManager.LoadScene(VICTORY_SCENE_NAME, LoadSceneMode.Additive);
+    }
+
+    public void LoadTutorialCompleteScene()
+    {
+        SceneManager.LoadScene(TUTORIAL_COMPLETE_SCENE_NAME, LoadSceneMode.Additive);
     }
 
     public void LoadLevel()
