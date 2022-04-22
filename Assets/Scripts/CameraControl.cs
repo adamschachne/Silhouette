@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System;
 
 public class CameraControl : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class CameraControl : MonoBehaviour
     private const string POLY_TAG = "Poly";
     private bool keyPressed = false;
     private bool mouseDragging = false;
+
+    public static event Action ClickEvent;
 
     private Vector3 dragOrigin;
     private Vector3 initialVector = Vector3.forward;
@@ -48,6 +51,7 @@ public class CameraControl : MonoBehaviour
         foreach (Transform child in poly.transform)
         {
             child.gameObject.layer = (child.gameObject.layer == invisibleSelectedLayer || child.gameObject.layer == invisibleLayer) ? invisibleSelectedLayer : defaultLayer;
+            ClickEvent?.Invoke();
         }
     }
 
