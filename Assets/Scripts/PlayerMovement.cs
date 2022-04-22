@@ -60,6 +60,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    ColorBlock btnColor;
+    ColorBlock resetBtnColor;
+    Color normalClr;
+    Color highLightedClr;
+    Color pressedClr;
+    Color selectedClr;
+    Color disabledClr;
+    string activeBtn;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -90,6 +99,25 @@ public class PlayerMovement : MonoBehaviour
         CheckPossibleMoves();
 
         solutionManager = GameObject.Find("SolutionManager");
+
+        btnColor = moveUpButton.colors;
+        resetBtnColor = moveUpButton.colors;
+        normalClr = new Color(0.8962264f, 0.7789694f, 0.5030705f);
+        highLightedClr = new Color(1.0f, 0.9425556f, 0.8066038f);
+        pressedClr = new Color(0.7830189f, 0.7165362f, 0.5503293f);
+        selectedClr = new Color(0.8980393f, 0.7803922f, 0.5019608f);
+        disabledClr = new Color(0.7843137f, 0.7843137f, 0.7843137f);        
+
+        btnColor.highlightedColor = highLightedClr;
+        btnColor.pressedColor = pressedClr;
+        btnColor.selectedColor = selectedClr;
+        btnColor.disabledColor = disabledClr; 
+
+        resetBtnColor.normalColor = normalClr;
+        resetBtnColor.highlightedColor = highLightedClr;
+        resetBtnColor.pressedColor = pressedClr;
+        resetBtnColor.selectedColor = selectedClr;
+        resetBtnColor.disabledColor = disabledClr; 
     }
 
 
@@ -330,11 +358,85 @@ public class PlayerMovement : MonoBehaviour
         {
             numHints -= 1;
         }
-
     }
 
     public void IncHintsCount()
     {
         numHints++;
+    }
+
+    public void BlinkBtn(string actBtn, string rstBtn) {
+        activeBtn = actBtn;
+        ResetBtnColors(rstBtn);
+        CancelInvoke();
+        InvokeRepeating("Blink", 2.0f, 0.3f);
+    }
+
+    public void ResetBtnColors(string resetBtn) {
+        switch(resetBtn)
+        {
+            case "up":
+                moveUpButton.colors = resetBtnColor;
+                break;
+            case "down":
+                moveDownButton.colors = resetBtnColor;
+                break;
+            case "left":
+                moveLeftButton.colors = resetBtnColor;
+                break;
+            case "right":
+                moveRightButton.colors = resetBtnColor;
+                break;
+            case "clockwise":
+                rotateClockwiseButton.colors = resetBtnColor;
+                break;
+            case "antiClockwise":
+                rotateCounterclockwiseButton.colors = resetBtnColor;
+                break;
+        }
+    }
+ 
+    public void Blink() {
+
+        moveUpButton.interactable = false;
+        moveDownButton.interactable = false;
+        moveLeftButton.interactable = false;
+        moveRightButton.interactable = false;
+        rotateClockwiseButton.interactable = false;
+        rotateCounterclockwiseButton.interactable = false;
+
+        if(btnColor.normalColor == normalClr) {
+            btnColor.normalColor = highLightedClr;
+        }
+        else {
+            btnColor.normalColor = normalClr;
+        }
+        switch(activeBtn)
+        {
+            case "up":
+                moveUpButton.interactable = true;
+                moveUpButton.colors = btnColor;
+                break;
+            case "down":
+                moveDownButton.interactable = true;
+                moveDownButton.colors = btnColor;
+                break;
+            case "left":
+                moveLeftButton.interactable = true;
+                moveLeftButton.colors = btnColor;
+                break;
+            case "right":
+                moveRightButton.interactable = true;
+                moveRightButton.colors = btnColor;
+                break;
+            case "clockwise":
+                rotateClockwiseButton.interactable = true;
+                rotateClockwiseButton.colors = btnColor;
+                break;
+            case "antiClockwise":
+                rotateCounterclockwiseButton.interactable = true;
+                rotateCounterclockwiseButton.colors = btnColor;
+                break;
+        }
     }
 }
