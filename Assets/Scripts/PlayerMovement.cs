@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class PlayerMovement : MonoBehaviour
@@ -20,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isMoving = false;
     private Vector3 oldPos;
     private Vector3 targetPos;
+
+
 
 
     private Vector3Int UP = new Vector3Int(1, 0, 0);
@@ -40,6 +43,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Dictionary<int, GameObject> polyToGhostMap;
     private float timeBetweenMoves = 0;
+    private const string VICTORY_SCENE_NAME = "VictoryScene";
+
+    private bool isVictroySceneLoaded = false;
 
     public static int numHints = 3;
     private GameObject solutionManager;
@@ -47,6 +53,30 @@ public class PlayerMovement : MonoBehaviour
     public System.Action checkForSolution;
 
     public AudioSource Button_Audio;
+    public GameObject[] allPolygons = null;
+
+    private int selectedPolyIndex = -1;
+
+    public int SelectedPolyIndex
+    {
+        get
+        {
+            return selectedPolyIndex;
+        }
+        set
+        {
+            Debug.Log("This is called with value: " + value);
+            selectedPolyIndex = value;
+            if (value < 0)
+            {
+                SelectedPoly = null;
+            }
+            else
+            {
+                SelectedPoly = allPolygons[value];
+            }
+        }
+    }
 
     public GameObject SelectedPoly
     {
@@ -62,14 +92,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+
     // Start is called before the first frame update
     void Start()
     {
         Button_Audio = GameObject.FindGameObjectWithTag("Button_Audio").GetComponent<AudioSource>();
 
         polyToGhostMap = new Dictionary<int, GameObject>();
-        var polys = GameObject.FindGameObjectsWithTag(POLY_TAG);
-        foreach (var poly in polys)
+        allPolygons = GameObject.FindGameObjectsWithTag(POLY_TAG);
+
+        Debug.Log("The amount of polys is: " + allPolygons.Length);
+        foreach (var poly in allPolygons)
         {
             var ghostPoly = Instantiate(poly);
             ghostPoly.tag = GHOST_POLY_TAG;
@@ -101,35 +135,70 @@ public class PlayerMovement : MonoBehaviour
     {
         timeBetweenMoves += Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.W) && CanMove(UP))
+        if (!isVictroySceneLoaded)
         {
-            MoveBoxUp();
-        }
-        if (Input.GetKey(KeyCode.A) && CanMove(LEFT))
-        {
-            MoveBoxLeft();
-        }
-        if (Input.GetKey(KeyCode.S) && CanMove(DOWN))
-        {
-            MoveBoxDown();
-        }
-        if (Input.GetKey(KeyCode.D) && CanMove(RIGHT))
-        {
-            MoveBoxRight();
-        }
 
-        if (Input.GetKey(KeyCode.Q) && CanRotate(COUNTERCLOCKWISE))
-        {
-            CounterClockwiseRotate();
-        }
-        if (Input.GetKey(KeyCode.E) && CanRotate(CLOCKWISE))
-        {
-            ClockwiseRotate();
+            if (Input.GetKey(KeyCode.W) && CanMove(UP))
+            {
+                MoveBoxUp();
+
+            }
+            if (Input.GetKey(KeyCode.A) && CanMove(LEFT))
+            {
+                MoveBoxLeft();
+
+            }
+            if (Input.GetKey(KeyCode.S) && CanMove(DOWN))
+            {
+                MoveBoxDown();
+
+            }
+            if (Input.GetKey(KeyCode.D) && CanMove(RIGHT))
+            {
+                MoveBoxRight();
+
+            }
+
+            if (Input.GetKey(KeyCode.Q) && CanRotate(COUNTERCLOCKWISE))
+            {
+                CounterClockwiseRotate();
+
+            }
+            if (Input.GetKey(KeyCode.E) && CanRotate(CLOCKWISE))
+            {
+                ClockwiseRotate();
+            }
+
         }
 
 
 
         hintsCountText.text = "Hints Left: " + numHints;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode _)
+    {
+        if (scene.name == VICTORY_SCENE_NAME)
+        {
+            isVictroySceneLoaded = true;
+        }
+
+    }
+
+    void OnSceneUnloaded(Scene scene)
+    {
+        if (scene.name == VICTORY_SCENE_NAME)
+        {
+            isVictroySceneLoaded = false;
+        }
+
+    }
+
+    void OnEnable()
+    {
+        Debug.Log("OnEnable called");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
 
