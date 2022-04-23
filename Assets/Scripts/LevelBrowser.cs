@@ -18,6 +18,7 @@ public class LevelBrowser : MonoBehaviour
             int levelNumber = i;
             GameObject newButton = Instantiate(buttonPrefab, buttonParent.transform);
     
+    /*
             if (i <= 2) {
                 
                 string textForBtn = "Tutorial " + (i+1).ToString();
@@ -25,12 +26,13 @@ public class LevelBrowser : MonoBehaviour
                 newButton.GetComponent<LevelButton>().levelText.text = textForBtn;
                 Debug.Log(newButton.GetComponent<LevelButton>().levelText.text + " " + i);
             }
-            else {
-                string textForBtn = "Level " + (i-2).ToString();
+            */
+            
+            string textForBtn = "Level " + (i-2).ToString();
 
-                newButton.GetComponent<LevelButton>().levelText.text = textForBtn;
-                Debug.Log(newButton.GetComponent<LevelButton>().levelText.text + " " + i);
-            }
+            newButton.GetComponent<LevelButton>().levelText.text = textForBtn;
+            Debug.Log(newButton.GetComponent<LevelButton>().levelText.text + " " + i);
+            
             newButton.GetComponent<Button>().onClick.AddListener(() => {
                 Debug.Log("Current level " + levelNumber);
                 PlayerData.CurrentLevel = levelNumber;
