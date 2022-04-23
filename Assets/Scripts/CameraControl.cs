@@ -197,6 +197,7 @@ public class CameraControl : MonoBehaviour
     {
         if (scene.name == VICTORY_SCENE_NAME)
         {
+            DeselectAllPolys();
             isVictroySceneLoaded = true;
         }
 
