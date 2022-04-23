@@ -216,6 +216,7 @@ public class PlayerMovement : MonoBehaviour
         isMoving = false;
         CheckPossibleMoves();
         checkForSolution?.Invoke();
+        Button_Audio.Play();
     }
 
     /******* Rotate *******/
@@ -239,6 +240,7 @@ public class PlayerMovement : MonoBehaviour
         isMoving = false;
         CheckPossibleMoves();
         checkForSolution?.Invoke();
+        Button_Audio.Play();
     }
 
 
