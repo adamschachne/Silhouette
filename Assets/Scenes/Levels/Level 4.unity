@@ -1999,7 +1999,7 @@ GameObject:
   - component: {fileID: 527329276}
   m_Layer: 3
   m_Name: HintBox2
-  m_TagString: Poly
+  m_TagString: HintBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8804,7 +8804,7 @@ GameObject:
   - component: {fileID: 1946741385}
   m_Layer: 3
   m_Name: HintBox1
-  m_TagString: Poly
+  m_TagString: HintBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
