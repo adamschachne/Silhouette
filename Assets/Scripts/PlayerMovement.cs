@@ -46,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
 
     public System.Action checkForSolution;
 
+    public AudioSource Button_Audio;
+
     public GameObject SelectedPoly
     {
         get
@@ -63,6 +65,8 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Button_Audio = GameObject.FindGameObjectWithTag("Button_Audio").GetComponent<AudioSource>();
+
         polyToGhostMap = new Dictionary<int, GameObject>();
         var polys = GameObject.FindGameObjectsWithTag(POLY_TAG);
         foreach (var poly in polys)
@@ -100,32 +104,34 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.W) && CanMove(UP))
         {
             MoveBoxUp();
+            Button_Audio.Play();
 
         }
         if (Input.GetKey(KeyCode.A) && CanMove(LEFT))
         {
             MoveBoxLeft();
-
+            Button_Audio.Play();
         }
         if (Input.GetKey(KeyCode.S) && CanMove(DOWN))
         {
             MoveBoxDown();
-
+            Button_Audio.Play();
         }
         if (Input.GetKey(KeyCode.D) && CanMove(RIGHT))
         {
             MoveBoxRight();
-
+            Button_Audio.Play();
         }
 
         if (Input.GetKey(KeyCode.Q) && CanRotate(COUNTERCLOCKWISE))
         {
             CounterClockwiseRotate();
-
+            Button_Audio.Play();
         }
         if (Input.GetKey(KeyCode.E) && CanRotate(CLOCKWISE))
         {
             ClockwiseRotate();
+            Button_Audio.Play();
         }
 
 

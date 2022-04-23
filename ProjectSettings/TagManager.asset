@@ -17,6 +17,7 @@ TagManager:
   - BlueBox
   - RedBox
   - HintBox
+  - Button_Audio
   layers:
   - Default
   - TransparentFX
