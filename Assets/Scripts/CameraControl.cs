@@ -38,8 +38,9 @@ public class CameraControl : MonoBehaviour
             foreach (Transform child in gameManager.GetComponent<PlayerMovement>().SelectedPoly.transform)
             {
                 child.gameObject.layer = (child.gameObject.layer == invisibleSelectedLayer || child.gameObject.layer == invisibleLayer) ? invisibleLayer : ignoreEdgeLayer;
-                DeselectEvent?.Invoke();
+                
             }
+            DeselectEvent?.Invoke();
         }
 
         gameManager.GetComponent<PlayerMovement>().SelectedPoly = null;
@@ -53,8 +54,9 @@ public class CameraControl : MonoBehaviour
         foreach (Transform child in poly.transform)
         {
             child.gameObject.layer = (child.gameObject.layer == invisibleSelectedLayer || child.gameObject.layer == invisibleLayer) ? invisibleSelectedLayer : defaultLayer;
-            ClickEvent?.Invoke();
+            
         }
+        ClickEvent?.Invoke();
     }
 
     void Awake()

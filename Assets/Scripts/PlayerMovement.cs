@@ -5,13 +5,15 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
     public static readonly string POLY_TAG = "Poly";
     public static readonly string GHOST_POLY_TAG = "GhostPoly";
     public static readonly string GHOST_BOX_TAG = "GhostBox";
-
+    
+    public static event Action ButtonClickEvent;
     private GameObject selectedPoly = null;
     public Tilemap tileMap = null;
     public const float timeToMove = 0.2f;
@@ -183,6 +185,8 @@ public class PlayerMovement : MonoBehaviour
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(MoveBox(UP));
+            Debug.Log("MOVE UP");
+            // ButtonClickEvent?.Invoke();
         }
     }
 
@@ -193,6 +197,8 @@ public class PlayerMovement : MonoBehaviour
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(MoveBox(DOWN));
+            Debug.Log("MOVE DOWN");
+            // ButtonClickEvent?.Invoke();
         }
     }
 
@@ -203,6 +209,8 @@ public class PlayerMovement : MonoBehaviour
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(MoveBox(LEFT));
+            Debug.Log("MOVE LEFT");
+            // ButtonClickEvent?.Invoke();
         }
     }
 
@@ -213,6 +221,8 @@ public class PlayerMovement : MonoBehaviour
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(MoveBox(RIGHT));
+            Debug.Log("MOVE RIGHT");
+            ButtonClickEvent?.Invoke();
         }
     }
 
@@ -271,6 +281,8 @@ public class PlayerMovement : MonoBehaviour
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(RotateBox(CLOCKWISE));
+            Debug.Log("MOVE CLOCKWISE");
+            // ButtonClickEvent?.Invoke();
         }
     }
 
@@ -281,6 +293,8 @@ public class PlayerMovement : MonoBehaviour
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(RotateBox(COUNTERCLOCKWISE));
+            Debug.Log("MOVE ANTICLOCKWISE");
+            // ButtonClickEvent?.Invoke();
         }
     }
 
@@ -367,12 +381,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void BlinkBtn(string actBtn, string rstBtn) {
 
-        moveUpButton.interactable = false;
-        moveDownButton.interactable = false;
-        moveLeftButton.interactable = false;
-        moveRightButton.interactable = false;
-        rotateClockwiseButton.interactable = false;
-        rotateCounterclockwiseButton.interactable = false;
         activeBtn = actBtn;
         ResetBtnColors(rstBtn);
         CancelInvoke();
@@ -417,7 +425,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void Blink() {
-
+        moveUpButton.interactable = false;
+        moveDownButton.interactable = false;
+        moveLeftButton.interactable = false;
+        moveRightButton.interactable = false;
+        rotateClockwiseButton.interactable = false;
+        rotateCounterclockwiseButton.interactable = false;
         if(btnColor.normalColor == normalClr) {
             btnColor.normalColor = highLightedClr;
         }
