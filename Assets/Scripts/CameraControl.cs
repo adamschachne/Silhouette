@@ -36,7 +36,7 @@ public class CameraControl : MonoBehaviour
                 child.gameObject.layer = (child.gameObject.layer == invisibleSelectedLayer || child.gameObject.layer == invisibleLayer) ? invisibleLayer : ignoreEdgeLayer;
             }
         }
-        
+
         gameManager.GetComponent<PlayerMovement>().SelectedPoly = null;
     }
 
@@ -102,16 +102,16 @@ public class CameraControl : MonoBehaviour
         }
 
         float rotateDegrees = 0f;
-        
+
         // Pressing A or LeftArrow -> Rotate the camera left
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             rotateDegrees += ROTATE_SPEED * Time.deltaTime;
             keyPressed = true;
         }
 
         // Pressing D or RightArrow -> Rotate the camera right
-        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.RightArrow))
         {
             rotateDegrees -= ROTATE_SPEED * Time.deltaTime;
             keyPressed = true;
@@ -123,7 +123,8 @@ public class CameraControl : MonoBehaviour
         }
 
         // Rotate the camera if key is pressed or mouse0 is down
-        if (board.transform != null && (keyPressed || mouseDragging)) {
+        if (board.transform != null && (keyPressed || mouseDragging))
+        {
 
             if (mouseDragging)
             {
@@ -135,7 +136,7 @@ public class CameraControl : MonoBehaviour
             // rotates the Camera & UI buttons
             Vector3 currentVector = transform.position - board.transform.position;
             currentVector.y = 0;
-            float angleBetween = Vector3.Angle(initialVector, currentVector) * (Vector3.Cross(initialVector, currentVector).y > 0 ? 1 : -1);            
+            float angleBetween = Vector3.Angle(initialVector, currentVector) * (Vector3.Cross(initialVector, currentVector).y > 0 ? 1 : -1);
             float newAngle = Mathf.Clamp(angleBetween + rotateDegrees, -angleMax, angleMax);
             rotateDegrees = newAngle - angleBetween;
             PlayerData.DegreesCameraRotated += Mathf.Abs(rotateDegrees);
