@@ -104,34 +104,27 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.W) && CanMove(UP))
         {
             MoveBoxUp();
-            Button_Audio.Play();
-
         }
         if (Input.GetKey(KeyCode.A) && CanMove(LEFT))
         {
             MoveBoxLeft();
-            Button_Audio.Play();
         }
         if (Input.GetKey(KeyCode.S) && CanMove(DOWN))
         {
             MoveBoxDown();
-            Button_Audio.Play();
         }
         if (Input.GetKey(KeyCode.D) && CanMove(RIGHT))
         {
             MoveBoxRight();
-            Button_Audio.Play();
         }
 
         if (Input.GetKey(KeyCode.Q) && CanRotate(COUNTERCLOCKWISE))
         {
             CounterClockwiseRotate();
-            Button_Audio.Play();
         }
         if (Input.GetKey(KeyCode.E) && CanRotate(CLOCKWISE))
         {
             ClockwiseRotate();
-            Button_Audio.Play();
         }
 
 
