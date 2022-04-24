@@ -111,7 +111,7 @@ public class CameraControl : MonoBehaviour
             initialVector = transform.position - board.transform.position;
             initialVector.y = 0;
         }
-
+        diableBtn = false;
         StartCoroutine(FixEdges());
     }
 
