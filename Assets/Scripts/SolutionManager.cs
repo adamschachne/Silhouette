@@ -62,6 +62,7 @@ public class SolutionManager : MonoBehaviour
         }
     }
 
+    // Invoked at PlayerMovement.RotateBox and PlayerMovement.MoveBox 
     public IEnumerator CheckSolution()
     {
         yield return new WaitForFixedUpdate();
