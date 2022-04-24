@@ -26,7 +26,7 @@ public class CameraControl : MonoBehaviour
     private bool keyPressed = false;
     private bool mouseDragging = false;
     private const string VICTORY_SCENE_NAME = "VictoryScene";
-    private bool isVictroySceneLoaded = false;
+    private bool @is = false;
 
     public static event Action ClickEvent;
     public static event Action DeselectEvent;
@@ -149,7 +149,9 @@ public class CameraControl : MonoBehaviour
             return;
         }
 
-        if (!isVictroySceneLoaded && !diableBtn)
+        var isMoving = gameManager.GetComponent<PlayerMovement>().IsMoving;
+
+        if (!isMoving && !@is && !diableBtn)
         {
 
             if (Input.GetKeyDown(KeyCode.Tab) && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
@@ -212,7 +214,7 @@ public class CameraControl : MonoBehaviour
         if (scene.name == VICTORY_SCENE_NAME)
         {
             DeselectAllPolys();
-            isVictroySceneLoaded = true;
+            @is = true;
         }
 
     }
@@ -221,7 +223,7 @@ public class CameraControl : MonoBehaviour
     {
         if (scene.name == VICTORY_SCENE_NAME)
         {
-            isVictroySceneLoaded = false;
+            @is = false;
         }
 
     }
@@ -233,5 +235,9 @@ public class CameraControl : MonoBehaviour
         SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
-
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+    }
 }

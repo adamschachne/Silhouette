@@ -25,8 +25,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 targetPos;
 
 
-
-
     private Vector3Int UP = new Vector3Int(1, 0, 0);
     private Vector3Int DOWN = new Vector3Int(-1, 0, 0);
     private Vector3Int LEFT = new Vector3Int(0, 0, 1);
@@ -52,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
     private float timeBetweenMoves = 0;
     private const string VICTORY_SCENE_NAME = "VictoryScene";
 
-    private bool isVictroySceneLoaded = false;
+    private bool isVictorySceneLoaded = false;
 
     public static int numHints = 3;
     private GameObject solutionManager;
@@ -62,6 +60,14 @@ public class PlayerMovement : MonoBehaviour
     public GameObject[] allPolygons = null;
 
     private int selectedPolyIndex = -1;
+
+    public bool IsMoving
+    {
+        get
+        {
+            return isMoving;
+        }
+    }
 
     public int SelectedPolyIndex
     {
@@ -167,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
     {
         timeBetweenMoves += Time.deltaTime;
 
-        if (!isVictroySceneLoaded)
+        if (!isVictorySceneLoaded)
         {
             if (Input.GetKey(KeyCode.W) && CanMove(UP))
             {
@@ -201,8 +207,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-
-
         hintsCountText.text = "Hints Left: " + numHints;
     }
 
@@ -210,7 +214,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (scene.name == VICTORY_SCENE_NAME)
         {
-            isVictroySceneLoaded = true;
+            isVictorySceneLoaded = true;
         }
 
     }
@@ -219,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (scene.name == VICTORY_SCENE_NAME)
         {
-            isVictroySceneLoaded = false;
+            isVictorySceneLoaded = false;
         }
 
     }
@@ -237,6 +241,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetAllowMovement(Vector3Int nextAllowedKey) {
         allowMovement = nextAllowedKey;
+    }
+    
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
     public void SetEnableTutorial(bool enable) {
@@ -264,6 +274,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null)
         {
+            Debug.LogFormat("Moving");
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(MoveBox(UP));
@@ -352,7 +363,6 @@ public class PlayerMovement : MonoBehaviour
         CheckPossibleMoves();
         checkForSolution?.Invoke();
     }
-
 
     public void ClockwiseRotate()
     {
