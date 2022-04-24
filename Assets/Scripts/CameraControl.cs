@@ -135,7 +135,9 @@ public class CameraControl : MonoBehaviour
             return;
         }
 
-        if (!isVictroySceneLoaded)
+        var isMoving = gameManager.GetComponent<PlayerMovement>().IsMoving;
+
+        if (!isMoving && !isVictroySceneLoaded)
         {
 
             if (Input.GetKeyDown(KeyCode.Tab) && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
