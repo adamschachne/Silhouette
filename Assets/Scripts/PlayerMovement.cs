@@ -40,6 +40,10 @@ public class PlayerMovement : MonoBehaviour
     public Button rotateCounterclockwiseButton;
     public TextMeshProUGUI hintsCountText;
 
+// Used in tutorial level to allow specific button to be enabled
+    private Vector3Int allowMovement;
+    private bool enableTutorial;
+    private Vector3 allowRotate;
     private Dictionary<int, GameObject> polyToGhostMap;
     private float timeBetweenMoves = 0;
 
@@ -74,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        enableTutorial = false;
         polyToGhostMap = new Dictionary<int, GameObject>();
         var polys = GameObject.FindGameObjectsWithTag(POLY_TAG);
         foreach (var poly in polys)
@@ -163,7 +168,17 @@ public class PlayerMovement : MonoBehaviour
         hintsCountText.text = "Hints Left: " + numHints;
     }
 
+    public void setAllowMovement(Vector3Int key) {
+        allowMovement = key;
+    }
 
+    public void setEnableTutorial(bool val) {
+        enableTutorial = val;
+    }
+    
+    public void setAllowRotate(Vector3 nxt) {
+        allowRotate = nxt;
+    }
     /******* Move *******/
 
     // Computed once after a move or rotate
@@ -222,12 +237,13 @@ public class PlayerMovement : MonoBehaviour
             timeBetweenMoves = 0;
             StartCoroutine(MoveBox(RIGHT));
             Debug.Log("MOVE RIGHT");
-            ButtonClickEvent?.Invoke();
+            // ButtonClickEvent?.Invoke();
         }
     }
 
     private IEnumerator MoveBox(Vector3Int dir)
     {
+        ButtonClickEvent?.Invoke();
         isMoving = true;
         PlayerData.NumberOfMoves += 1;
 
@@ -254,6 +270,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator RotateBox(Vector3 dir)
     {
+        ButtonClickEvent?.Invoke();
         isMoving = true;
         PlayerData.NumberOfRotations += 1;
 
@@ -342,7 +359,7 @@ public class PlayerMovement : MonoBehaviour
         var targetPos = selectedPoly.transform.position + dir * gridSize;
         ghostPoly.transform.position = targetPos;
 
-        return !IsCubeColliding(ghostPoly.transform);
+        return !IsCubeColliding(ghostPoly.transform) && (allowMovement == dir || !enableTutorial);
     }
 
     private bool CanRotate(Vector3 dir)
@@ -361,7 +378,7 @@ public class PlayerMovement : MonoBehaviour
         Quaternion targetRotation = selectedPoly.transform.rotation * Quaternion.Euler(dir);
         ghostPoly.transform.rotation = targetRotation;
 
-        return !IsCubeColliding(ghostPoly.transform);
+        return !IsCubeColliding(ghostPoly.transform) && (allowRotate == dir || !enableTutorial);
     }
 
 
@@ -384,7 +401,7 @@ public class PlayerMovement : MonoBehaviour
         activeBtn = actBtn;
         ResetBtnColors(rstBtn);
         CancelInvoke();
-        InvokeRepeating("Blink", 0.1f, 0.5f);
+        InvokeRepeating("Blink", 0.0f, 0.5f);
     }
 
     public void ResetBtnColors(string resetBtn) {

@@ -12,7 +12,7 @@ public class PopupMessage : MonoBehaviour
 
     void Start()
     {
-        popUpBox.SetActive(false);
+        // popUpBox.SetActive(false);
     }
 
     public void popUp()
