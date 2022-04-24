@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -41,7 +42,6 @@ public class PlayerMovement : MonoBehaviour
 
     private Dictionary<int, GameObject> polyToGhostMap;
     private float timeBetweenMoves = 0;
-    private const string VICTORY_SCENE_NAME = "VictoryScene";
 
     private bool isVictorySceneLoaded = false;
 
@@ -177,7 +177,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode _)
     {
-        if (scene.name == VICTORY_SCENE_NAME)
+        if (scene.name == LevelManager.VICTORY_SCENE_NAME || scene.name == LevelManager.TUTORIAL_COMPLETE_SCENE_NAME)
         {
             isVictorySceneLoaded = true;
         }
@@ -186,7 +186,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnSceneUnloaded(Scene scene)
     {
-        if (scene.name == VICTORY_SCENE_NAME)
+        if (scene.name == LevelManager.VICTORY_SCENE_NAME || scene.name == LevelManager.TUTORIAL_COMPLETE_SCENE_NAME)
         {
             isVictorySceneLoaded = false;
         }
@@ -273,6 +273,11 @@ public class PlayerMovement : MonoBehaviour
 
         while (elapsedTime < timeToMove)
         {
+            // sometimes happens if a move starts as the scene is ending
+            if (selectedPoly == null)
+            {
+                yield break;
+            }
             selectedPoly.transform.position = Vector3.Lerp(oldPos, targetPos, (elapsedTime / timeToMove));
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -298,6 +303,11 @@ public class PlayerMovement : MonoBehaviour
         Quaternion targetRotation = selectedPoly.transform.rotation * Quaternion.Euler(dir);
         while (elapsedTime < timeToMove)
         {
+            // sometimes happens if a move starts as the scene is ending
+            if (selectedPoly == null)
+            {
+                yield break;
+            }
             selectedPoly.transform.rotation = Quaternion.Slerp(startRotation, targetRotation, elapsedTime / timeToMove);
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -400,6 +410,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (numHints > 0 && solutionManager.GetComponent<Hints>().ShowAHint())
         {
+            Debug.Log("here");
             numHints -= 1;
         }
     }
