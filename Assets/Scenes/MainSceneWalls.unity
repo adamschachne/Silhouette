@@ -5011,18 +5011,6 @@ MonoBehaviour:
   arrowKeys: {fileID: 515968573}
   ROTATE_SPEED_DRAG: 50
   angleMax: 43
---- !u!114 &1688692681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688692678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eed1d9cbe64423499f1fefc0ce50417, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1740884607
 GameObject:
   m_ObjectHideFlags: 0
@@ -5788,6 +5776,7 @@ MonoBehaviour:
   rotateClockwiseButton: {fileID: 1278603735}
   rotateCounterclockwiseButton: {fileID: 880996563}
   hintsCountText: {fileID: 845251159}
+  allPolygons: []
 --- !u!4 &1916594639
 Transform:
   m_ObjectHideFlags: 0
@@ -5856,6 +5845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popUpBox: {fileID: 778817534}
+  timer: {fileID: 0}
 --- !u!1 &2036517192
 GameObject:
   m_ObjectHideFlags: 0
