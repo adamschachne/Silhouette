@@ -215,6 +215,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null)
         {
+            Debug.LogFormat("Moving");
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(MoveBox(UP));
