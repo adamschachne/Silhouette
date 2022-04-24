@@ -42,7 +42,7 @@ public class CameraControl : MonoBehaviour
             foreach (Transform child in gameManager.GetComponent<PlayerMovement>().SelectedPoly.transform)
             {
                 child.gameObject.layer = (child.gameObject.layer == invisibleSelectedLayer || child.gameObject.layer == invisibleLayer) ? invisibleLayer : ignoreEdgeLayer;
-                
+
             }
             DeselectEvent?.Invoke();
         }
@@ -60,7 +60,7 @@ public class CameraControl : MonoBehaviour
         foreach (Transform child in poly.transform)
         {
             child.gameObject.layer = (child.gameObject.layer == invisibleSelectedLayer || child.gameObject.layer == invisibleLayer) ? invisibleSelectedLayer : defaultLayer;
-            
+
         }
         ClickEvent?.Invoke();
     }
@@ -120,7 +120,8 @@ public class CameraControl : MonoBehaviour
         GetComponent<EdgeDetect>().normalsSensitivity = 1f;
     }
 
-    public static void DisableBtns() {
+    public static void DisableBtns()
+    {
         disableBtn = true;
     }
 
@@ -129,7 +130,7 @@ public class CameraControl : MonoBehaviour
     {
         var isMoving = gameManager.GetComponent<PlayerMovement>().IsMoving;
 
-        if (!isMoving && !isVictorySceneLoaded && !disableBtn)
+        if (!isMoving && !isVictorySceneLoaded)
         {
 
             // Pressing mouse 1 AND not pressing the buttons
@@ -152,15 +153,19 @@ public class CameraControl : MonoBehaviour
                 mouseDragging = true;
                 return;
             }
-        
-            if (Input.GetKeyDown(KeyCode.Tab) && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
-            {
-                SelectPoly(1);
-            }
 
-            if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.Tab))
+            if (!disableBtn)
             {
-                SelectPoly(-1);
+
+                if (Input.GetKeyDown(KeyCode.Tab) && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
+                {
+                    SelectPoly(1);
+                }
+
+                if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.Tab))
+                {
+                    SelectPoly(-1);
+                }
             }
         }
 
