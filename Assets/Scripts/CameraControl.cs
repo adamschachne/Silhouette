@@ -25,8 +25,7 @@ public class CameraControl : MonoBehaviour
     private const string POLY_TAG = "Poly";
     private bool keyPressed = false;
     private bool mouseDragging = false;
-    private const string VICTORY_SCENE_NAME = "VictoryScene";
-    private bool @is = false;
+    private bool isVictorySceneLoaded = false;
 
     public static event Action ClickEvent;
     public static event Action DeselectEvent;
@@ -151,7 +150,7 @@ public class CameraControl : MonoBehaviour
 
         var isMoving = gameManager.GetComponent<PlayerMovement>().IsMoving;
 
-        if (!isMoving && !@is && !diableBtn)
+        if (!isMoving && !isVictorySceneLoaded && !diableBtn)
         {
 
             if (Input.GetKeyDown(KeyCode.Tab) && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
@@ -211,19 +210,19 @@ public class CameraControl : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode _)
     {
-        if (scene.name == VICTORY_SCENE_NAME)
+        if (scene.name == LevelManager.VICTORY_SCENE_NAME || scene.name == LevelManager.TUTORIAL_COMPLETE_SCENE_NAME)
         {
             DeselectAllPolys();
-            @is = true;
+            isVictorySceneLoaded = true;
         }
 
     }
 
     void OnSceneUnloaded(Scene scene)
     {
-        if (scene.name == VICTORY_SCENE_NAME)
+        if (scene.name == LevelManager.VICTORY_SCENE_NAME || scene.name == LevelManager.TUTORIAL_COMPLETE_SCENE_NAME)
         {
-            @is = false;
+            isVictorySceneLoaded = false;
         }
 
     }

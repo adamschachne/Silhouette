@@ -17,6 +17,7 @@ TagManager:
   - BlueBox
   - RedBox
   - HintBox
+  - HintUI
   layers:
   - Default
   - TransparentFX
