@@ -38,7 +38,7 @@ public class Tutorial : MonoBehaviour
         dialogBox.popUpWithMsg("Click on the block to select it!");
         playerMovement.SetEnableTutorial(true);
         playerMovement.DisableResetButton();
-        CameraControl.DisableBtns();
+        CameraControl.EnableTutorial();
         initializeSteps(); 
     }
 
@@ -90,7 +90,7 @@ public class Tutorial : MonoBehaviour
         var pos = sayDialog.localPosition;
         sayDialog.localPosition = vectorPos;
     }
-    
+
     private void onDisable() {
         CameraControl.ClickEvent -= ClickBlockEvent;
         CameraControl.DeselectEvent -= Deselect;

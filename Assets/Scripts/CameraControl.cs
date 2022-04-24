@@ -33,7 +33,7 @@ public class CameraControl : MonoBehaviour
     private Vector3 dragOrigin;
     private Vector3 initialVector = Vector3.forward;
 
-    public static bool disableBtn = false;
+    public static bool isTutorial = false;
 
     private void DeselectAllPolys()
     {
@@ -110,7 +110,7 @@ public class CameraControl : MonoBehaviour
             initialVector = transform.position - board.transform.position;
             initialVector.y = 0;
         }
-        disableBtn = false;
+        isTutorial = false;
         StartCoroutine(FixEdges());
     }
 
@@ -120,8 +120,8 @@ public class CameraControl : MonoBehaviour
         GetComponent<EdgeDetect>().normalsSensitivity = 1f;
     }
 
-    public static void DisableBtns() {
-        disableBtn = true;
+    public static void EnableTutorial() {
+        isTutorial = true;
     }
 
     // Update is called once per frame
@@ -129,7 +129,7 @@ public class CameraControl : MonoBehaviour
     {
         var isMoving = gameManager.GetComponent<PlayerMovement>().IsMoving;
 
-        if (!isMoving && !isVictorySceneLoaded && !disableBtn)
+        if (!isMoving && !isVictorySceneLoaded)
         {
 
             // Pressing mouse 1 AND not pressing the buttons
@@ -144,7 +144,7 @@ public class CameraControl : MonoBehaviour
                     System.Array.Sort(hits, (hit1, hit2) => hit1.distance < hit2.distance ? -1 : 1);
                     SelectPoly(hits[0].transform.parent.gameObject);
                 }
-                else // Clicked on nothing -> Deselect selected box
+                else if(!isTutorial)// Clicked on nothing -> Deselect selected box
                 {
                     DeselectAllPolys();
                 }
@@ -153,12 +153,12 @@ public class CameraControl : MonoBehaviour
                 return;
             }
         
-            if (Input.GetKeyDown(KeyCode.Tab) && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
+            if (Input.GetKeyDown(KeyCode.Tab) && !isTutorial && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
             {
                 SelectPoly(1);
             }
 
-            if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.Tab))
+            if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.Tab) && !isTutorial)
             {
                 SelectPoly(-1);
             }
