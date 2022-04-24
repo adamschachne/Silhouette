@@ -34,6 +34,8 @@ public class CameraControl : MonoBehaviour
     private Vector3 dragOrigin;
     private Vector3 initialVector = Vector3.forward;
 
+    public static bool diableBtn = false;
+
     private void DeselectAllPolys()
     {
         if (gameManager.GetComponent<PlayerMovement>().SelectedPolyIndex >= 0)
@@ -119,6 +121,10 @@ public class CameraControl : MonoBehaviour
         GetComponent<EdgeDetect>().normalsSensitivity = 1f;
     }
 
+    public static void DisableBtns() {
+        diableBtn = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -143,7 +149,7 @@ public class CameraControl : MonoBehaviour
             return;
         }
 
-        if (!isVictroySceneLoaded)
+        if (!isVictroySceneLoaded && !diableBtn)
         {
 
             if (Input.GetKeyDown(KeyCode.Tab) && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))

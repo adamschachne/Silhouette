@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     public Button moveRightButton;
     public Button rotateClockwiseButton;
     public Button rotateCounterclockwiseButton;
+    public Button resetButton;
     public TextMeshProUGUI hintsCountText;
 
 // Used in tutorial level to allow specific button to be enabled
@@ -230,15 +231,19 @@ public class PlayerMovement : MonoBehaviour
         SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
-    public void setAllowMovement(Vector3Int key) {
-        allowMovement = key;
+    public void DisableResetButton(){
+        resetButton.interactable = false;
     }
 
-    public void setEnableTutorial(bool val) {
-        enableTutorial = val;
+    public void SetAllowMovement(Vector3Int nextAllowedKey) {
+        allowMovement = nextAllowedKey;
+    }
+
+    public void SetEnableTutorial(bool enable) {
+        enableTutorial = enable;
     }
     
-    public void setAllowRotate(Vector3 nextAllowedRotation) {
+    public void SetAllowRotate(Vector3 nextAllowedRotation) {
         allowRotate = nextAllowedRotation;
     }
     /******* Move *******/

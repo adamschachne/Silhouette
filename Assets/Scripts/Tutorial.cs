@@ -21,33 +21,36 @@ public class Tutorial : MonoBehaviour
 
     private Vector3 CLOCKWISE = 90 * Vector3.up;
     private Vector3 COUNTERCLOCKWISE = -90 * Vector3.up;
-   private Vector3 NOROTATE = 0 * Vector3.up;
+    private Vector3 NOROTATE = 0 * Vector3.up;
+
     void Start()
     {
         CameraControl.ClickEvent += ClickBlockEvent;
         CameraControl.DeselectEvent += Deselect;
-        PlayerMovement.ButtonClickEvent += displayEvent;
+        PlayerMovement.ButtonClickEvent += DisplayEvent;
         Debug.Log("Tutorial start");
         playerMovement = GameObject.Find("GameManager").GetComponent<PlayerMovement>();
-        // GameObject resetBtn = GameObject.Find("Reset").GetComponent<PlayerMovement>();
         dialogBox = GameObject.Find("SolutionManager").GetComponent<PopupMessage>();
         
         if(dialogBox == null) {
            Debug.Log("Inside null"); 
         }
         dialogBox.popUpWithMsg("Click on the block to select it!");
-        playerMovement.setEnableTutorial(true);
+        playerMovement.SetEnableTutorial(true);
+        playerMovement.DisableResetButton();
+        CameraControl.DisableBtns();
         initializeSteps(); 
     }
+
     void OnDestroy() {
         CameraControl.ClickEvent -= ClickBlockEvent;
         CameraControl.DeselectEvent -= Deselect;
-        PlayerMovement.ButtonClickEvent -= displayEvent;        
+        PlayerMovement.ButtonClickEvent -= DisplayEvent;        
     }
+
     private void ClickBlockEvent() {
         if(stepCount == 0){
-            Debug.Log("CLICK EVENT");
-            displayEvent();
+            DisplayEvent();
         }
     }
 
@@ -62,13 +65,10 @@ public class Tutorial : MonoBehaviour
         
     }
 
-    void displayEvent() {
+    void DisplayEvent() {
         if(stepCount >= NUM_STEPS) {
             return;
         }
-        Debug.Log("Display Event");
-        Debug.Log("Step count ");
-        Debug.Log(stepCount);
         string btn = steps[stepCount].getButtonName();
         string msg =steps[stepCount].getMessage(); 
         Vector3 pos= steps[stepCount].getPanelPos();
@@ -76,8 +76,8 @@ public class Tutorial : MonoBehaviour
         Vector3 nxtRBtn = steps[stepCount].getNextRBtn();
         Debug.Log(msg);
         playerMovement.BlinkBtn(btn, "none");
-        playerMovement.setAllowMovement(nxtBtn);
-        playerMovement.setAllowRotate(nxtRBtn);
+        playerMovement.SetAllowMovement(nxtBtn);
+        playerMovement.SetAllowRotate(nxtRBtn);
         dialogBox.closePopUp();
         dialogBox.popUpWithMsg(msg);
         MoveSayDialog(pos);
@@ -90,10 +90,11 @@ public class Tutorial : MonoBehaviour
         var pos = sayDialog.localPosition;
         sayDialog.localPosition = vectorPos;
     }
+    
     private void onDisable() {
         CameraControl.ClickEvent -= ClickBlockEvent;
         CameraControl.DeselectEvent -= Deselect;
-        PlayerMovement.ButtonClickEvent -= displayEvent;
+        PlayerMovement.ButtonClickEvent -= DisplayEvent;
     }
 
     private void initializeSteps() {
@@ -122,10 +123,6 @@ public class TutorialStepInfo {
         nextBtn = nxt;
         nextRotateBtn = nxtR;
     }
-    // public setValues(string msg, string btn) {
-    //     buttonName = btn;
-    //     message = msg;
-    // }
 
     public string getButtonName() {
         return buttonName;
