@@ -31,6 +31,7 @@ public class LevelBrowser : MonoBehaviour
                 newButton.GetComponent<LevelButton>().levelText.text = textForBtn;
                 Debug.Log(newButton.GetComponent<LevelButton>().levelText.text + " " + i);
             }
+            
             newButton.GetComponent<Button>().onClick.AddListener(() => {
                 Debug.Log("Current level " + levelNumber);
                 PlayerData.CurrentLevel = levelNumber;
