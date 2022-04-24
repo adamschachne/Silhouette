@@ -103,7 +103,7 @@ public class Tutorial : MonoBehaviour
         var pos = sayDialog.localPosition;
         steps.Add(new TutorialStepInfo("Click on the blinking right arrow", "right",new Vector3(pos.x-30, pos.y-80, pos.z),RIGHT, NOROTATE));
         steps.Add(new TutorialStepInfo("Rotate the box now!", "clockwise", new Vector3(pos.x+100, pos.y, pos.z),NONE, CLOCKWISE));  
-        steps.Add(new TutorialStepInfo("Move the box to match the pattern on the wall", "right", new Vector3(pos.x+250, pos.y+57, pos.z),RIGHT, NOROTATE));
+        steps.Add(new TutorialStepInfo("Move the box to match the pattern on the wall", "right", new Vector3(pos.x+250, pos.y+18, pos.z),RIGHT, NOROTATE));
     }
 
 }
