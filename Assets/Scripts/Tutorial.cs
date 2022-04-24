@@ -24,14 +24,14 @@ public class Tutorial : MonoBehaviour
    private Vector3 NOROTATE = 0 * Vector3.up;
     void Start()
     {
-        CameraControl.ClickEvent += Test;
+        CameraControl.ClickEvent += ClickBlockEvent;
         CameraControl.DeselectEvent += Deselect;
         PlayerMovement.ButtonClickEvent += displayEvent;
         Debug.Log("Tutorial start");
         playerMovement = GameObject.Find("GameManager").GetComponent<PlayerMovement>();
         // GameObject resetBtn = GameObject.Find("Reset").GetComponent<PlayerMovement>();
         dialogBox = GameObject.Find("SolutionManager").GetComponent<PopupMessage>();
-        Debug.Log("Inside start");
+        
         if(dialogBox == null) {
            Debug.Log("Inside null"); 
         }
@@ -40,14 +40,14 @@ public class Tutorial : MonoBehaviour
         initializeSteps(); 
     }
     void OnDestroy() {
-        CameraControl.ClickEvent -= Test;
+        CameraControl.ClickEvent -= ClickBlockEvent;
         CameraControl.DeselectEvent -= Deselect;
         PlayerMovement.ButtonClickEvent -= displayEvent;        
     }
-    private void Test() {
+    private void ClickBlockEvent() {
         if(stepCount == 0){
-        Debug.Log("CLICK EVENT ***************");
-        displayEvent();
+            Debug.Log("CLICK EVENT");
+            displayEvent();
         }
     }
 
@@ -66,7 +66,7 @@ public class Tutorial : MonoBehaviour
         if(stepCount >= NUM_STEPS) {
             return;
         }
-        Debug.Log("JDLDFJLWFJIJLSF");
+        Debug.Log("Display Event");
         Debug.Log("Step count ");
         Debug.Log(stepCount);
         string btn = steps[stepCount].getButtonName();
@@ -91,7 +91,7 @@ public class Tutorial : MonoBehaviour
         sayDialog.localPosition = vectorPos;
     }
     private void onDisable() {
-        CameraControl.ClickEvent -= Test;
+        CameraControl.ClickEvent -= ClickBlockEvent;
         CameraControl.DeselectEvent -= Deselect;
         PlayerMovement.ButtonClickEvent -= displayEvent;
     }
