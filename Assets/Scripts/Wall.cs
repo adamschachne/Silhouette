@@ -17,6 +17,9 @@ public class Wall : MonoBehaviour
     private Dictionary<GameObject, GameObject> cloneMap;
     private const string UNTAGGED_TAG = "Untagged";
     private const float OFFSET = 0.01f;
+    private int defaultLayer;
+    private int invisibleLayer;
+
     public enum WallColor
     {
         Red,
@@ -84,6 +87,8 @@ public class Wall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        defaultLayer = LayerMask.NameToLayer("Default");
+        invisibleLayer = LayerMask.NameToLayer("Invisible");
         cloneMap = new Dictionary<GameObject, GameObject>();
 
         Dictionary<string, WallColor> tagToColor = new Dictionary<string, WallColor>()
@@ -94,7 +99,6 @@ public class Wall : MonoBehaviour
             [blueBoxTag] = WallColor.Blue,
         };
 
-        var defaultLayer = LayerMask.NameToLayer("Default");
         var solutionManager = GameObject.Find("SolutionManager").GetComponent<SolutionManager>();
 
         WallColor wallColor = WallColor.Default;
@@ -181,7 +185,33 @@ public class Wall : MonoBehaviour
             {
                 Debug.Log("error" + e.Message);
             }
-            
         }
+    }
+
+    private void SetAllShadowsLayer(int layer)
+    {
+        foreach (GameObject poly in polys)
+        {
+            GameObject clone = cloneMap[poly];
+
+            foreach (Transform polyCube in poly.transform)
+            {
+                GameObject cloneCube;
+                if (cloneMap.TryGetValue(polyCube.gameObject, out cloneCube) == false)
+                {
+                    continue;
+                }
+
+                cloneCube.layer = layer;
+            }
+        }
+    }
+
+    public void HideShadows() {
+        SetAllShadowsLayer(invisibleLayer);
+    }
+
+    public void ShowShadows() {
+        SetAllShadowsLayer(defaultLayer);
     }
 }

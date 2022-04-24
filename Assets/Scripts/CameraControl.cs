@@ -25,7 +25,7 @@ public class CameraControl : MonoBehaviour
     private bool keyPressed = false;
     private bool mouseDragging = false;
     private const string VICTORY_SCENE_NAME = "VictoryScene";
-    private bool isVictroySceneLoaded = false;
+    private bool @is = false;
 
     private Vector3 dragOrigin;
     private Vector3 initialVector = Vector3.forward;
@@ -137,7 +137,7 @@ public class CameraControl : MonoBehaviour
 
         var isMoving = gameManager.GetComponent<PlayerMovement>().IsMoving;
 
-        if (!isMoving && !isVictroySceneLoaded)
+        if (!isMoving && !@is)
         {
 
             if (Input.GetKeyDown(KeyCode.Tab) && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
@@ -200,7 +200,7 @@ public class CameraControl : MonoBehaviour
         if (scene.name == VICTORY_SCENE_NAME)
         {
             DeselectAllPolys();
-            isVictroySceneLoaded = true;
+            @is = true;
         }
 
     }
@@ -209,7 +209,7 @@ public class CameraControl : MonoBehaviour
     {
         if (scene.name == VICTORY_SCENE_NAME)
         {
-            isVictroySceneLoaded = false;
+            @is = false;
         }
 
     }
@@ -221,5 +221,9 @@ public class CameraControl : MonoBehaviour
         SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
-
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+    }
 }

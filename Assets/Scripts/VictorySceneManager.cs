@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Analytics;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class VictorySceneManager : MonoBehaviour
