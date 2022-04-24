@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731689, g: 0.13414702, b: 0.1210784, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2759,16 +2759,40 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4365224149744864826, guid: 51734fddd5e574b33855923ede07d6bf, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365224149744864826, guid: 51734fddd5e574b33855923ede07d6bf, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365224149744864826, guid: 51734fddd5e574b33855923ede07d6bf, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365224149744864826, guid: 51734fddd5e574b33855923ede07d6bf, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365224149744864826, guid: 51734fddd5e574b33855923ede07d6bf, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -369.40613
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365224149744864826, guid: 51734fddd5e574b33855923ede07d6bf, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 10.500427
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365224149744864826, guid: 51734fddd5e574b33855923ede07d6bf, type: 3}
       propertyPath: m_LocalPosition.z
       value: -109
       objectReference: {fileID: 0}
     - target: {fileID: 4365224149744864826, guid: 51734fddd5e574b33855923ede07d6bf, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 60
+      value: -135.1
       objectReference: {fileID: 0}
     - target: {fileID: 4365224149744864826, guid: 51734fddd5e574b33855923ede07d6bf, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 230
+      value: 221
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51734fddd5e574b33855923ede07d6bf, type: 3}
