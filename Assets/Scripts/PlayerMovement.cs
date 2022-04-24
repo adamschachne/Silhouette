@@ -56,6 +56,14 @@ public class PlayerMovement : MonoBehaviour
 
     private int selectedPolyIndex = -1;
 
+    public bool IsMoving
+    {
+        get
+        {
+            return isMoving;
+        }
+    }
+
     public int SelectedPolyIndex
     {
         get
