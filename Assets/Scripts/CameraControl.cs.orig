@@ -25,15 +25,14 @@ public class CameraControl : MonoBehaviour
     private const string POLY_TAG = "Poly";
     private bool keyPressed = false;
     private bool mouseDragging = false;
-    private bool isVictorySceneLoaded = false;
+    private const string VICTORY_SCENE_NAME = "VictoryScene";
+    private bool isVictroySceneLoaded = false;
 
     public static event Action ClickEvent;
     public static event Action DeselectEvent;
 
     private Vector3 dragOrigin;
     private Vector3 initialVector = Vector3.forward;
-
-    public static bool disableBtn = false;
 
     private void DeselectAllPolys()
     {
@@ -110,7 +109,7 @@ public class CameraControl : MonoBehaviour
             initialVector = transform.position - board.transform.position;
             initialVector.y = 0;
         }
-        disableBtn = false;
+
         StartCoroutine(FixEdges());
     }
 
@@ -120,39 +119,33 @@ public class CameraControl : MonoBehaviour
         GetComponent<EdgeDetect>().normalsSensitivity = 1f;
     }
 
-    public static void DisableBtns() {
-        disableBtn = true;
-    }
-
     // Update is called once per frame
     void Update()
     {
-        var isMoving = gameManager.GetComponent<PlayerMovement>().IsMoving;
+        // Pressing mouse 1 AND not pressing the buttons
+        if (Input.GetMouseButtonDown(0) && UnityEngine.EventSystems.EventSystem.current != null &&
+            !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+        {
+            RaycastHit[] hits;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            hits = Physics.RaycastAll(ray, MAX_RAYCAST_DIST).Where(hit => hit.transform.gameObject.CompareTag(BOX_TAG)).ToArray();
+            if (hits.Length > 0) // Hit a "Box" -> Select it
+            {
+                System.Array.Sort(hits, (hit1, hit2) => hit1.distance < hit2.distance ? -1 : 1);
+                SelectPoly(hits[0].transform.parent.gameObject);
+            }
+            else // Clicked on nothing -> Deselect selected box
+            {
+                DeselectAllPolys();
+            }
+            dragOrigin = Input.mousePosition;
+            mouseDragging = true;
+            return;
+        }
 
-        if (!isMoving && !isVictorySceneLoaded && !disableBtn)
+        if (!isVictroySceneLoaded)
         {
 
-            // Pressing mouse 1 AND not pressing the buttons
-            if (Input.GetMouseButtonDown(0) && UnityEngine.EventSystems.EventSystem.current != null &&
-            !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
-            {
-                RaycastHit[] hits;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                hits = Physics.RaycastAll(ray, MAX_RAYCAST_DIST).Where(hit => hit.transform.gameObject.CompareTag(BOX_TAG)).ToArray();
-                if (hits.Length > 0) // Hit a "Box" -> Select it
-                {
-                    System.Array.Sort(hits, (hit1, hit2) => hit1.distance < hit2.distance ? -1 : 1);
-                    SelectPoly(hits[0].transform.parent.gameObject);
-                }
-                else // Clicked on nothing -> Deselect selected box
-                {
-                    DeselectAllPolys();
-                }
-                dragOrigin = Input.mousePosition;
-                mouseDragging = true;
-                return;
-            }
-        
             if (Input.GetKeyDown(KeyCode.Tab) && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
             {
                 SelectPoly(1);
@@ -164,18 +157,16 @@ public class CameraControl : MonoBehaviour
             }
         }
 
-
-        /* CAMERA STUFF */
         float rotateDegrees = 0f;
 
-        // Pressing LeftArrow -> Rotate the camera left
+        // Pressing A or LeftArrow -> Rotate the camera left
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             rotateDegrees += ROTATE_SPEED * Time.deltaTime;
             keyPressed = true;
         }
 
-        // Pressing RightArrow -> Rotate the camera right
+        // Pressing D or RightArrow -> Rotate the camera right
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             rotateDegrees -= ROTATE_SPEED * Time.deltaTime;
@@ -212,19 +203,19 @@ public class CameraControl : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode _)
     {
-        if (scene.name == LevelManager.VICTORY_SCENE_NAME || scene.name == LevelManager.TUTORIAL_COMPLETE_SCENE_NAME)
+        if (scene.name == VICTORY_SCENE_NAME)
         {
             DeselectAllPolys();
-            isVictorySceneLoaded = true;
+            isVictroySceneLoaded = true;
         }
 
     }
 
     void OnSceneUnloaded(Scene scene)
     {
-        if (scene.name == LevelManager.VICTORY_SCENE_NAME || scene.name == LevelManager.TUTORIAL_COMPLETE_SCENE_NAME)
+        if (scene.name == VICTORY_SCENE_NAME)
         {
-            isVictorySceneLoaded = false;
+            isVictroySceneLoaded = false;
         }
 
     }
@@ -236,9 +227,5 @@ public class CameraControl : MonoBehaviour
         SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
-    private void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-        SceneManager.sceneUnloaded -= OnSceneUnloaded;
-    }
+
 }

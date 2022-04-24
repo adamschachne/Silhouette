@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 targetPos;
 
 
+
+
     private Vector3Int UP = new Vector3Int(1, 0, 0);
     private Vector3Int DOWN = new Vector3Int(-1, 0, 0);
     private Vector3Int LEFT = new Vector3Int(0, 0, 1);
@@ -39,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
     public Button moveRightButton;
     public Button rotateClockwiseButton;
     public Button rotateCounterclockwiseButton;
-    public Button resetButton;
     public TextMeshProUGUI hintsCountText;
 
 // Used in tutorial level to allow specific button to be enabled
@@ -48,8 +49,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 allowRotate;
     private Dictionary<int, GameObject> polyToGhostMap;
     private float timeBetweenMoves = 0;
+    private const string VICTORY_SCENE_NAME = "VictoryScene";
 
-    private bool isVictorySceneLoaded = false;
+    private bool isVictroySceneLoaded = false;
 
     public static int numHints = 3;
     private GameObject solutionManager;
@@ -59,14 +61,6 @@ public class PlayerMovement : MonoBehaviour
     public GameObject[] allPolygons = null;
 
     private int selectedPolyIndex = -1;
-
-    public bool IsMoving
-    {
-        get
-        {
-            return isMoving;
-        }
-    }
 
     public int SelectedPolyIndex
     {
@@ -172,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
     {
         timeBetweenMoves += Time.deltaTime;
 
-        if (!isVictorySceneLoaded)
+        if (!isVictroySceneLoaded)
         {
             if (Input.GetKey(KeyCode.W) && CanMove(UP))
             {
@@ -206,23 +200,25 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+
+
         hintsCountText.text = "Hints Left: " + numHints;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode _)
     {
-        if (scene.name == LevelManager.VICTORY_SCENE_NAME || scene.name == LevelManager.TUTORIAL_COMPLETE_SCENE_NAME)
+        if (scene.name == VICTORY_SCENE_NAME)
         {
-            isVictorySceneLoaded = true;
+            isVictroySceneLoaded = true;
         }
 
     }
 
     void OnSceneUnloaded(Scene scene)
     {
-        if (scene.name == LevelManager.VICTORY_SCENE_NAME || scene.name == LevelManager.TUTORIAL_COMPLETE_SCENE_NAME)
+        if (scene.name == VICTORY_SCENE_NAME)
         {
-            isVictorySceneLoaded = false;
+            isVictroySceneLoaded = false;
         }
 
     }
@@ -234,25 +230,15 @@ public class PlayerMovement : MonoBehaviour
         SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
-    public void DisableResetButton(){
-        resetButton.interactable = false;
+    public void setAllowMovement(Vector3Int key) {
+        allowMovement = key;
     }
 
-    public void SetAllowMovement(Vector3Int nextAllowedKey) {
-        allowMovement = nextAllowedKey;
+    public void setEnableTutorial(bool val) {
+        enableTutorial = val;
     }
     
-    private void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-        SceneManager.sceneUnloaded -= OnSceneUnloaded;
-    }
-
-    public void SetEnableTutorial(bool enable) {
-        enableTutorial = enable;
-    }
-    
-    public void SetAllowRotate(Vector3 nextAllowedRotation) {
+    public void setAllowRotate(Vector3 nextAllowedRotation) {
         allowRotate = nextAllowedRotation;
     }
     /******* Move *******/
@@ -273,7 +259,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null)
         {
-            Debug.LogFormat("Moving");
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(MoveBox(UP));
@@ -327,11 +312,6 @@ public class PlayerMovement : MonoBehaviour
 
         while (elapsedTime < timeToMove)
         {
-            // sometimes happens if a move starts as the scene is ending
-            if (selectedPoly == null)
-            {
-                yield break;
-            }
             selectedPoly.transform.position = Vector3.Lerp(oldPos, targetPos, (elapsedTime / timeToMove));
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -358,11 +338,6 @@ public class PlayerMovement : MonoBehaviour
         Quaternion targetRotation = selectedPoly.transform.rotation * Quaternion.Euler(dir);
         while (elapsedTime < timeToMove)
         {
-            // sometimes happens if a move starts as the scene is ending
-            if (selectedPoly == null)
-            {
-                yield break;
-            }
             selectedPoly.transform.rotation = Quaternion.Slerp(startRotation, targetRotation, elapsedTime / timeToMove);
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -372,6 +347,7 @@ public class PlayerMovement : MonoBehaviour
         CheckPossibleMoves();
         checkForSolution?.Invoke();
     }
+
 
     public void ClockwiseRotate()
     {
@@ -467,7 +443,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (numHints > 0 && solutionManager.GetComponent<Hints>().ShowAHint())
         {
-            Debug.Log("here");
             numHints -= 1;
         }
     }

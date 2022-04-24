@@ -6197,7 +6197,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1737799760
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6686,13 +6686,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9970fd132cd024cf9afe3f782a1ad57e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileMap: {fileID: 0}
+  tileMap: {fileID: 1157400826}
   moveUpButton: {fileID: 649354458}
   moveDownButton: {fileID: 484370359}
   moveLeftButton: {fileID: 1024976230}
   moveRightButton: {fileID: 1043897377}
   rotateClockwiseButton: {fileID: 1278603735}
   rotateCounterclockwiseButton: {fileID: 880996563}
+  resetButton: {fileID: 319716102}
   hintsCountText: {fileID: 845251159}
   allPolygons: []
 --- !u!4 &1916594639
@@ -6865,7 +6866,7 @@ GameObject:
   - component: {fileID: 1950922654}
   m_Layer: 5
   m_Name: Timer
-  m_TagString: Untagged
+  m_TagString: HintUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

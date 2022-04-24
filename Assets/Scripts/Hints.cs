@@ -12,11 +12,22 @@ public class Hints : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject[] hintUIGameObjects = GameObject.FindGameObjectsWithTag("HintUI");
+        if (isTutorial && hintUIGameObjects.Length != 0)
+        {
+            foreach (GameObject hintUi in hintUIGameObjects)
+            {
+                hintUi.SetActive(false);
+            }
+        }
+
         used = new bool[hintBoxes.Length];
-        for(int i = 0; i < hintBoxes.Length; i++)
+
+        for (int i = 0; i < hintBoxes.Length; i++)
         {
             used[i] = false;
 
+            // in tutorials, always show the hints
             MeshRenderer[] boxRenderers = hintBoxes[i].GetComponentsInChildren<MeshRenderer>();
             foreach (MeshRenderer r in boxRenderers)
             {
@@ -24,21 +35,8 @@ public class Hints : MonoBehaviour
                 {
                     r.enabled = false;
                 }
-                else
-                {
-                    if (GameObject.FindGameObjectWithTag("HintUI")!=null)
-                    {
-                        GameObject.FindGameObjectWithTag("HintUI").SetActive(false);
-                    }
-                }
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
     }
 
     public bool ShowAHint()

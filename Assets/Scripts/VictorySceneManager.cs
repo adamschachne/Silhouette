@@ -18,7 +18,12 @@ public class VictorySceneManager : MonoBehaviour
     void Start()
     {
         timer = GameObject.Find("GameManager").GetComponent<Timer>();
-        playerStatText.text += timer.GetElapsedTimeToDisplay();
+
+        // Only add the time text in normal victory scene (not tutorial)
+        if (SceneManager.GetSceneByName(LevelManager.VICTORY_SCENE_NAME).isLoaded) {
+            playerStatText.text += timer.GetElapsedTimeToDisplay();
+        }
+
         SendAnalytics();
         levelManager = GameObject.Find("GameManager").GetComponent<LevelManager>();
 
