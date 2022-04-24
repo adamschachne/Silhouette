@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Analytics;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class VictorySceneManager : MonoBehaviour
@@ -12,10 +13,12 @@ public class VictorySceneManager : MonoBehaviour
     private LevelManager levelManager;
     public TextMeshProUGUI playerStatText;
     private GameObject canvas;
+    public Timer timer;
 
     void Start()
     {
-        playerStatText.text += $"{PlayerData.NumberOfSeconds} seconds";
+        timer = GameObject.Find("GameManager").GetComponent<Timer>();
+        playerStatText.text += timer.GetElapsedTimeToDisplay();
         SendAnalytics();
         levelManager = GameObject.Find("GameManager").GetComponent<LevelManager>();
 
@@ -32,6 +35,7 @@ public class VictorySceneManager : MonoBehaviour
     {
         PlayerData.CurrentLevel += 1;
         levelManager.LoadLevel();
+        timer.ResetTimer();
     }
 
     private static void SendAnalytics()

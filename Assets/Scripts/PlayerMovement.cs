@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class PlayerMovement : MonoBehaviour
@@ -16,12 +18,10 @@ public class PlayerMovement : MonoBehaviour
     public const float timeToMove = 1f;
     public const int gridSize = 10;
     public const float spinSpeed = 20;
-
     private bool isMoving = false;
     private Vector3 oldPos;
     private Vector3 targetPos;
 
-    private bool isRotating = false;
 
     private Vector3Int UP = new Vector3Int(1, 0, 0);
     private Vector3Int DOWN = new Vector3Int(-1, 0, 0);
@@ -41,11 +41,47 @@ public class PlayerMovement : MonoBehaviour
 
     private Dictionary<int, GameObject> polyToGhostMap;
     private float timeBetweenMoves = 0;
+    private const string VICTORY_SCENE_NAME = "VictoryScene";
+
+    private bool isVictorySceneLoaded = false;
 
     public static int numHints = 3;
     private GameObject solutionManager;
 
     public System.Action checkForSolution;
+
+    public GameObject[] allPolygons = null;
+
+    private int selectedPolyIndex = -1;
+
+    public bool IsMoving
+    {
+        get
+        {
+            return isMoving;
+        }
+    }
+
+    public int SelectedPolyIndex
+    {
+        get
+        {
+            return selectedPolyIndex;
+        }
+        set
+        {
+            Debug.Log("This is called with value: " + value);
+            selectedPolyIndex = value;
+            if (value < 0)
+            {
+                SelectedPoly = null;
+            }
+            else
+            {
+                SelectedPoly = allPolygons[value];
+            }
+        }
+    }
 
     public GameObject SelectedPoly
     {
@@ -61,12 +97,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+
     // Start is called before the first frame update
     void Start()
     {
         polyToGhostMap = new Dictionary<int, GameObject>();
-        var polys = GameObject.FindGameObjectsWithTag(POLY_TAG);
-        foreach (var poly in polys)
+        allPolygons = GameObject.FindGameObjectsWithTag(POLY_TAG);
+
+        Debug.Log("The amount of polys is: " + allPolygons.Length);
+        foreach (var poly in allPolygons)
         {
             var ghostPoly = Instantiate(poly);
             ghostPoly.tag = GHOST_POLY_TAG;
@@ -93,11 +133,77 @@ public class PlayerMovement : MonoBehaviour
         solutionManager = GameObject.Find("SolutionManager");
     }
 
+
     private void Update()
     {
         timeBetweenMoves += Time.deltaTime;
 
+        if (!isVictorySceneLoaded)
+        {
+            if (Input.GetKey(KeyCode.W) && CanMove(UP))
+            {
+                MoveBoxUp();
+
+            }
+            if (Input.GetKey(KeyCode.A) && CanMove(LEFT))
+            {
+                MoveBoxLeft();
+
+            }
+            if (Input.GetKey(KeyCode.S) && CanMove(DOWN))
+            {
+                MoveBoxDown();
+
+            }
+            if (Input.GetKey(KeyCode.D) && CanMove(RIGHT))
+            {
+                MoveBoxRight();
+
+            }
+
+            if (Input.GetKey(KeyCode.Q) && CanRotate(COUNTERCLOCKWISE))
+            {
+                CounterClockwiseRotate();
+
+            }
+            if (Input.GetKey(KeyCode.E) && CanRotate(CLOCKWISE))
+            {
+                ClockwiseRotate();
+            }
+        }
+
         hintsCountText.text = "Hints Left: " + numHints;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode _)
+    {
+        if (scene.name == VICTORY_SCENE_NAME)
+        {
+            isVictorySceneLoaded = true;
+        }
+
+    }
+
+    void OnSceneUnloaded(Scene scene)
+    {
+        if (scene.name == VICTORY_SCENE_NAME)
+        {
+            isVictorySceneLoaded = false;
+        }
+
+    }
+
+    void OnEnable()
+    {
+        Debug.Log("OnEnable called");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
     /******* Move *******/
@@ -118,6 +224,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null)
         {
+            Debug.LogFormat("Moving");
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(MoveBox(UP));
@@ -182,7 +289,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator RotateBox(Vector3 dir)
     {
-        isRotating = true;
+        isMoving = true;
         PlayerData.NumberOfRotations += 1;
 
         float elapsedTime = 0;
@@ -196,15 +303,14 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         selectedPoly.transform.rotation = targetRotation;
-        isRotating = false;
+        isMoving = false;
         CheckPossibleMoves();
         checkForSolution?.Invoke();
     }
 
-
     public void ClockwiseRotate()
     {
-        if (!isRotating && selectedPoly != null)
+        if (!isMoving && selectedPoly != null)
         {
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
@@ -214,7 +320,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void CounterClockwiseRotate()
     {
-        if (!isRotating && selectedPoly != null)
+        if (!isMoving && selectedPoly != null)
         {
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
@@ -292,11 +398,10 @@ public class PlayerMovement : MonoBehaviour
     /******* Hints *******/
     public void UseAHint()
     {
-        if(numHints > 0 && solutionManager.GetComponent<Hints>().ShowAHint())
+        if (numHints > 0 && solutionManager.GetComponent<Hints>().ShowAHint())
         {
             numHints -= 1;
         }
-        
     }
 
     public void IncHintsCount()

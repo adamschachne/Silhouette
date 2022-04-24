@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -35,6 +33,7 @@ public class LevelManager : MonoBehaviour
 
     public void LoadLevel()
     {
+        SceneManager.UnloadSceneAsync(VICTORY_SCENE_NAME);
         SceneManager.LoadScene(MAIN_SCENE_NAME);
     }
 }

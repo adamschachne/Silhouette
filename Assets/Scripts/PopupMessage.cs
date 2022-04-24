@@ -8,6 +8,7 @@ public class PopupMessage : MonoBehaviour
 {
 
     public GameObject popUpBox;
+    public Timer timer;
 
     void Start()
     {
@@ -16,11 +17,13 @@ public class PopupMessage : MonoBehaviour
 
     public void popUp()
     {
+        timer.Pause();
         popUpBox.SetActive(true);
     }
 
     public void closePopUp()
     {
+        timer.Play();
         popUpBox.SetActive(false);
     }
 }

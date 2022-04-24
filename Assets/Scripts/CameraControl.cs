@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraControl : MonoBehaviour
 {
@@ -23,32 +24,65 @@ public class CameraControl : MonoBehaviour
     private const string POLY_TAG = "Poly";
     private bool keyPressed = false;
     private bool mouseDragging = false;
+    private const string VICTORY_SCENE_NAME = "VictoryScene";
+    private bool @is = false;
 
     private Vector3 dragOrigin;
     private Vector3 initialVector = Vector3.forward;
 
     private void DeselectAllPolys()
     {
-        if (gameManager.GetComponent<PlayerMovement>().SelectedPoly != null)
+        if (gameManager.GetComponent<PlayerMovement>().SelectedPolyIndex >= 0)
         {
             foreach (Transform child in gameManager.GetComponent<PlayerMovement>().SelectedPoly.transform)
             {
                 child.gameObject.layer = (child.gameObject.layer == invisibleSelectedLayer || child.gameObject.layer == invisibleLayer) ? invisibleLayer : ignoreEdgeLayer;
             }
         }
-        
-        gameManager.GetComponent<PlayerMovement>().SelectedPoly = null;
+
+        gameManager.GetComponent<PlayerMovement>().SelectedPolyIndex = -1;
     }
 
     private void SelectPoly(GameObject poly)
     {
         DeselectAllPolys();
-        gameManager.GetComponent<PlayerMovement>().SelectedPoly = poly;
+        var polys = gameManager.GetComponent<PlayerMovement>().allPolygons;
+        var index = System.Array.IndexOf(polys, poly);
+        gameManager.GetComponent<PlayerMovement>().SelectedPolyIndex = index;
 
         foreach (Transform child in poly.transform)
         {
             child.gameObject.layer = (child.gameObject.layer == invisibleSelectedLayer || child.gameObject.layer == invisibleLayer) ? invisibleSelectedLayer : defaultLayer;
         }
+    }
+
+    private void SelectPoly(int step)
+    {
+        var polys = gameManager.GetComponent<PlayerMovement>().allPolygons;
+        var currentIndex = gameManager.GetComponent<PlayerMovement>().SelectedPolyIndex;
+        int count = currentIndex + step;
+        if (count < 0)
+        {
+            count = polys.Length - 1;
+        }
+        else if (count >= polys.Length)
+        {
+            count = 0;
+        }
+
+        SelectPoly(polys[count], count);
+    }
+
+    private void SelectPoly(GameObject poly, int index)
+    {
+        DeselectAllPolys();
+        gameManager.GetComponent<PlayerMovement>().SelectedPolyIndex = index;
+
+        foreach (Transform child in poly.transform)
+        {
+            child.gameObject.layer = (child.gameObject.layer == invisibleSelectedLayer || child.gameObject.layer == invisibleLayer) ? invisibleSelectedLayer : defaultLayer;
+        }
+
     }
 
     void Awake()
@@ -101,17 +135,33 @@ public class CameraControl : MonoBehaviour
             return;
         }
 
+        var isMoving = gameManager.GetComponent<PlayerMovement>().IsMoving;
+
+        if (!isMoving && !@is)
+        {
+
+            if (Input.GetKeyDown(KeyCode.Tab) && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
+            {
+                SelectPoly(1);
+            }
+
+            if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.Tab))
+            {
+                SelectPoly(-1);
+            }
+        }
+
         float rotateDegrees = 0f;
-        
+
         // Pressing A or LeftArrow -> Rotate the camera left
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             rotateDegrees += ROTATE_SPEED * Time.deltaTime;
             keyPressed = true;
         }
 
         // Pressing D or RightArrow -> Rotate the camera right
-        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.RightArrow))
         {
             rotateDegrees -= ROTATE_SPEED * Time.deltaTime;
             keyPressed = true;
@@ -123,7 +173,8 @@ public class CameraControl : MonoBehaviour
         }
 
         // Rotate the camera if key is pressed or mouse0 is down
-        if (board.transform != null && (keyPressed || mouseDragging)) {
+        if (board.transform != null && (keyPressed || mouseDragging))
+        {
 
             if (mouseDragging)
             {
@@ -135,12 +186,44 @@ public class CameraControl : MonoBehaviour
             // rotates the Camera & UI buttons
             Vector3 currentVector = transform.position - board.transform.position;
             currentVector.y = 0;
-            float angleBetween = Vector3.Angle(initialVector, currentVector) * (Vector3.Cross(initialVector, currentVector).y > 0 ? 1 : -1);            
+            float angleBetween = Vector3.Angle(initialVector, currentVector) * (Vector3.Cross(initialVector, currentVector).y > 0 ? 1 : -1);
             float newAngle = Mathf.Clamp(angleBetween + rotateDegrees, -angleMax, angleMax);
             rotateDegrees = newAngle - angleBetween;
             PlayerData.DegreesCameraRotated += Mathf.Abs(rotateDegrees);
             this.transform.RotateAround(board.transform.position, Vector3.up, rotateDegrees);
             arrowKeys.transform.RotateAround(arrowKeys.transform.position, Vector3.forward, rotateDegrees);
         }
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode _)
+    {
+        if (scene.name == VICTORY_SCENE_NAME)
+        {
+            DeselectAllPolys();
+            @is = true;
+        }
+
+    }
+
+    void OnSceneUnloaded(Scene scene)
+    {
+        if (scene.name == VICTORY_SCENE_NAME)
+        {
+            @is = false;
+        }
+
+    }
+
+    void OnEnable()
+    {
+        Debug.Log("OnEnable called");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 }
