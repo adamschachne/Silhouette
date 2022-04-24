@@ -6025,6 +6025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd75f9a2421e4d22870287ed2c057ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTutorial: 1
   actualBoxes: []
   hintBoxes: []
 --- !u!1 &1895366080

@@ -6,9 +6,9 @@ public class LevelManager : MonoBehaviour
 
     [Scene]
     public string[] levels;
-    private const string TUTORIAL_COMPLETE_SCENE_NAME = "TutorialCompleteScene";
-    private const string VICTORY_SCENE_NAME = "VictoryScene";
-    private const string MAIN_SCENE_NAME = "MainScene";
+    public static readonly string TUTORIAL_COMPLETE_SCENE_NAME = "TutorialCompleteScene";
+    public static readonly string VICTORY_SCENE_NAME = "VictoryScene";
+    public static readonly string MAIN_SCENE_NAME = "MainScene";
 
     public string CurrentLevelName { get => levels[PlayerData.CurrentLevel]; }
 
@@ -39,7 +39,16 @@ public class LevelManager : MonoBehaviour
 
     public void LoadLevel()
     {
-        SceneManager.UnloadSceneAsync(VICTORY_SCENE_NAME);
+        if (SceneManager.GetSceneByName(TUTORIAL_COMPLETE_SCENE_NAME).isLoaded)
+        {
+            SceneManager.UnloadSceneAsync(TUTORIAL_COMPLETE_SCENE_NAME);
+        }
+        else
+        {
+            // necessary to trigger the old scene's OnDestroy()
+            SceneManager.UnloadSceneAsync(VICTORY_SCENE_NAME);
+        }
+        
         SceneManager.LoadScene(MAIN_SCENE_NAME);
     }
 }
