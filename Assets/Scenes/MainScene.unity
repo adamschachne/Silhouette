@@ -638,20 +638,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SampleCount: 8
-  ScatteringCoef: 0.802
-  ExtinctionCoef: 0.0069
-  SkyboxExtinctionCoef: 0.9
-  MieG: 0.109
-  HeightFog: 0
-  HeightScale: 0.08
-  GroundLevel: 0
-  Noise: 1
-  NoiseScale: 0.88
-  NoiseIntensity: 3.12
-  NoiseIntensityOffset: 0.3
-  NoiseVelocity: {x: 3, y: 3}
-  MaxRayLength: 400.88
 --- !u!1 &442840066
 GameObject:
   m_ObjectHideFlags: 0
@@ -2000,7 +1986,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8b76fa863cfe8ff47a1e5513ce86d023, type: 2}
+  - {fileID: 2100000, guid: 325009b2738edff438d7a0b25631a609, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4533,7 +4519,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8b76fa863cfe8ff47a1e5513ce86d023, type: 2}
+  - {fileID: 2100000, guid: 325009b2738edff438d7a0b25631a609, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5037,8 +5023,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eed1d9cbe64423499f1fefc0ce50417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Resolution: 1
-  DefaultSpotCookie: {fileID: 2800000, guid: 5157bf6d690b6df458f6c0ce0c06d329, type: 3}
 --- !u!1 &1740884607
 GameObject:
   m_ObjectHideFlags: 0

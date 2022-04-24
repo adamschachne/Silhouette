@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     private GameObject selectedPoly = null;
     public Tilemap tileMap = null;
-    public const float timeToMove = 0.2f;
+    public const float timeToMove = 1f;
     public const int gridSize = 10;
     public const float spinSpeed = 20;
 
