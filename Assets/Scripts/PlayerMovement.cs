@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
     public System.Action checkForSolution;
 
+    public AudioSource Button_Audio;
     public GameObject[] allPolygons = null;
 
     private int selectedPolyIndex = -1;
@@ -174,6 +175,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isVictorySceneLoaded)
         {
+
             if (Input.GetKey(KeyCode.W) && CanMove(UP))
             {
                 MoveBoxUp();
@@ -204,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 ClockwiseRotate();
             }
+
         }
 
         hintsCountText.text = "Hints Left: " + numHints;
@@ -342,6 +345,7 @@ public class PlayerMovement : MonoBehaviour
         isMoving = false;
         CheckPossibleMoves();
         checkForSolution?.Invoke();
+        Button_Audio.Play();
     }
 
     /******* Rotate *******/
@@ -371,6 +375,7 @@ public class PlayerMovement : MonoBehaviour
         isMoving = false;
         CheckPossibleMoves();
         checkForSolution?.Invoke();
+        Button_Audio.Play();
     }
 
     public void ClockwiseRotate()
