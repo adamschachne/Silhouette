@@ -76,7 +76,6 @@ public class PlayerMovement : MonoBehaviour
         }
         set
         {
-            Debug.Log("This is called with value: " + value);
             selectedPolyIndex = value;
             if (value < 0)
             {
@@ -120,7 +119,6 @@ public class PlayerMovement : MonoBehaviour
         polyToGhostMap = new Dictionary<int, GameObject>();
         allPolygons = GameObject.FindGameObjectsWithTag(POLY_TAG);
 
-        Debug.Log("The amount of polys is: " + allPolygons.Length);
         foreach (var poly in allPolygons)
         {
             var ghostPoly = Instantiate(poly);
@@ -229,7 +227,6 @@ public class PlayerMovement : MonoBehaviour
 
     void OnEnable()
     {
-        Debug.Log("OnEnable called");
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
@@ -273,11 +270,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && selectedPoly != null)
         {
-            Debug.LogFormat("Moving");
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(MoveBox(UP));
-            Debug.Log("MOVE UP");
         }
     }
 
@@ -288,7 +283,6 @@ public class PlayerMovement : MonoBehaviour
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(MoveBox(DOWN));
-            Debug.Log("MOVE DOWN");
         }
     }
 
@@ -299,7 +293,6 @@ public class PlayerMovement : MonoBehaviour
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(MoveBox(LEFT));
-            Debug.Log("MOVE LEFT");
         }
     }
 
@@ -310,7 +303,6 @@ public class PlayerMovement : MonoBehaviour
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(MoveBox(RIGHT));
-            Debug.Log("MOVE RIGHT");
         }
     }
 
@@ -380,7 +372,6 @@ public class PlayerMovement : MonoBehaviour
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(RotateBox(CLOCKWISE));
-            Debug.Log("MOVE CLOCKWISE");
         }
     }
 
@@ -391,7 +382,6 @@ public class PlayerMovement : MonoBehaviour
             AnalyticsSender.SendTimeBetweenMovesEvent(Mathf.RoundToInt(timeBetweenMoves));
             timeBetweenMoves = 0;
             StartCoroutine(RotateBox(COUNTERCLOCKWISE));
-            Debug.Log("MOVE ANTICLOCKWISE");
         }
     }
 
@@ -467,7 +457,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (numHints > 0 && solutionManager.GetComponent<Hints>().ShowAHint())
         {
-            Debug.Log("here");
             numHints -= 1;
         }
     }
