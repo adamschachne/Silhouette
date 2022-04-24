@@ -34,7 +34,7 @@ public class CameraControl : MonoBehaviour
     private Vector3 dragOrigin;
     private Vector3 initialVector = Vector3.forward;
 
-    public static bool diableBtn = false;
+    public static bool diableBtnAndDeselect = false;
 
     private void DeselectAllPolys()
     {
@@ -111,7 +111,7 @@ public class CameraControl : MonoBehaviour
             initialVector = transform.position - board.transform.position;
             initialVector.y = 0;
         }
-        diableBtn = false;
+        diableBtnAndDeselect = false;
         StartCoroutine(FixEdges());
     }
 
@@ -122,7 +122,7 @@ public class CameraControl : MonoBehaviour
     }
 
     public static void DisableBtns() {
-        diableBtn = true;
+        diableBtnAndDeselect = true;
     }
 
     // Update is called once per frame
@@ -140,7 +140,7 @@ public class CameraControl : MonoBehaviour
                 System.Array.Sort(hits, (hit1, hit2) => hit1.distance < hit2.distance ? -1 : 1);
                 SelectPoly(hits[0].transform.parent.gameObject);
             }
-            else // Clicked on nothing -> Deselect selected box
+            else if(!diableBtnAndDeselect) // Clicked on nothing -> Deselect selected box
             {
                 DeselectAllPolys();
             }
@@ -151,7 +151,7 @@ public class CameraControl : MonoBehaviour
 
         var isMoving = gameManager.GetComponent<PlayerMovement>().IsMoving;
 
-        if (!isMoving && !@is && !diableBtn)
+        if (!isMoving && !@is && !diableBtnAndDeselect)
         {
 
             if (Input.GetKeyDown(KeyCode.Tab) && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
