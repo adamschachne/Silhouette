@@ -503,6 +503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevelButton: {fileID: 54608514}
+  nextLevelButtonText: {fileID: 1853645273}
   playerStatText: {fileID: 869725474}
   timer: {fileID: 0}
 --- !u!1 &869725473
@@ -555,8 +556,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4283481148
-  m_fontColor: {r: 0.23529412, g: 0.7372549, b: 0.3137255, a: 1}
+    rgba: 4283015481
+  m_fontColor: {r: 0.2236116, g: 0.6320754, b: 0.28750613, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -573,8 +574,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41
-  m_fontSizeBase: 41
+  m_fontSize: 38.56
+  m_fontSizeBase: 38.56
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
