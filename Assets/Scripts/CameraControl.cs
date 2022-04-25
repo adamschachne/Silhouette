@@ -217,7 +217,6 @@ public class CameraControl : MonoBehaviour
             DeselectAllPolys();
             isVictorySceneLoaded = true;
         }
-
     }
 
     void OnSceneUnloaded(Scene scene)
@@ -226,12 +225,10 @@ public class CameraControl : MonoBehaviour
         {
             isVictorySceneLoaded = false;
         }
-
     }
 
     void OnEnable()
     {
-        Debug.Log("OnEnable called");
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
     }

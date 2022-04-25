@@ -73,6 +73,13 @@ public class SolutionManager : MonoBehaviour
 
             if (gameObject.GetComponent<Hints>().isTutorial)
             {
+                // Hide any dialogue box on tutorial completion
+                GameObject dialogueBox = GameObject.Find("DialogueBox");
+                if (dialogueBox != null)
+                {
+                    dialogueBox.SetActive(false);
+                }
+
                 levelManager.LoadTutorialCompleteScene();
             }
             else
