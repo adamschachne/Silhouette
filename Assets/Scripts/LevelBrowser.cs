@@ -10,7 +10,7 @@ public class LevelBrowser : MonoBehaviour
 
     private LevelManager levelManager;
     
-    private void OnEnable() {
+    void Start() {
         levelManager = GameObject.Find("GameManager").GetComponent<LevelManager>();
         
         for (int i = 1; i < levelManager.levels.Length; i++) 
