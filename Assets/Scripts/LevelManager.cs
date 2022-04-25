@@ -43,7 +43,7 @@ public class LevelManager : MonoBehaviour
         {
             SceneManager.UnloadSceneAsync(TUTORIAL_COMPLETE_SCENE_NAME);
         }
-        else
+        else if (SceneManager.GetSceneByName(VICTORY_SCENE_NAME).isLoaded)
         {
             // necessary to trigger the old scene's OnDestroy()
             SceneManager.UnloadSceneAsync(VICTORY_SCENE_NAME);
