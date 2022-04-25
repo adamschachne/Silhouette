@@ -11,6 +11,7 @@ public class SolutionManager : MonoBehaviour
     public static readonly string redWallTag = "RedWall";
     public static readonly string blueWallTag = "BlueWall";
 
+    private Material tempSwapMaterial;
     private static Dictionary<CubeScript, int> solutionDict;
     private static Dictionary<CubeScript, int> nonSolutionDict;
     private LevelManager levelManager;
@@ -100,6 +101,26 @@ public class SolutionManager : MonoBehaviour
         return targetSolution;
     }
 
+    public void TurnOffActiveSolutionCubes()
+    {
+        tempSwapMaterial = solutionCubeActiveMaterial;
+        solutionCubeActiveMaterial = solutionCubeMaterial;
+        foreach (var entry in solutionDict)
+        {
+            CubeScript cubeScript = entry.Key;
+            cubeScript.SetMaterial(solutionCubeMaterial);
+        }
+    }
+    public void TurnOnActiveSolutionCubes()
+    {
+        solutionCubeActiveMaterial = tempSwapMaterial;
+        foreach (var entry in solutionDict)
+        {
+            CubeScript cubeScript = entry.Key;
+            cubeScript.SetMaterial(solutionCubeActiveMaterial);
+        }
+    }
+
     void Awake()
     {
         solutionDict = new Dictionary<CubeScript, int>();
@@ -141,6 +162,9 @@ public class SolutionManager : MonoBehaviour
                 }
             }
         }
+
+        // Once the flashlight wakeup animation ends, these are turned back on
+        TurnOffActiveSolutionCubes();
     }
 
     private void Start()

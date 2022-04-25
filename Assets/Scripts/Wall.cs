@@ -213,5 +213,6 @@ public class Wall : MonoBehaviour
 
     public void ShowShadows() {
         SetAllShadowsLayer(defaultLayer);
+        GameObject.Find("SolutionManager").GetComponent<SolutionManager>().TurnOnActiveSolutionCubes();
     }
 }

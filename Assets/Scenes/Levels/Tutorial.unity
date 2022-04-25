@@ -3163,11 +3163,11 @@ GameObject:
   - component: {fileID: 1141036572}
   m_Layer: 3
   m_Name: HintBox1
-  m_TagString: Poly
+  m_TagString: HintBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1141036572
 Transform:
   m_ObjectHideFlags: 0
@@ -5958,10 +5958,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTutorial: 1
-  actualBoxes:
-  - {fileID: 951718083}
-  hintBoxes:
-  - {fileID: 1141036571}
+  actualBoxes: []
+  hintBoxes: []
 --- !u!114 &1873083462
 MonoBehaviour:
   m_ObjectHideFlags: 0
