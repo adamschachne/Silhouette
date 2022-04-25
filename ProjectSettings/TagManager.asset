@@ -18,6 +18,8 @@ TagManager:
   - RedBox
   - HintBox
   - HintUI
+  - DisableAfter
+  - DisableLast
   layers:
   - Default
   - TransparentFX

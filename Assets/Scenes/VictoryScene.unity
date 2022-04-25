@@ -503,6 +503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevelButton: {fileID: 54608514}
+  nextLevelButtonText: {fileID: 1853645273}
   playerStatText: {fileID: 869725474}
   timer: {fileID: 0}
 --- !u!1 &869725473

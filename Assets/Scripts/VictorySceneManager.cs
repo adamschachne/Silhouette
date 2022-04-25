@@ -10,6 +10,7 @@ public class VictorySceneManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public Button nextLevelButton;
+    public TextMeshProUGUI nextLevelButtonText;
     private LevelManager levelManager;
     public TextMeshProUGUI playerStatText;
     private GameObject canvas;
@@ -20,7 +21,8 @@ public class VictorySceneManager : MonoBehaviour
         timer = GameObject.Find("GameManager").GetComponent<Timer>();
 
         // Only add the time text in normal victory scene (not tutorial)
-        if (SceneManager.GetSceneByName(LevelManager.VICTORY_SCENE_NAME).isLoaded) {
+        if (SceneManager.GetSceneByName(LevelManager.VICTORY_SCENE_NAME).isLoaded)
+        {
             playerStatText.text += timer.GetElapsedTimeToDisplay();
         }
 
@@ -32,12 +34,13 @@ public class VictorySceneManager : MonoBehaviour
 
         if (PlayerData.CurrentLevel == levelManager.levels.Length - 1)
         {
-            nextLevelButton.gameObject.SetActive(false);
+            nextLevelButtonText.text = "    -------->     ";
         }
     }
 
     public void StartNextLevel()
     {
+
         PlayerData.CurrentLevel += 1;
         levelManager.LoadLevel();
         timer.ResetTimer();
