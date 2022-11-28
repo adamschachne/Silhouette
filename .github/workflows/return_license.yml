@@ -1,12 +1,11 @@
+name: Return Unity License
 on:
-  workflow_dispatch:
-
+  workflow_dispatch: {}
 jobs:
-  return:
-    name: Return Unity License
-    runs-on: ${{ matrix.os }}
-    
+  activation:
+    name: Return Unity License 🔑
+    runs-on: ubuntu-latest
     steps:
-    - name: Return license
-      uses: game-ci/unity-return-license@v2
-      if: always()
+      - name: Return license
+        uses: game-ci/unity-return-license@v2
+        if: always()
